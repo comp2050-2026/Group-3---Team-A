@@ -1,0 +1,2 @@
+# Diagram files
+If you are using draw.io for any of your diagrams, it is possible to export and save them as .drawio files (which internally are plain text xml-like files). Be sure to use unique naming for the filenames so you can refer to them in various documents.
