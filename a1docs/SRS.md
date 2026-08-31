@@ -15,15 +15,25 @@
 
 ### Title Page
 
+# ChargeMate Customer
+
+## Team A Members
+* **Cooper Went** 
+* **Isaac Lynn** 
+* **Yousef Mustafa** 
+* **Harrison McLuckie** 
+
+ChargeMate provides a seameless power bank rental service to customners of Harbour North Plaza. Our aim is to get customers to reduce their battery related anxieties and offer a pleasant shopping experience. ChargeMate offers self-serve rental kiosks to reduce any need for employees, limiting any extra operational costs to the establishment.
+
 - Project name, names of all team members
-- Vision statement
+- Vision statement 
 
 ### Table of Contents
 
 ... your table of contents here.
 
 ### Change Log
-
+**In Progress**
 - A list or table of versions with
   - The date of a new version
   - What has been changed
@@ -32,8 +42,24 @@
 
 ### Introduction
 
-- Purpose: Of the document, the intended readership of the document, description of the document conventions being followed
-- Scope: Defines the what will be the boundaries of the software system. What is included and what not
+**Purpose**
+- This document provides the software requirements specifications of ChargeMate for ChargeMate Customer. The document will lay out and explore all functional/non-functional requirements and specific operational costs and constraints. The intent is to establish the groundwork of the system, and a baseline for the development and testing of ChargeMate in correspondence with the OPS side managed by Team B.
+
+### Scope
+**ChargeMate Customer**
+
+- Rental & Return: Web app/station interface for scanning station QR codes, selecting rental duration, authorizing payments, and unlocking/returning power banks.
+- Availability: Displaying real-time station locations, available charged units, and open return slots across Harbour North Plaza.
+- Transparent Pricing & Status: Clear display of pricing structures, active rental timers, hold/deposit fees, and late return policies.
+- Self-Service Support: Built-in help, FAQs, reporting feature for damage, and AI queries for complex questions/support.
+- Team B Integration: Handing off rental requests, unit release triggers, payment events, and hardware status updates to the operator backend.
+
+**ChargeMate Ops**
+- Operations & Maintenance: Kiosk diagnostics, hardware servicing tools, power bank tracking(damage, battery health), and inventory management 
+- Logistics: field staff management(repairs, renewal of powerbanks).
+- Business Analytics: Revenue monitoring, usage trends.
+- Hardware Firmware: Power bank lock mechanisms and physical bay charging, battery percentage
+
 - Definitions, acronyms, and abbreviations. These should be specific to your project.
 
 ### Overall Description:
