@@ -30,7 +30,7 @@ ChargeMate provides a seameless power bank rental service to customners of Harbo
 
 ### Table of Contents
 
-... your table of contents here.
+* [Change Log](#Change Log)
 
 ### Change Log
 **In Progress**
