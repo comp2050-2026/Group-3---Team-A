@@ -23,7 +23,7 @@
 * **Yousef Mustafa** 
 * **Harrison McLuckie** 
 
-ChargeMate provides a seameless power bank rental service to customners of Harbour North Plaza. Our aim is to get customers to reduce their battery related anxieties and offer a pleasant shopping experience. ChargeMate offers self-serve rental kiosks to reduce any need for employees, limiting any extra operational costs to the establishment.
+ChargeMate provides a seameless power bank rental service to customers of Harbour North Plaza. Our aim is to get customers to reduce their battery related anxieties and offer a pleasant shopping experience. ChargeMate offers self-serve rental kiosks to reduce any need for employees, limiting any extra operational costs to the establishment.
 
 - Project name, names of all team members
 - Vision statement 
