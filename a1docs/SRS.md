@@ -30,7 +30,7 @@ ChargeMate provides a seameless power bank rental service to customers of Harbou
 
 ### Table of Contents
 
-* [Change Log](#Change Log)
+*[Change Log](#change-log)
 
 ### Change Log
 **In Progress**
