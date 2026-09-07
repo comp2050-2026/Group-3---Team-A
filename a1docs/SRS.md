@@ -64,11 +64,69 @@ ChargeMate provides a seameless power bank rental service to customners of Harbo
 
 ### Overall Description:
 
-- Product perspective: Describes how the software fits into the overall system or environment. This usually includes a "Context Diagram" or "Level 0 DFD".
-- Product functions: Lists the main functions and capabilities of the software.
-- User characteristics: Specifies the intended users, their roles, and any characteristics about them that might influence the design choices for the system.
-- Constraints: Outlines any limitations or restrictions that might affect the development or use of the software.
-- Assumptions and dependencies: Lists assumptions made during the requirements gathering process about the system or components, and dependencies with other systems or components. Be sure to number each assumption so that they can be cross-referenced in other parts of the document.
+#### Product Perspective
+
+ChargeMate Customer is the customer-facing part of the ChargeMate power bank rental service at Harbour North Plaza. It is intended to help customers find, rent, use, and return portable power banks with minimal assistance from shopping-centre staff.
+
+The system will operate alongside the physical rental stations, power banks, and the ChargeMate Ops system being specified by Team B. ChargeMate Customer may depend on ChargeMate Ops for information such as station and power bank status, although the exact information exchanged between the two systems still requires stakeholder clarification.
+
+Staff operations, station maintenance, power bank redistribution, and operator reporting are outside the scope of ChargeMate Customer.
+
+![ChargeMate Customer System Context Diagram](srsimages/ChargeMate_Customer_Context_Diagram.png)
+
+**Figure 1: ChargeMate Customer System Context Diagram.** The diagram illustrates the system boundary and the high-level interactions between ChargeMate Customer, customers, the rental station network, and ChargeMate Ops.
+
+
+#### Product Functions
+
+At a high level, ChargeMate Customer should allow customers to:
+
+- Locate ChargeMate rental stations within Harbour North Plaza.
+- Check whether a suitable power bank is available.
+- View relevant rental and pricing information before beginning a rental.
+- Start a power bank rental.
+- View information about an active rental.
+- Return a rented power bank.
+- Receive confirmation when a rental or return has been completed successfully.
+- Access clear help or support information if a problem occurs.
+
+The exact rental, payment, return, and notification processes will be refined through further stakeholder consultation.
+
+
+#### User Characteristics
+
+ChargeMate Customer may be used by a wide range of visitors to Harbour North Plaza, including shoppers, commuters, cinema visitors, library visitors, medical-centre visitors, and people attending weekend events.
+
+Users may have different levels of technical experience and familiarity with the service. Some customers may be in a hurry, while others may only use ChargeMate once. Customers may also have concerns about payment, deposits, late fees, privacy, or what happens when a station does not operate correctly.
+
+For this reason, the customer experience should aim to be clear, simple, and easy to understand without requiring extensive previous knowledge of the system.
+
+
+#### Constraints
+
+**C-01:** ChargeMate Customer must remain focused on the customer-facing rental experience. Staff operations and maintenance functions are outside its scope.
+
+**C-02:** The system should minimise the need for Harbour North Plaza customer-service staff to resolve routine technology or rental problems.
+
+**C-03:** The rental process should avoid creating an unnecessarily large sign-up process for customers.
+
+**C-04:** Some ChargeMate Customer functions depend on information provided by the physical rental stations and ChargeMate Ops.
+
+
+#### Assumptions and Dependencies
+
+**A-01:** It is assumed that the wider ChargeMate system can determine whether a station currently has a power bank available for rental.
+
+**A-02:** It is assumed that the wider ChargeMate system can determine whether a station can accept a returned power bank.
+
+**A-03:** ChargeMate Customer will depend on ChargeMate Ops for some operational information. The exact information exchanged between the two systems is still to be confirmed with Team B.
+
+**A-04:** The exact pricing and payment model has not yet been confirmed with the stakeholders.
+
+**A-05:** Whether customers may return a power bank to a station different from the station where it was rented has not yet been confirmed.
+
+**A-06:** Whether customers require an account or may rent using a guest or minimal-registration process has not yet been confirmed.
+
 
 ### Specific Requirements
 
