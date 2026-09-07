@@ -31,6 +31,20 @@ ChargeMate provides a seameless power bank rental service to customers of Harbou
 ### Table of Contents
 
 *[Change Log](#change-log)
+*[Introduction](#introduction)
+*[Scope](#scope)
+*[Overall Description](#overall-description)
+*[Product Perspective](#product-perspective)
+*[Product Functions](#product-functions)
+*[User Characteristics](#user-characteristics)
+*[Constraints](#constraints)
+*[Assumptions and Dependencies](#assumptions-and-dependencies)
+*[Specific Requirements](#specific-requirements)
+*[Use Cases and Interactions](#use-cases-and-interactions)
+*[Group Activity Records](#group-activity-record)
+*[Discussion](#discussion)
+*[Invidiual Contributions](#individual-contributions)
+*[Appendices](#appendices)
 
 ### Change Log
 **In Progress**
