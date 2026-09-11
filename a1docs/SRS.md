@@ -129,17 +129,15 @@ For this reason, the customer experience should aim to be clear, simple, and eas
 
 ### Assumptions and Dependencies
 
-**A-01:** It is assumed that the wider ChargeMate system can determine whether a station currently has a power bank available for rental.
+**A-01:** ChargeMate Customer depends on ChargeMate Ops for station information, including station location, exact power bank availability, power bank charge status, available return slots and station operational status.
 
-**A-02:** It is assumed that the wider ChargeMate system can determine whether a station can accept a returned power bank.
+**A-02:** ChargeMate Customer depends on ChargeMate Ops to confirm that a rental has successfully started and to identify the power bank released to the customer.
 
-**A-03:** ChargeMate Customer will depend on ChargeMate Ops for some operational information. The exact information exchanged between the two systems is still to be confirmed with Team B.
+**A-03:** ChargeMate Customer depends on ChargeMate Ops to confirm that a returned power bank has been successfully recorded.
 
-**A-04:** The exact pricing and payment model has not yet been confirmed with the stakeholders.
+**A-04:** The ownership of pricing, deposit/pre-authorisation, rental-duration and late-fee rules has not yet been fully confirmed between ChargeMate Customer and ChargeMate Ops.
 
-**A-05:** Whether customers may return a power bank to a station different from the station where it was rented has not yet been confirmed.
-
-**A-06:** Whether customers require an account or may rent using a guest or minimal-registration process has not yet been confirmed.
+**A-05:** The exact set of rental details that ChargeMate Customer must send to ChargeMate Ops when starting a rental is still to be confirmed.
 
 
 ## Specific Requirements
