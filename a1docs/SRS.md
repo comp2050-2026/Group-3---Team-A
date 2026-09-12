@@ -40,16 +40,24 @@ ChargeMate provides a seamless power bank rental service for visitors to Harbour
 * [Use Cases and Interactions](#use-cases-and-interactions)
 * [Group Activity Records](#group-activity-record)
 * [Discussion](#discussion)
-* [Invidiual Contributions](#individual-contributions)
+* [Individiual Contributions](#individual-contributions)
 * [Appendices](#appendices)
 
 ## Change Log
-**In Progress**
-- A list or table of versions with
-  - The date of a new version
-  - What has been changed
-  - Who made the changes and
-  - Who agreed to the changes
+
+| Version | Date | Changes | Contributor(s) | Review / Agreement |
+|---|---|---|---|---|
+| 0.0 | 31 August 2026 | Initial project repository and supplied SRS/assignment structure established. | Isaac | Initial repository setup. |
+| 0.1 | 31 August 2026 | Created the initial meeting-minutes file structure for team and stakeholder records. | Isaac | Repository record. |
+| 0.2 | 31 August 2026 | Added the ChargeMate Customer title and team members, initial vision statement, Purpose, Scope, and initial ChargeMate Customer/ChargeMate Ops boundaries. | Cooper | Repository record. |
+| 0.3 | 7 September 2026 | Added the Overall Description, including Product Perspective, Product Functions, User Characteristics, Constraints, Assumptions and Dependencies, and the initial ChargeMate Customer context diagram. | Yousef | Merged into `main` through PR #1. |
+| 0.4 | 7 September 2026 | Corrected SRS wording/typos and improved the initial document content. | Cooper | Repository record. |
+| 0.5 | 7 September 2026 | Added the SRS table of contents and improved document and meeting-minute formatting. | Harrison | Repository record. |
+| 0.6 | 7 September 2026 | Added stakeholder clarification questions and responses concerning Customer–Ops information exchange, rental/return behaviour, pricing, guest rentals and error handling; added Team B clarification evidence. | Yousef | Based on Team B stakeholder clarification. |
+| 0.7 | 12 September 2026 | Added and refined functional and non-functional requirements with fit criteria, and updated the Customer–Ops context diagram and stakeholder clarification documentation. | Yousef | Merged into `main` through PR #2. |
+| 0.8 | 12 September 2026 | Updated assumptions and dependencies and clarified pricing, rental-duration and late-fee responsibilities. | Yousef | Added to `main`; final team review pending. |
+| 0.9 | 12 September 2026 | Added the complete ChargeMate Customer use case diagram and selected the three primary use cases for detailed analysis. | Yousef | Added to `main`; final team review pending. |
+| 1.0 | 12 September 2026 | Refined the vision statement, Purpose, Scope, ChargeMate Ops boundary, Product Perspective and Product Functions for consistency with the confirmed requirements. | Yousef | Final team review pending. |
 
 ## Introduction
 
@@ -75,8 +83,6 @@ The system will allow customers to:
 - Complete rentals using a guest or minimal-registration process.
 
 ChargeMate Customer will exchange rental, return and station information with ChargeMate Ops.
-
-Staff operations, maintenance, power bank redistribution, station diagnostics, operator reporting and other operational-management functions are outside the scope of ChargeMate Customer and belong to ChargeMate Ops.
 
 **ChargeMate Ops**
 
