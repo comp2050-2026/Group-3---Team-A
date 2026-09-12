@@ -23,10 +23,7 @@
 * **Yousef Mustafa** 
 * **Harrison McLuckie** 
 
-ChargeMate provides a seameless power bank rental service to customers of Harbour North Plaza. Our aim is to get customers to reduce their battery related anxieties and offer a pleasant shopping experience. ChargeMate offers self-serve rental kiosks to reduce any need for employees, limiting any extra operational costs to the establishment.
-
-- Project name, names of all team members
-- Vision statement 
+ChargeMate provides a seamless power bank rental service for visitors to Harbour North Plaza. Its aim is to reduce battery-related anxiety by allowing customers to easily find, rent, use and return portable power banks while keeping the experience clear, convenient and largely self-service.
 
 ## Table of Contents
 
@@ -57,34 +54,47 @@ ChargeMate provides a seameless power bank rental service to customers of Harbou
 ## Introduction
 
 **Purpose**
-- This document provides the software requirements specifications of ChargeMate for ChargeMate Customer. The document will lay out and explore all functional/non-functional requirements and specific operational costs and constraints. The intent is to establish the groundwork of the system, and a baseline for the development and testing of ChargeMate in correspondence with the OPS side managed by Team B.
+
+This document specifies the software requirements for ChargeMate Customer, the customer-facing component of the ChargeMate power bank rental service at Harbour North Plaza. It defines the system's functional and non-functional requirements, scope, users, constraints, dependencies, use cases and interactions. The SRS provides a requirements baseline for the subsequent design and development of ChargeMate Customer and its interaction with ChargeMate Ops.
 
 ## Scope
 **ChargeMate Customer**
 
-- Rental & Return: Web app/station interface for scanning station QR codes, selecting rental duration, authorizing payments, and unlocking/returning power banks.
-- Availability: Displaying real-time station locations, available charged units, and open return slots across Harbour North Plaza.
-- Transparent Pricing & Status: Clear display of pricing structures, active rental timers, hold/deposit fees, and late return policies.
-- Self-Service Support: Built-in help, FAQs, reporting feature for damage, and AI queries for complex questions/support.
-- Team B Integration: Handing off rental requests, unit release triggers, payment events, and hardware status updates to the operator backend.
+ChargeMate Customer covers the customer-facing power bank rental experience at Harbour North Plaza.
+
+The system will allow customers to:
+
+- Find ChargeMate rental stations and view their current availability.
+- View available power banks, charge status and available return slots.
+- View pricing, rental-duration and applicable charge information.
+- Start a power bank rental.
+- View information about an active rental.
+- Return a power bank to an operational ChargeMate station with an available return slot.
+- Receive confirmation of successful rentals and returns.
+- Receive clear information and support options when a rental, return or station-related problem occurs.
+- Complete rentals using a guest or minimal-registration process.
+
+ChargeMate Customer will exchange rental, return and station information with ChargeMate Ops.
+
+Staff operations, maintenance, power bank redistribution, station diagnostics, operator reporting and other operational-management functions are outside the scope of ChargeMate Customer and belong to ChargeMate Ops.
 
 **ChargeMate Ops**
-- Operations & Maintenance: Kiosk diagnostics, hardware servicing tools, power bank tracking(damage, battery health), and inventory management 
-- Logistics: field staff management(repairs, renewal of powerbanks).
-- Business Analytics: Revenue monitoring, usage trends.
-- Hardware Firmware: Power bank lock mechanisms and physical bay charging, battery percentage
 
-- Definitions, acronyms, and abbreviations. These should be specific to your project.
+ChargeMate Ops is the operator-facing system responsible for managing the operational side of the ChargeMate network. Its responsibilities include station monitoring, power bank tracking, fault management, inventory and redistribution activities, and operational information required to run the service.
+
+The detailed requirements for ChargeMate Ops are outside the scope of this SRS and are specified separately by Team B.
+
+Staff operations, maintenance, station diagnostics, inventory redistribution and operator reporting are therefore outside the scope of ChargeMate Customer.
 
 ## Overall Description:
 
 ### Product Perspective
 
-ChargeMate Customer is the customer-facing part of the ChargeMate power bank rental service at Harbour North Plaza. It is intended to help customers find, rent, use, and return portable power banks with minimal assistance from shopping-centre staff.
+ChargeMate Customer is the customer-facing part of the ChargeMate power bank rental service at Harbour North Plaza. It is intended to help customers find, rent, use and return portable power banks with minimal assistance from shopping-centre staff.
 
-The system will operate alongside the physical rental stations, power banks, and the ChargeMate Ops system being specified by Team B. ChargeMate Customer may depend on ChargeMate Ops for information such as station and power bank status, although the exact information exchanged between the two systems still requires stakeholder clarification.
+The system operates alongside the physical rental stations, power banks and ChargeMate Ops system specified by Team B. ChargeMate Customer depends on ChargeMate Ops for station locations, power bank availability and charge status, return-slot availability, station status, and rental and return confirmations.
 
-Staff operations, station maintenance, power bank redistribution, and operator reporting are outside the scope of ChargeMate Customer.
+Staff operations, station maintenance, power bank redistribution and operator reporting are outside the scope of ChargeMate Customer.
 
 ![ChargeMate Customer System Context Diagram](srsimages/ChargeMate_Customer_Context_Diagram.png)
 
@@ -103,8 +113,6 @@ At a high level, ChargeMate Customer should allow customers to:
 - Return a rented power bank.
 - Receive confirmation when a rental or return has been completed successfully.
 - Access clear help or support information if a problem occurs.
-
-The exact rental, payment, return, and notification processes will be refined through further stakeholder consultation.
 
 
 ### User Characteristics
@@ -340,10 +348,7 @@ Customer-facing error messages shall clearly communicate the problem and, where 
 
 **Fit Criterion:**  
 For each defined customer-facing error condition, the displayed message identifies the problem and provides either a recovery action, an alternative option or instructions for contacting support.
-  
-> Make sure each requirement is uniquely numbered (identifiable), feasible, measurable, testable, and not in conflict with other requirements.
 
-> Be sure that for each requirement listed, you include _Fit criteria_ which details what measures any tests of the system need to pass to be deemed to meet the requirement.
 
 ### Use cases and interactions
 
