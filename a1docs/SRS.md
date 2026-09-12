@@ -135,9 +135,9 @@ For this reason, the customer experience should aim to be clear, simple, and eas
 
 **A-03:** ChargeMate Customer depends on ChargeMate Ops to confirm that a returned power bank has been successfully recorded.
 
-**A-04:** The ownership of pricing, deposit/pre-authorisation, rental-duration and late-fee rules has not yet been fully confirmed between ChargeMate Customer and ChargeMate Ops.
+**A-04:** ChargeMate Customer manages and displays customer-facing pricing, deposit/pre-authorisation, rental-duration and late-fee information, including determining when a rental becomes overdue and calculating applicable late fees.
 
-**A-05:** The exact set of rental details that ChargeMate Customer must send to ChargeMate Ops when starting a rental is still to be confirmed.
+**A-05:** When starting a rental, ChargeMate Customer provides ChargeMate Ops with the selected power bank ID, station ID and the rental details required to record the rental.
 
 
 ## Specific Requirements
@@ -278,9 +278,17 @@ During an active rental, the customer can view:
 - Rental status.
 - Available return locations.
 
+#### Pricing and Rental Charges
+
+**FR-17: Pricing and Rental Charges**  
+The system shall manage and display pricing, deposit/pre-authorisation, rental-duration and applicable late-fee information to the customer.
+
+**Fit Criterion:**  
+Before and during a rental, the customer can view the applicable pricing and rental-duration information. When a rental becomes overdue, the system identifies the overdue status and calculates and displays any applicable late fee.
+
 #### Error Handling
 
-**FR-17: Customer Error Messages**  
+**FR-18: Customer Error Messages**  
 The system shall display clear messages when a rental or station-related problem occurs.
 
 **Fit Criterion:**  
