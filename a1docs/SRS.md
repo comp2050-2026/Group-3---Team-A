@@ -347,7 +347,12 @@ For each defined customer-facing error condition, the displayed message identifi
 
 ### Use cases and interactions
 
-1. A complete Use Case diagram.
+#### Use Case Diagram
+
+![ChargeMate Customer Use Case Diagram](srsimages/ChargeMate_Customer_Use_Case_Diagram.png)
+
+**Figure 2: ChargeMate Customer Use Case Diagram.** The diagram shows the main interactions between the Customer, ChargeMate Customer system and ChargeMate Ops. The three primary use cases selected for detailed analysis are Rent a Power Bank, Return a Power Bank, and Handle Rental/Return Problem.
+
 2. Select the 3 "most important" use cases and create a full use case description for each (total 3 use case descriptions).
 3. Interaction diagram for each the most important use cases listed in 2. (total 3 interaction diagrams).
 
