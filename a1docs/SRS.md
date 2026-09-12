@@ -11,7 +11,7 @@
 > 2. Group Activity Record
 > 3. Appendices
 
-## SRS Structure
+# SRS Structure
 
 ### Title Page
 
@@ -28,7 +28,7 @@ ChargeMate provides a seameless power bank rental service to customers of Harbou
 - Project name, names of all team members
 - Vision statement 
 
-### Table of Contents
+## Table of Contents
 
 * [Change Log](#change-log)
 * [Introduction](#introduction)
@@ -46,7 +46,7 @@ ChargeMate provides a seameless power bank rental service to customers of Harbou
 * [Invidiual Contributions](#individual-contributions)
 * [Appendices](#appendices)
 
-### Change Log
+## Change Log
 **In Progress**
 - A list or table of versions with
   - The date of a new version
@@ -54,12 +54,12 @@ ChargeMate provides a seameless power bank rental service to customers of Harbou
   - Who made the changes and
   - Who agreed to the changes
 
-### Introduction
+## Introduction
 
 **Purpose**
 - This document provides the software requirements specifications of ChargeMate for ChargeMate Customer. The document will lay out and explore all functional/non-functional requirements and specific operational costs and constraints. The intent is to establish the groundwork of the system, and a baseline for the development and testing of ChargeMate in correspondence with the OPS side managed by Team B.
 
-### Scope
+## Scope
 **ChargeMate Customer**
 
 - Rental & Return: Web app/station interface for scanning station QR codes, selecting rental duration, authorizing payments, and unlocking/returning power banks.
@@ -76,9 +76,9 @@ ChargeMate provides a seameless power bank rental service to customers of Harbou
 
 - Definitions, acronyms, and abbreviations. These should be specific to your project.
 
-### Overall Description:
+## Overall Description:
 
-#### Product Perspective
+### Product Perspective
 
 ChargeMate Customer is the customer-facing part of the ChargeMate power bank rental service at Harbour North Plaza. It is intended to help customers find, rent, use, and return portable power banks with minimal assistance from shopping-centre staff.
 
@@ -91,7 +91,7 @@ Staff operations, station maintenance, power bank redistribution, and operator r
 **Figure 1: ChargeMate Customer System Context Diagram.** The diagram illustrates the system boundary and the high-level interactions between ChargeMate Customer, customers, the rental station network, and ChargeMate Ops.
 
 
-#### Product Functions
+### Product Functions
 
 At a high level, ChargeMate Customer should allow customers to:
 
@@ -107,7 +107,7 @@ At a high level, ChargeMate Customer should allow customers to:
 The exact rental, payment, return, and notification processes will be refined through further stakeholder consultation.
 
 
-#### User Characteristics
+### User Characteristics
 
 ChargeMate Customer may be used by a wide range of visitors to Harbour North Plaza, including shoppers, commuters, cinema visitors, library visitors, medical-centre visitors, and people attending weekend events.
 
@@ -116,7 +116,7 @@ Users may have different levels of technical experience and familiarity with the
 For this reason, the customer experience should aim to be clear, simple, and easy to understand without requiring extensive previous knowledge of the system.
 
 
-#### Constraints
+### Constraints
 
 **C-01:** ChargeMate Customer must remain focused on the customer-facing rental experience. Staff operations and maintenance functions are outside its scope.
 
@@ -127,27 +127,211 @@ For this reason, the customer experience should aim to be clear, simple, and eas
 **C-04:** Some ChargeMate Customer functions depend on information provided by the physical rental stations and ChargeMate Ops.
 
 
-#### Assumptions and Dependencies
+### Assumptions and Dependencies
 
-**A-01:** It is assumed that the wider ChargeMate system can determine whether a station currently has a power bank available for rental.
+**A-01:** ChargeMate Customer depends on ChargeMate Ops for station information, including station location, exact power bank availability, power bank charge status, available return slots and station operational status.
 
-**A-02:** It is assumed that the wider ChargeMate system can determine whether a station can accept a returned power bank.
+**A-02:** ChargeMate Customer depends on ChargeMate Ops to confirm that a rental has successfully started and to identify the power bank released to the customer.
 
-**A-03:** ChargeMate Customer will depend on ChargeMate Ops for some operational information. The exact information exchanged between the two systems is still to be confirmed with Team B.
+**A-03:** ChargeMate Customer depends on ChargeMate Ops to confirm that a returned power bank has been successfully recorded.
 
-**A-04:** The exact pricing and payment model has not yet been confirmed with the stakeholders.
+**A-04:** The ownership of pricing, deposit/pre-authorisation, rental-duration and late-fee rules has not yet been fully confirmed between ChargeMate Customer and ChargeMate Ops.
 
-**A-05:** Whether customers may return a power bank to a station different from the station where it was rented has not yet been confirmed.
-
-**A-06:** Whether customers require an account or may rent using a guest or minimal-registration process has not yet been confirmed.
+**A-05:** The exact set of rental details that ChargeMate Customer must send to ChargeMate Ops when starting a rental is still to be confirmed.
 
 
-### Specific Requirements
+## Specific Requirements
 
-- Functional requirements:
-  - A detailed description of each specific function that the software must perform.
-  - Structure this section by any breakdown method you wish, e.g. by user, role, function, and system mode.
-- Non-functional requirements: Specifies constraints and expectations with respect to the system's behaviour
+### Functional Requirements
+
+**Station Information and Availability**
+
+**FR-01: Station Location**  
+The system shall display the location of each ChargeMate rental station within Harbour North Plaza.
+
+**Fit Criterion:**  
+When station information is available, the customer can view the location of every operational ChargeMate station.
+
+---
+
+**FR-02: Power Bank Availability**  
+The system shall display the exact number of available power banks at each ChargeMate station.
+
+**Fit Criterion:**  
+For each station, the number displayed by ChargeMate Customer matches the availability information supplied by ChargeMate Ops.
+
+---
+
+**FR-03: Power Bank Charge Status**  
+The system shall indicate whether available power banks are sufficiently charged for rental.
+
+**Fit Criterion:**  
+A power bank identified by ChargeMate Ops as sufficiently charged is shown as available for rental, while an insufficiently charged power bank is not shown as available.
+
+---
+
+**FR-04: Return Slot Availability**  
+The system shall display the exact number of available return slots at each ChargeMate station.
+
+**Fit Criterion:**  
+For each station, the number of available return slots displayed to the customer matches the latest information supplied by ChargeMate Ops.
+
+---
+
+**FR-05: Station Status**  
+The system shall display whether a ChargeMate station is operational or unavailable.
+
+**Fit Criterion:**  
+When ChargeMate Ops reports a station as online, offline or unavailable, ChargeMate Customer displays the corresponding station status.
+
+---
+
+**FR-06: Availability Updates**  
+The system shall update station and power bank availability whenever a rental, return, fault or station-status change occurs.
+
+**Fit Criterion:**  
+After ChargeMate Customer receives an updated availability or status event from ChargeMate Ops, the displayed station information reflects the updated values.
+
+#### Rental Process
+
+**FR-07: Start Rental**  
+The system shall allow a customer to start a rental for an available power bank.
+
+**Fit Criterion:**  
+When a customer starts a valid rental, ChargeMate Customer sends the selected power bank ID, station ID and required rental details to ChargeMate Ops.
+
+---
+
+**FR-08: Rental Confirmation**  
+The system shall confirm to the customer when a rental has successfully started.
+
+**Fit Criterion:**  
+After ChargeMate Ops confirms a successful rental, ChargeMate Customer displays confirmation and identifies the released power bank.
+
+---
+
+**FR-09: Failed Power Bank Release**  
+The system shall inform the customer when a rental is authorised but the station fails to release the power bank.
+
+**Fit Criterion:**  
+When a release failure is reported, the system displays a failure message and the unsuccessful rental or payment authorisation is cancelled or reversed.
+
+#### Return Process
+
+**FR-10: Cross-Station Return**  
+The system shall allow customers to return a rented power bank to any operational ChargeMate station with an available return slot.
+
+**Fit Criterion:**  
+A customer can select and complete a return at a station different from the original rental station when that station is operational and has at least one available return slot.
+
+---
+
+**FR-11: Record Return**  
+The system shall provide the power bank ID and return station information when recording a return.
+
+**Fit Criterion:**  
+When a return is processed, ChargeMate Ops receives the correct power bank ID and return-station information.
+
+---
+
+**FR-12: Return Confirmation**  
+The system shall notify the customer when a return has been successfully recorded.
+
+**Fit Criterion:**  
+After ChargeMate Ops confirms the return, ChargeMate Customer displays a successful return confirmation.
+
+---
+
+**FR-13: Full Return Station**  
+The system shall inform the customer when a selected station has no available return slots and provide another nearby station with available capacity.
+
+**Fit Criterion:**  
+When the selected station has zero available return slots, the system prevents the return from being directed to that station and displays at least one nearby operational station with an available return slot, where one exists.
+
+---
+
+**FR-14: Unconfirmed Return**  
+The system shall inform the customer when a physical return cannot be confirmed.
+
+**Fit Criterion:**  
+When the return is not confirmed, the system displays an error message and provides instructions for contacting support or reporting the issue.
+
+#### Customer and Active Rental Information
+
+**FR-15: Guest Rental**  
+The system shall support guest or minimal-registration rentals.
+
+**Fit Criterion:**  
+A customer can begin a rental without creating a full customer account and is only required to provide the necessary contact and payment information.
+
+---
+
+**FR-16: Active Rental Information**  
+The system shall display relevant information about the customer's active rental.
+
+**Fit Criterion:**  
+During an active rental, the customer can view:
+
+- Rental start time.
+- Elapsed rental time.
+- Current price.
+- Rental status.
+- Available return locations.
+
+#### Error Handling
+
+**FR-17: Customer Error Messages**  
+The system shall display clear messages when a rental or station-related problem occurs.
+
+**Fit Criterion:**  
+The system displays an appropriate customer-facing message when any of the following occurs:
+
+- A station is unavailable.
+- A power bank is unavailable.
+- No return slots are available.
+- A power bank release fails.
+- A return cannot be confirmed.
+- A service error occurs.
+
+### Non-Functional Requirements
+
+**NFR-01: Usability**  
+The system shall provide a clear and simple customer experience suitable for first-time and occasional users.
+
+**Fit Criterion:**  
+A customer shall be able to identify station availability, rental information, active rental status and return options without requiring assistance from Harbour North Plaza staff.
+
+---
+
+**NFR-02: Self-Service Support**  
+The system shall provide customers with sufficient information to resolve common rental and return problems without relying on shopping-centre staff.
+
+**Fit Criterion:**  
+For supported error conditions, including unavailable stations, failed releases, unavailable return slots and unconfirmed returns, the system displays a clear explanation and the appropriate next action or support option.
+
+---
+
+**NFR-03: Information Consistency**  
+Customer-facing station and rental information shall remain consistent with information received from ChargeMate Ops.
+
+**Fit Criterion:**  
+When ChargeMate Ops provides updated station availability, return-slot availability or station status, ChargeMate Customer displays values that match the latest received information.
+
+---
+
+**NFR-04: Privacy**  
+The system shall minimise the personal information required from customers when using the rental service.
+
+**Fit Criterion:**  
+A guest or minimal-registration rental can be completed using only the contact and payment information required to process and manage the rental.
+
+---
+
+**NFR-05: Error Clarity**  
+Customer-facing error messages shall clearly communicate the problem and, where possible, what the customer should do next.
+
+**Fit Criterion:**  
+For each defined customer-facing error condition, the displayed message identifies the problem and provides either a recovery action, an alternative option or instructions for contacting support.
   
 > Make sure each requirement is uniquely numbered (identifiable), feasible, measurable, testable, and not in conflict with other requirements.
 
