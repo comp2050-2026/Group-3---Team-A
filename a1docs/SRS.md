@@ -416,7 +416,7 @@ For each defined customer-facing error condition, the displayed message identifi
 |---|---|
 | **Use Case** | UC-02: Returning a Power Bank |
 | **Goal** | Allow the client to return the used power bank to any station within Harbour North Plaza that has an available slot.|
-| **Preconditions** | - The Client has atleast 1 powerbank that they want to return, and there is an available slot in a station in Harbour North Plaza |
+| **Preconditions** | - The Client has atleast 1 powerbank that they want to return, and there is an available slot in a working station (FR-04) (FR-05)in Harbour North Plaza |
 | **Success End Condition** | The Power bank is return to the station; Power bank detail are successfully added back to the system |
 | **Failed End Condition** | No slot is available for return, power bank is faulty upon return  |
 | **Primary Actors** | Customer |
@@ -427,23 +427,26 @@ For each defined customer-facing error condition, the displayed message identifi
 
 | Step | Action |
 |---|---|
-| 1 | The user access the Charge mate app and uses the find station function |
-| 2 | The system retrieves information about which power stations have slots|
-| 3 | The system displays the nearest station with an empty slot|
+| 1 | The user access the Charge mate app and uses the find station function (FR-01)|
+| 2 | The system retrieves information about which power stations have slots and if they are functioning (FR-05) (FR-06)|
+| 3 | The system displays the nearest station with an empty slot (FR-01)|
 | 4 | The user inserts the power bank back into the empty slot of the nearby station|
-| 5 | The system receives the power bank ID and return station information |
-| 6 | System adds the recieved power bank back into the pool of  |
-| 7 | The system notifies the client of successful return|
+| 5 | The system receives the power bank ID and return station information (FR-11)|
+| 6 | System adds the recieved power bank back into the pool of available power banks (FR-06)|
+| 7 | The system notifies the client of successful return (FR-12)|
 | 8 | Use case ends, power bank becomes available to rent again |
 
 **Alternative Flows**
 
 | Step | Branching Action |
 |---|---|
-| 1a | the nearest available station has no available return slots, the system prompts the user to return to the original station using the station ID |
-| 4a | Power bank is damaged on return, send a notification to the customer to contact customer support and incur a damaged goods fee |
+| 1a | the nearest available station has no available return slots, the system prompts the user to return to the original station using the station ID|
+| 4a | Power bank is damaged on return, send a notification to the customer to contact customer support and incur a damaged goods fee. |
 | 8a | If a return is not completed, the system notifies the user to contact the customer support |
 
+## Sequence Diagram
+
+![Sequence Diagram for "Return a Power Bank"](srsimages/Returnal_Sequence_Diagram.png)
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## UC-03: Handle Rental/Return Problem
