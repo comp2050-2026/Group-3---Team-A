@@ -501,7 +501,13 @@ For each defined customer-facing error condition, the displayed message identifi
 
 ## Appendices
 
-### Stakeholder Interviews — Team B
+### Appendix A — Stakeholder Interaction Log
+
+The following stakeholder clarification was used to refine the requirements for ChargeMate Customer.
+
+| Interaction | Stakeholder | Purpose | Main Outcomes | Requirements Affected |
+|---|---|---|---|---|
+| Requirements clarification — 7 September 2026 | Team B | Clarify information exchange, rental and return behaviour, pricing responsibilities and error handling | Confirmed exact availability counts, cross-station returns, guest rentals, failed-release behaviour, active-rental information and Customer/Ops responsibilities | FR-01–FR-18, NFR-02, NFR-04, NFR-05, A-01–A-05 |
 
 | # | Question | Team B's Answer | Requirements Affected |
 |---|---|---|---|
@@ -521,9 +527,32 @@ For each defined customer-facing error condition, the displayed message identifi
 | 14. | What active-rental information should Customer be able to retrieve? | Start time, elapsed time, current price, rental status, and available return locations. | FR-16 |
 | 15. | Are there Ops error/status messages Customer must specifically handle? | Yes, unavailable stations/power banks, no return slots, failed release/return, and service errors. | FR-18, NFR-02, NFR-05 |
 
-- log of interactions with stakeholders (minutes from stakeholder comms).
-- log of interactions with team members (minutes from all team meetings and discussions be they in person, chats, or online).
-- References.
-- Third-party-resources
+### Appendix B — Team and Stakeholder Meeting Minutes
 
-> Based on the information in the minutes with the stakeholders and on the documentation of third-party resources, but condensed to itemised lists.
+The following meeting records document the team's requirements analysis, stakeholder clarification and project coordination activities.
+- log of interactions with team members (minutes from all team meetings and discussions be they in person, chats, or online).
+
+### Appendix C — References and Source Documents
+
+| Source | Use in Project |
+|---|---|
+| ChargeMate Customer project brief | Used to establish the initial problem, system purpose and customer-facing scope. |
+| COMP2050 Assignment 1 SRS template | Used to structure the Software Requirements Specification, Group Activity Record and Appendices. |
+| Team B requirements clarification records | Used to refine Customer–Ops information exchange, rental/return behaviour, error handling and system responsibilities. |
+| GitHub repository history | Used to maintain revision history and provide evidence of individual contributions. |
+
+### Appendix D — Third-Party Resources
+
+#### OpenAI ChatGPT
+
+- **Provider:** OpenAI
+- **Tool:** ChatGPT
+- **Use:** Used as an editorial and review aid to improve wording, clarify selected requirements, check consistency between SRS sections, and provide feedback on use-case and diagram structure.
+- **Scope:** The tool supported refinement and quality checking of existing project work. Stakeholder responses, meeting evidence and individual team contributions were based on the team's own project records.
+
+#### diagrams.net / Draw.io
+
+- **Provider:** JGraph Ltd
+- **Tool:** diagrams.net / Draw.io
+- **Use:** Used to create and edit the ChargeMate Customer context diagram and use case diagram.
+
