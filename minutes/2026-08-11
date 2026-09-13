@@ -1,0 +1,43 @@
+# MINUTES 2026-08-11
+
+# DATE
+    2026-08-11
+
+# MEETING PLACE
+    Macquarie University Library
+
+# PRESENT:
+ - Harrison McLuckie 
+ - Cooper Went 
+ - Isaac Lynn 
+ - Yousef Mustafa 
+ 
+
+# APOLOGIES:
+- None
+
+# MINUTE TAKER:
+- Harrison McLuckie
+
+# AGENDA
+1. Establish team communication channels, schedule, and joint check-in protocols.
+2. Confirm Project selection (Team A on Project A - ChargeMate Customer; Team B as Client/Ops).
+3. Review preliminary spec scope and draft initial joint Q&A framework.
+
+# DISCUSSION SUMMARY
+- Team A and Team B established joint Whatsapp communication channels
+- Formally confirmed Team A's assignment to Project A (ChargeMate Customer) with Team B serving as the client team representing ChargeMate Ops.
+- Initiated joint review of the system boundary between ChargeMate Customer and ChargeMate Ops.
+- Identified primary information gaps regarding station availability status, hardware release failures, guest rental constraints, and return validation handling.
+
+# DECISIONS
+- Communication will occur via WhatsApp; code and SRS Markdown will be maintained in GitHub.
+- Team agreed to draft formal questions covering system inputs, outputs, and exception flows before the next practical.
+
+# ACTIONS
+- Harrison: Draft initial list of technical clarification questions for Team B (Ops vs Customer boundaries).
+- Yousef: Set up SRS structural repository and template markdown files.
+- Cooper & Isaac: Review preliminary FR/NFR mappings for core rental/return flows.
+
+# Next Meeting
+    2026-08-18
