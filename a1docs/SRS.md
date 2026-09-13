@@ -493,15 +493,32 @@ For each defined customer-facing error condition, the displayed message identifi
 
 ### Discussion
 
-- Elicitation Methods: Explaining what techniques you used to elicit the requirements you've reported. This is very important. Be sure to include a fair amount of detail.
+#### Elicitation Methods: 
 
-In order to create the requirements for the chargemate systems, We employed a wide variety of techniques to gather the information needed and create the specifications. 
+Our team used three elicitation techniques, each one contributing a different perspective and idea to our requirements. 
 
-In order to gather the base requirements, we first created a set of questions to outline the basic requirements we thought this type of system would require.
+- Document Analysis: We began by analysing the ChargeMate Customer project brief supplied to Team A. We broke down the information supplied in the project brief to contextualise and grasp the assigned task. The client's concerns involve avoiding a long sign-up requirement, and to minimise the need for employees and human interaction. The distinction between the project scope of ChargeMate Customer and ChargeMate Ops was an extremely important task to prevent any confusion between the teams. Our interpretation of the given project brief allowed us to extract any relevant specificications and requirements before we put anything directly to Team B.
 
-We then moved into several rounds of minutes with our clients, where we asked our base set of questions and got their answers to them. We used this to build out our functional requirements. We then iterated on those questions to try and build out a more thorough suite of 
-  
-- Outlook: How you would, if you were continuing the project, further develop the requirements. What other information do you need, and how do you think you could get it? What would you do to be sure that you have the "right" requirements?
+- Written Q&A with our stakeholder
+If the project brief analysis surfaced any specific uncertainties, we drafted a structured set of written clarification questions and sent them to our acting Stakeholders (Team B). These covered the type of information exchanged with ChargeMate Ops, the exact count vs an available/unavailable status, cross station returns, actions to take incase of failure, pricing and penalties, registration, and active rental information. (see Appendix A: Stakeholder Interaction Log). Their answers shaped ~15 of our functional and non functional requirements, with two in particular that we would have gotten wrong, those involving pricing/penalties and the guest rental scope.
+
+- Analysis & Comparison of existing power bank rental services
+To cross check our design choices against how similar problems exist and are solved in the a professional and commercial environment, we looked at two existing power bank rental services: LifeSaver Power (UK) and Ezycharge (Australia). Lifesaver never charges returned power banks inside the machine, instead powerbanks are charged and cleaned off-site, then restocked. This is completely different to our model, since our brief requires the service to run with minimal human involvement, which rules out the possibility of any similar collection feature. Although the possibility of a routine collection at stations have been ruled out, this flagged hygiene as a requirement gap thats worth further investigation. Ezycharge shares a similar nation-wide network, where customers can return a power bank to any active Ezycharge kiosk location regardless of where they originally rented, similar to our cross station return requirement (FR-10). It validated that the task wasn't unrealistic, and shows it is a plausible and convenient feature.
+
+
+#### Outlook:
+
+If we were to continue this project beyond our current SRS, there would be several areas that need more clarification and research before anything is in its final implementation stage. 
+
+- Firstly, our requirements are drafted in a written Q&A format with Team B as a stakeholder, not real ChargeMate customers or individuals who will actually interact with the service. Any assumption that we have would have to be validated like how customers would react to any failures and how they would be resolved. A prototype could be tested with real customers such as shoppers, employees, etc. It would provide information and statistics on the average duration of rental, spikes in demand, and more.
+
+- Secondly, our look at Lifesaver revealed a gap that we overlooked: hygiene. Our brief doesn't currently address how a shared and touched powerbank is kept clean between rentals, and this is a concern worth raising with ChargeMate rather than assuming. A simple option that can be explored would be built in UV sanitisation lights in rental stations that would operate between rentals. Before turning hygiene into a requirement, clarification from the client side would be necessary to confirm if it is a concern worth specifying. 
+
+- Thirdly, a few requirement rely assumptions that we've taken from Team B's answers rather than confirming with the actual implementation of ChargeMate Ops. For example, updating when a change occurs like an unlocked port (FR-06) says "whenever a change occurs", not how quickly, and what ChargeMate Customer should do if Ops is unavailable when a customer tries to rent. 
+
+- Finally, business details and specifics like pricing Charts, deposit amounts, late fees, and payment types are currently unspecified. These were not our team's responsibility to define, but the final design will need exact numbers.
+
+To make sure we have confidence in our requirements, a follow up meeting with Team B discussing our SRS would be significantly helpful, as we can contrast requirements, clarify and validate any assumptions, and flag anything that doesn't match their design choices. 
 
 ### Individual Contributions
 
