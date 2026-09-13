@@ -407,7 +407,7 @@ For each defined customer-facing error condition, the displayed message identifi
 ---
 
 ## Interaction Diagram - Rent a Power Bank
-![Interaction Diagram for "Rent a Power Bank" Use Case](srsimages/InteractionDiagram_UC_1.png)
+![Interaction Diagram for "Rent a Power Bank" Use Case](srsimages/UC-1-Interaction_Diagram.png)
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -416,7 +416,7 @@ For each defined customer-facing error condition, the displayed message identifi
 |---|---|
 | **Use Case** | UC-02: Returning a Power Bank |
 | **Goal** | Allow the client to return the used power bank to any station within Harbour North Plaza that has an available slot.|
-| **Preconditions** | - The Client has atleast 1 powerbank that they want to return, and there is an available slot in a station in Harbour North Plaza |
+| **Preconditions** | - The Client has atleast 1 powerbank that they want to return, and there is an available slot in a working station (FR-04) (FR-05)in Harbour North Plaza |
 | **Success End Condition** | The Power bank is return to the station; Power bank detail are successfully added back to the system |
 | **Failed End Condition** | No slot is available for return, power bank is faulty upon return  |
 | **Primary Actors** | Customer |
@@ -427,23 +427,26 @@ For each defined customer-facing error condition, the displayed message identifi
 
 | Step | Action |
 |---|---|
-| 1 | The user access the Charge mate app and uses the find station function |
-| 2 | The system retrieves information about which power stations have slots|
-| 3 | The system displays the nearest station with an empty slot|
+| 1 | The user access the Charge mate app and uses the find station function (FR-01)|
+| 2 | The system retrieves information about which power stations have slots and if they are functioning (FR-05) (FR-06)|
+| 3 | The system displays the nearest station with an empty slot (FR-01)|
 | 4 | The user inserts the power bank back into the empty slot of the nearby station|
-| 5 | The system receives the power bank ID and return station information |
-| 6 | System adds the recieved power bank back into the pool of  |
-| 7 | The system notifies the client of successful return|
+| 5 | The system receives the power bank ID and return station information (FR-11)|
+| 6 | System adds the recieved power bank back into the pool of available power banks (FR-06)|
+| 7 | The system notifies the client of successful return (FR-12)|
 | 8 | Use case ends, power bank becomes available to rent again |
 
 **Alternative Flows**
 
 | Step | Branching Action |
 |---|---|
-| 1a | the nearest available station has no available return slots, the system prompts the user to return to the original station using the station ID |
-| 4a | Power bank is damaged on return, send a notification to the customer to contact customer support and incur a damaged goods fee |
+| 1a | the nearest available station has no available return slots, the system prompts the user to return to the original station using the station ID|
+| 4a | Power bank is damaged on return, send a notification to the customer to contact customer support and incur a damaged goods fee. |
 | 8a | If a return is not completed, the system notifies the user to contact the customer support |
 
+## Sequence Diagram
+
+![Sequence Diagram for "Return a Power Bank"](srsimages/Returnal_Sequence_Diagram.png)
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ## UC-03: Handle Rental/Return Problem
@@ -501,9 +504,58 @@ For each defined customer-facing error condition, the displayed message identifi
 
 ## Appendices
 
-- log of interactions with stakeholders (minutes from stakeholder comms).
-- log of interactions with team members (minutes from all team meetings and discussions - be they in person, chats, or online).
-- References.
-- Third-party-resources
+### Appendix A — Stakeholder Interaction Log
 
-> Based on the information in the minutes with the stakeholders and on the documentation of third-party resources, but condensed to itemised lists.
+The following stakeholder clarification was used to refine the requirements for ChargeMate Customer.
+
+| Interaction | Stakeholder | Purpose | Main Outcomes | Requirements Affected |
+|---|---|---|---|---|
+| Requirements clarification — 7 September 2026 | Team B | Clarify information exchange, rental and return behaviour, pricing responsibilities and error handling | Confirmed exact availability counts, cross-station returns, guest rentals, failed-release behaviour, active-rental information and Customer/Ops responsibilities | FR-01–FR-18, NFR-02, NFR-04, NFR-05, A-01–A-05 |
+
+| # | Question | Team B's Answer | Requirements Affected |
+|---|---|---|---|
+| 1. | What information will ChargeMate Customer receive from ChargeMate Ops about each rental station (location, available power banks, charge status, return slots, online/offline)? | All five confirmed: station location, exact power bank availability, charge status, return-slot availability, station status. | FR-01, FR-02, FR-03, FR-04, FR-05, A-01 |
+| 2. | Should availability be shown as exact numbers or a simple available/unavailable status? | Exact numbers. | FR-02, FR-04 |
+| 3. | How frequently will station and power bank availability be updated? | Whenever a rental, return, fault, or station-status change occurs. | FR-06 |
+| 4. | When a customer starts a rental, what does Customer need to send to Ops? | Power bank ID, station ID, and the rental details needed to record the rental. | FR-07, A-05 |
+| 5. | What does Ops send back to confirm a rental has started? | Confirmation that the rental started successfully and identification of the released power bank. | FR-08, A-02 |
+| 6. | What does Customer send Ops on return, and what confirmation comes back? | Power bank ID and return station sent; confirmation returned once the return is successfully recorded. | FR-11, FR-12, A-03 |
+| 7. | Can a customer return to any station, or only the original rental station? | Any operational ChargeMate station with an available return slot. | FR-10 |
+| 8. | What happens if the selected return station has no available slots? | Inform the customer and show another nearby station with available return slots. | FR-13 |
+| 9. | What happens if payment/authorisation succeeds but the station fails to release the power bank? | Inform the customer of the release failure and cancel/reverse the unsuccessful rental or payment authorisation. | FR-09 |
+| 10. | What happens if the customer physically returns the power bank but the system doesn't confirm it? | Inform the customer the return couldn't be confirmed and provide instructions to contact support/report the issue. | FR-14 |
+| 11. | Which system determines overdue rentals and calculates late fees — Customer or Ops? | Customer system determines overdue status and calculates applicable late fees. | FR-17, A-04 |
+| 12. | Does Ops manage the pricing/deposit/late-fee information Customer displays? | No, Customer manages and displays pricing, deposits/authorisation, late fees and rental duration information. | FR-17, A-04 |
+| 13. | Does Ops require a full account, or can rentals be completed as a guest? | Guest/minimal-registration rentals allowed; only necessary contact and payment details required. | FR-15, NFR-04 |
+| 14. | What active-rental information should Customer be able to retrieve? | Start time, elapsed time, current price, rental status, and available return locations. | FR-16 |
+| 15. | Are there Ops error/status messages Customer must specifically handle? | Yes, unavailable stations/power banks, no return slots, failed release/return, and service errors. | FR-18, NFR-02, NFR-05 |
+
+### Appendix B — Team and Stakeholder Meeting Minutes
+
+The following meeting records document the team's requirements analysis, stakeholder clarification and project coordination activities.
+- log of interactions with team members (minutes from all team meetings and discussions be they in person, chats, or online).
+
+### Appendix C — References and Source Documents
+
+| Source | Use in Project |
+|---|---|
+| ChargeMate Customer project brief | Used to establish the initial problem, system purpose and customer-facing scope. |
+| COMP2050 Assignment 1 SRS template | Used to structure the Software Requirements Specification, Group Activity Record and Appendices. |
+| Team B requirements clarification records | Used to refine Customer–Ops information exchange, rental/return behaviour, error handling and system responsibilities. |
+| GitHub repository history | Used to maintain revision history and provide evidence of individual contributions. |
+
+### Appendix D — Third-Party Resources
+
+#### OpenAI ChatGPT
+
+- **Provider:** OpenAI
+- **Tool:** ChatGPT
+- **Use:** Used as an editorial and review aid to improve wording, clarify selected requirements, check consistency between SRS sections, and provide feedback on use-case and diagram structure.
+- **Scope:** The tool supported refinement and quality checking of existing project work. Stakeholder responses, meeting evidence and individual team contributions were based on the team's own project records.
+
+#### diagrams.net / Draw.io
+
+- **Provider:** JGraph Ltd
+- **Tool:** diagrams.net / Draw.io
+- **Use:** Used to create and edit the ChargeMate Customer context diagram and use case diagram.
+
