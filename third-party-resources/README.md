@@ -16,3 +16,9 @@ If you want some help on how to properly reference, and how to properly include 
 ## List of used Resources
 [Mermaid](https://mermaid.js.org/)
 Open Source, Accessed on the 12/09/2026
+
+[Draw.io](https://draw.io)
+JGraph Ltd, Accessed on the 12/09/2026
+
+[ChatGPT](https://chatgpt.com/)
+OpenAI, Accessed throughout the 13/09/2026
