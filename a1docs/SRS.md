@@ -444,6 +444,48 @@ For each defined customer-facing error condition, the displayed message identifi
 | 4a | Power bank is damaged on return, send a notification to the customer to contact customer support and incur a damaged goods fee |
 | 8a | If a return is not completed, the system notifies the user to contact the customer support |
 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## UC-03: Handle Rental/Return Problem
+
+| Field | Details |
+|---|---|
+| **Use Case** | UC-03: Handle Rental/Return Problem |
+| **Goal** | Provide clear self-service instructions, error handling, and support escalation paths when a rental, return, or station fault occurs. (NFR-02, NFR-05). |
+| **Preconditions** | - A rental/return fault has occurred (FR-09, FR-14).<br>- The customer can reach the ChargeMate Customer UI or manually select “Report Problem” on an active rental screen.
+| **Success End Condition** | Issue details are logged with ChargeMate Ops, automated fee adjustments or holds are applied and clear guidance or support options are presented to the customer (NFR-02, NFR-05).
+| **Failed End Condition** | System cannot process fault report automatically; customer is provided direct support contact credentials (FR-18). |
+| **Primary Actors** | Customer |
+| **Secondary Actors** | ChargeMate Ops |
+| **Trigger** | System detects a hardware/network exception (failed release or unconfirmed return) or customer selects "Report Issue" in ChargeMate Cutomer (FR-18). |
+
+**Description/ Main Success Scenario**
+
+| Step | Action |
+|---|---|
+| 1 | Customer selects "Help / Report Issue" or system auto-redirects from a failed transaction (FR-18). |
+| 2 | System displays issue categories (e.g., Unconfirmed Return, Failed Release, Damaged Bank). |
+| 3 | Customer selects an issue category and submits transaction details. |
+| 4 | System captures transaction context (Rental ID, Station ID, Power Bank ID) and transmits problem log to ChargeMate Ops. |
+| 5 | ChargeMate Ops processes report and responds with resolution options or automated actions (e.g., reverse charge, hold fee). |
+| 6 | System displays clear next steps or resolution confirmation to the customer (NFR-02, NFR-05). |
+
+**Alternative Flows**
+
+| Step | Branching Action |
+|---|---|
+| 1a | **Unconfirmed Physical Return (FR-14):** Station fails to acknowledge power bank insertion within timeout. System auto-redirects to problem reporting, captures station ID, places rental on temporary hold, and displays self-service steps (NFR-02). |
+| 1b | **Failed Power Bank Release (FR-09):** Station lock fails during unlock. System auto-initiates payment authorization reversal/refund, logs station fault with ChargeMate Ops, and displays confirmation of cancellation to customer (FR-18). |
+| 3a | **Customer Disputes Overdue / Late Fee (FR-17):** Customer reports issue regarding incorrect late fee. System logs time discrepancy report with ChargeMate Ops and pauses pending collection while under review. |
+| 4a | **Network Connection / Service Timeout:** System is unable to reach ChargeMate Ops to submit problem log. System displays offline error message with direct customer support contact phone number / QR code (FR-18, NFR-05). |
+| 5a | **Automated Resolution Unavailable:** ChargeMate Ops flags issue for manual review. System places pending late fees on temporary hold and displays support contact instructions (NFR-02, NFR-05). |
+
+---
+
+## Interaction Diagram - Handle Rental/Return Problem
+![Interaction Diagram for "Handle Rental/Return Problem" Use Case](srsimages/InteractionDiagram_UC_3.png)
+
+
 ## Group Activity Record
 
 ### Discussion
