@@ -14,4 +14,5 @@ Furthermore, note that any resource that you include in your submission, will be
 If you want some help on how to properly reference, and how to properly include citation, do not hesitate to contact the [Writing Centre](https://students.mq.edu.au/support/study/writing).
 
 ## List of used Resources
-> *Add your references here. Remove this line*
+[Mermaid](https://mermaid.js.org/)
+Open Source, Accessed on the 12/09/2026
