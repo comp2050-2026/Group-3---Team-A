@@ -407,7 +407,7 @@ For each defined customer-facing error condition, the displayed message identifi
 ---
 
 ## Interaction Diagram - Rent a Power Bank
-![Interaction Diagram for "Rent a Power Bank" Use Case](srsimages/InteractionDiagram_UC_1.png)
+![Interaction Diagram for "Rent a Power Bank" Use Case](srsimages/UC-1-Interaction_Diagram.png)
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -501,8 +501,28 @@ For each defined customer-facing error condition, the displayed message identifi
 
 ## Appendices
 
+### Stakeholder Interviews — Team B
+
+| # | Question | Team B's Answer | Requirements Affected |
+|---|---|---|---|
+| 1. | What information will ChargeMate Customer receive from ChargeMate Ops about each rental station (location, available power banks, charge status, return slots, online/offline)? | All five confirmed: station location, exact power bank availability, charge status, return-slot availability, station status. | FR-01, FR-02, FR-03, FR-04, FR-05, A-01 |
+| 2. | Should availability be shown as exact numbers or a simple available/unavailable status? | Exact numbers. | FR-02, FR-04 |
+| 3. | How frequently will station and power bank availability be updated? | Whenever a rental, return, fault, or station-status change occurs. | FR-06 |
+| 4. | When a customer starts a rental, what does Customer need to send to Ops? | Power bank ID, station ID, and the rental details needed to record the rental. | FR-07, A-05 |
+| 5. | What does Ops send back to confirm a rental has started? | Confirmation that the rental started successfully and identification of the released power bank. | FR-08, A-02 |
+| 6. | What does Customer send Ops on return, and what confirmation comes back? | Power bank ID and return station sent; confirmation returned once the return is successfully recorded. | FR-11, FR-12, A-03 |
+| 7. | Can a customer return to any station, or only the original rental station? | Any operational ChargeMate station with an available return slot. | FR-10 |
+| 8. | What happens if the selected return station has no available slots? | Inform the customer and show another nearby station with available return slots. | FR-13 |
+| 9. | What happens if payment/authorisation succeeds but the station fails to release the power bank? | Inform the customer of the release failure and cancel/reverse the unsuccessful rental or payment authorisation. | FR-09 |
+| 10. | What happens if the customer physically returns the power bank but the system doesn't confirm it? | Inform the customer the return couldn't be confirmed and provide instructions to contact support/report the issue. | FR-14 |
+| 11. | Which system determines overdue rentals and calculates late fees — Customer or Ops? | Customer system determines overdue status and calculates applicable late fees. | FR-17, A-04 |
+| 12. | Does Ops manage the pricing/deposit/late-fee information Customer displays? | No, Customer manages and displays pricing, deposits/authorisation, late fees and rental duration information. | FR-17, A-04 |
+| 13. | Does Ops require a full account, or can rentals be completed as a guest? | Guest/minimal-registration rentals allowed; only necessary contact and payment details required. | FR-15, NFR-04 |
+| 14. | What active-rental information should Customer be able to retrieve? | Start time, elapsed time, current price, rental status, and available return locations. | FR-16 |
+| 15. | Are there Ops error/status messages Customer must specifically handle? | Yes, unavailable stations/power banks, no return slots, failed release/return, and service errors. | FR-18, NFR-02, NFR-05 |
+
 - log of interactions with stakeholders (minutes from stakeholder comms).
-- log of interactions with team members (minutes from all team meetings and discussions - be they in person, chats, or online).
+- log of interactions with team members (minutes from all team meetings and discussions be they in person, chats, or online).
 - References.
 - Third-party-resources
 
