@@ -1,16 +1,5 @@
 # A1 Submission including Software Requirements Specification
 
-> [!info] 2026 SRS starting point
-> This is the confirmed SRS skeleton for the linked project. The A1 package is one PDF plus one video; verify the 50-page limit and all rubric-level requirements against the released A1 specification.
-
-> Use this Markdown file to create the report and include it in the single A1 PDF submitted through iLearn. The existing template specifies an absolute maximum of 50 A4 pages including title pages, diagrams and the table of contents; apply that limit only if it is retained in the released 2026 A1 specification.
-
-> Use the document structure below. You may, if you wish, split the file up into multiple files to make the management easier. You can then leverage some GitHub automation to 'assemble' your file and or generate the PDF.
-
-> 1. SRS
-> 2. Group Activity Record
-> 3. Appendices
-
 # SRS Structure
 
 ### Title Page
@@ -356,6 +345,38 @@ Customer-facing error messages shall clearly communicate the problem and, where 
 **Fit Criterion:**  
 For each defined customer-facing error condition, the displayed message identifies the problem and provides either a recovery action, an alternative option or instructions for contacting support.
 
+### Requirements Traceability
+
+The following table traces the functional and non-functional requirements to the
+relevant use cases, system models and stakeholder evidence. This demonstrates how
+the requirements identified during elicitation are represented throughout the SRS.
+
+| Requirement | Use Case / Model Coverage | Supporting Evidence |
+|---|---|---|
+| **FR-01 Station Location** | View Station Availability; Find Return Station; UC-02 | Appendix A, Q1 |
+| **FR-02 Power Bank Availability** | View Station Availability; Rent a Power Bank; UC-01 | Appendix A, Q1–Q2 |
+| **FR-03 Power Bank Charge Status** | View Station Availability; Rent a Power Bank; UC-01 | Appendix A, Q1 |
+| **FR-04 Return Slot Availability** | View Station Availability; Find Return Station; Return a Power Bank; UC-02 | Appendix A, Q1–Q2 |
+| **FR-05 Station Status** | View Station Availability; Find Return Station; UC-02 | Appendix A, Q1 |
+| **FR-06 Availability Updates** | View Station Availability; Context Diagram | Appendix A, Q3 |
+| **FR-07 Start Rental** | Rent a Power Bank; UC-01; UC-01 Interaction Diagram | Appendix A, Q4 |
+| **FR-08 Rental Confirmation** | Rent a Power Bank; UC-01; UC-01 Interaction Diagram | Appendix A, Q5 |
+| **FR-09 Failed Power Bank Release** | Rent a Power Bank; Handle Rental/Return Problem; UC-01; UC-03 | Appendix A, Q9 |
+| **FR-10 Cross-Station Return** | Return a Power Bank; Find Return Station; UC-02 | Appendix A, Q7 |
+| **FR-11 Record Return** | Return a Power Bank; UC-02; UC-02 Interaction Diagram | Appendix A, Q6 |
+| **FR-12 Return Confirmation** | Return a Power Bank; UC-02; UC-02 Interaction Diagram | Appendix A, Q6 |
+| **FR-13 Full Return Station** | Find Return Station; Return a Power Bank; UC-02 | Appendix A, Q8 |
+| **FR-14 Unconfirmed Return** | Return a Power Bank; Handle Rental/Return Problem; UC-02; UC-03 | Appendix A, Q10 |
+| **FR-15 Guest Rental** | Rent a Power Bank; UC-01 | Appendix A, Q13 |
+| **FR-16 Active Rental Information** | View Active Rental | Appendix A, Q14 |
+| **FR-17 Pricing and Rental Charges** | View Pricing and Rental Charges; Rent a Power Bank; View Active Rental; UC-01 | Appendix A, Q11–Q12 |
+| **FR-18 Customer Error Messages** | Handle Rental/Return Problem; Get Help / Report Issue; UC-03 | Appendix A, Q15 |
+| **NFR-01 Usability** | Applies across all customer-facing use cases | Project Scope; User Characteristics |
+| **NFR-02 Self-Service Support** | Handle Rental/Return Problem; Get Help / Report Issue; UC-03 | Appendix A, Q15 |
+| **NFR-03 Information Consistency** | View Station Availability; Rent a Power Bank; Return a Power Bank; Context Diagram | Appendix A, Q1–Q3 |
+| **NFR-04 Privacy** | Rent a Power Bank; UC-01 | Appendix A, Q13 |
+| **NFR-05 Error Clarity** | Handle Rental/Return Problem; Get Help / Report Issue; UC-03 | Appendix A, Q15 |
+
 
 ### Use cases and interactions
 
@@ -365,10 +386,6 @@ For each defined customer-facing error condition, the displayed message identifi
 
 **Figure 2: ChargeMate Customer Use Case Diagram.** The diagram shows the main interactions between the Customer, ChargeMate Customer system and ChargeMate Ops. The three primary use cases selected for detailed analysis are Rent a Power Bank, Return a Power Bank, and Handle Rental/Return Problem.
 
-2. Select the 3 "most important" use cases and create a full use case description for each (total 3 use case descriptions).
-3. Interaction diagram for each the most important use cases listed in 2. (total 3 interaction diagrams).
-
-   
 
 ## UC-01: Rent a Power Bank
 
@@ -528,7 +545,7 @@ To make sure we have confidence in our requirements, a follow up meeting with Te
 |---|---|
 |Yousef|documented the confirmed responses from Team B. Developed the Overall Description and Customer Ops context diagram. Created and refined FR-01 to FR-18 and NFR-01 to NFR-05. Updated the assumptions and dependencies, including pricing, rental duration, late fees, guest rentals and Customer–Ops responsibilities. Created the overall ChargeMate Customer use case diagram and selected the three main use cases for detailed analysis.  |
 |Harrison| UC-02 created description, goals, scenarios, Steps and alternative flows. UC-02 Sequence diagram Diagrams, Reviewed Fit Criteria and Functional Requirements, Worked on the Appendix for external tools and worked on the Individual Contributions section|
-|Isaac| chose use case one - Rent a powerbank as 1/3 of the most important use cases, created a description and full use case details, goals, scenarios and interaction/sequence diagram for UC1. Wrote the discussion responses for the teams elicitation methods and wrote down the teams future outlook. Added appendix A to srs.md. Drafted the initial project scope and purpose.|
+|Cooper| chose use case one - Rent a powerbank as 1/3 of the most important use cases, created a description and full use case details, goals, scenarios and interaction/sequence diagram for UC1. Wrote the discussion responses for the teams elicitation methods and wrote down the teams future outlook. Added appendix A to srs.md. Drafted the initial project scope and purpose.|
 Isaac| UC-03 created description, goals, scenarios, Steps and alternative flows. UC-03 Sequence diagram Diagrams. Refined the project scope, purpose, vision and system boundaries for consistency and maintained the SRS change log through the requirements and modelling stages. Formatting on Minutes|
 
 
@@ -562,17 +579,226 @@ The following stakeholder clarification was used to refine the requirements for 
 
 ### Appendix B — Team and Stakeholder Meeting Minutes
 
-The following meeting records document the team's requirements analysis, stakeholder clarification and project coordination activities.
-- log of interactions with team members (minutes from all team meetings and discussions be they in person, chats, or online).
+The following meeting records document the team's requirements analysis,
+stakeholder clarification, project coordination and SRS development activities
+throughout Assignment 1.
+
+| Date | Meeting Focus |
+|---|---|
+| 11 August 2026 | Team setup, project allocation and initial requirements planning |
+| 18 August 2026 | Requirements clarification and primary use-case planning |
+| 24 August 2026 | Interaction-diagram planning and Customer–Ops responsibility review |
+| 1 September 2026 | SRS baseline development and requirements refinement |
+| 7 September 2026 | Team B stakeholder requirements clarification |
+| 12 September 2026 | Final requirements, fit criteria, use cases and SRS review |
+
+---
+
+#### Meeting Minutes — 11 August 2026
+
+**Date:** 11 August 2026  
+**Meeting Place:** Macquarie University Library  
+**Present:** Harrison McLuckie, Cooper Went, Isaac Lynn, Yousef Mustafa  
+**Apologies:** None  
+**Minute Taker:** Isaac Lynn  
+
+##### Agenda
+1. Establish team communication channels and schedule.
+2. Confirm project selection — Team A on Project A, ChargeMate Customer, with Team B representing ChargeMate Ops.
+3. Review preliminary specification scope and draft initial Q&As.
+
+##### Discussion Summary
+- Team A and Team B established joint WhatsApp communication channels.
+- Team A's assignment to ChargeMate Customer was confirmed, with Team B serving as the client team representing ChargeMate Ops.
+- The team initiated a review of the system boundary between ChargeMate Customer and ChargeMate Ops.
+- Information gaps were identified regarding station availability, hardware-release failures, guest-rental constraints and return validation.
+
+##### Decisions
+- Communication will occur through WhatsApp, while the SRS and project files will be maintained through GitHub.
+- The team agreed to develop formal questions covering system inputs, outputs and exception flows before the next practical.
+
+##### Actions
+- Draft the initial list of questions for Team B.
+- Review initial FR/NFR mappings for the core rental and return flows.
+
+##### Next Meeting
+18 August 2026
+
+---
+
+#### Meeting Minutes — 18 August 2026
+
+**Date:** 18 August 2026  
+**Meeting Place:** Zoom  
+**Present:** Harrison McLuckie, Cooper Went, Isaac Lynn, Yousef Mustafa  
+**Apologies:** None  
+**Minute Taker:** Isaac Lynn  
+
+##### Agenda
+1. Review the initial draft of Team A's interview questions with the Client.
+2. Refine the scope of UC-01 — Rent a Power Bank and UC-02 — Return a Power Bank.
+3. Determine delegation of SRS diagramming and technical boundary sections.
+
+##### Discussion Summary
+- Team A presented initial questions concerning real-time status updates, error handling and actor responsibilities.
+- Edge cases were discussed, including station release failures (FR-09) and unconfirmed physical returns (FR-14).
+- Guest/minimal-registration requirements were discussed.
+- UC-01, UC-02 and UC-03 were selected as the three primary use cases.
+
+##### Decisions
+- Team A would finalise and submit the detailed technical clarification questions to the Client.
+- UC-01 diagramming was allocated to Cooper, UC-02 to Harrison and UC-03 to Isaac.
+
+##### Actions
+- Draft the interaction/sequence diagram structure for UC-01.
+- Draft the interaction/sequence diagram structure for UC-02.
+- Draft the initial use-case specification for UC-03.
+
+##### Next Meeting
+24 August 2026
+
+---
+
+#### Meeting Minutes — 24 August 2026
+
+**Date:** 24 August 2026  
+**Meeting Place:** 4RPD, Room 113  
+**Present:** Harrison McLuckie, Cooper Went, Isaac Lynn, Yousef Mustafa  
+**Apologies:** None  
+**Minute Taker:** Isaac Lynn  
+
+##### Agenda
+1. Conduct a preliminary client interview run-through.
+2. Review UML sequence-diagram standards and Customer–Ops system-boundary notation.
+3. Review the alignment of the draft use cases with the developing functional requirements.
+
+##### Discussion Summary
+- The team discussed responsibility boundaries relating to pricing, overdue-fee calculations and the information exchanged between ChargeMate Customer and ChargeMate Ops.
+- The customer-facing pricing and active-rental information requirements were reviewed.
+
+##### Decisions
+- Interaction diagrams would distinguish the Customer, ChargeMate Customer and ChargeMate Ops as separate participants.
+- The team agreed on a consistent approach for representing required and optional interaction flows.
+
+##### Actions
+- Finalise the stakeholder interview questions.
+- Prepare initial diagram drafts in Draw.io.
+- Continue updating the SRS structure.
+- Develop alternative flows for UC-03 based on the identified error conditions.
+
+##### Next Meeting
+1 September 2026
+
+---
+
+#### Meeting Minutes — 1 September 2026
+
+**Date:** 1 September 2026  
+**Meeting Place:** Macquarie University Library  
+**Present:** Harrison McLuckie, Cooper Went, Isaac Lynn, Yousef Mustafa  
+**Apologies:** None  
+**Minute Taker:** Isaac Lynn  
+
+##### Agenda
+1. Review the SRS baseline structure and confirm the ChargeMate Customer vision and scope.
+2. Review stakeholder information relating to station information, availability and error handling.
+
+##### Discussion Summary
+- The initial SRS repository structure was reviewed.
+- Team A reviewed the developing stakeholder information and requirements.
+- Exact station availability, event-based availability updates and cross-station return behaviour were discussed.
+
+##### Decisions
+- The SRS scope and Customer–Ops system boundaries were retained as the baseline for further requirements development.
+- The customer interface would present relevant station availability and return information.
+
+##### Actions
+- Review the remaining stakeholder questions regarding pricing, fee calculation and guest rental.
+- Continue converting stakeholder information into formal functional requirements.
+- Review the non-functional requirements against the stakeholder clarification evidence.
+
+##### Next Meeting
+7 September 2026
+
+---
+
+#### Stakeholder Requirements Clarification — 7 September 2026
+
+**Date:** 7 September 2026  
+**Meeting Place:** Macquarie University Library  
+**Present:** Harrison McLuckie, Cooper Went, Isaac Lynn, Yousef Mustafa  
+**Apologies:** None  
+**Minute Taker:** Isaac Lynn  
+
+##### Agenda
+1. Clarify the information exchanged between ChargeMate Customer and ChargeMate Ops.
+2. Confirm rental, return and error-handling responsibilities.
+
+##### Discussion Summary
+- Team B confirmed that ChargeMate Customer will receive station location, exact available power-bank counts, charge status, available return slots and station operational status.
+- For rentals, ChargeMate Customer sends the power-bank ID, station ID and required rental details to ChargeMate Ops.
+- ChargeMate Ops confirms whether the rental and power-bank release were successful.
+- For returns, the power-bank ID and return-station information are exchanged with Ops.
+- Full return stations, failed releases and failed returns require clear customer-facing messages and appropriate next steps.
+- Active-rental information includes start time, elapsed time, current cost, rental status and available return locations.
+
+##### Decisions
+- Exact station availability information will be displayed to customers.
+- Cross-station returns are permitted.
+- Guest/minimal-registration rentals are permitted.
+- Customer and Ops responsibilities will follow the confirmed stakeholder clarification.
+
+##### Actions
+- Update the SRS requirements using the confirmed stakeholder responses.
+- Update the Overall Description and context information where required.
+- Review functional and non-functional requirements against the stakeholder evidence.
+
+For the complete stakeholder questions, responses and requirement mappings,
+see **Appendix A — Stakeholder Interaction Log**.
+
+##### Next Meeting
+12 September 2026
+
+---
+
+#### Meeting Minutes — 12 September 2026
+
+**Date:** 12 September 2026  
+**Meeting Place:** Zoom  
+**Present:** Harrison McLuckie, Cooper Went, Isaac Lynn, Yousef Mustafa  
+**Apologies:** None  
+**Minute Taker:** Isaac Lynn  
+
+##### Agenda
+1. Review the functional and non-functional requirement fit criteria.
+2. Review pricing, rental-duration and late-fee ownership assumptions.
+3. Finalise the use case diagram and the three primary use cases.
+
+##### Discussion Summary
+- Fit criteria for FR-01 through FR-18 and NFR-01 through NFR-05 were reviewed.
+- The ChargeMate Customer use case diagram was reviewed.
+- UC-01 — Rent a Power Bank, UC-02 — Return a Power Bank and UC-03 — Handle Rental/Return Problem were confirmed as the three use cases for detailed analysis.
+
+##### Decisions
+- The SRS baseline was updated with consistent vision, scope, requirements and ChargeMate Ops boundaries.
+- The three selected use cases would be completed with descriptions and interaction diagrams.
+
+##### Actions
+- Finalise the descriptions and interaction diagrams for UC-01, UC-02 and UC-03.
+- Perform the final document assembly and formatting review.
+- Prepare the final Assignment 1 PDF and handover video.
 
 ### Appendix C — References and Source Documents
 
 | Source | Use in Project |
 |---|---|
-| ChargeMate Customer project brief | Used to establish the initial problem, system purpose and customer-facing scope. |
-| COMP2050 Assignment 1 SRS template | Used to structure the Software Requirements Specification, Group Activity Record and Appendices. |
-| Team B requirements clarification records | Used to refine Customer–Ops information exchange, rental/return behaviour, error handling and system responsibilities. |
-| GitHub repository history | Used to maintain revision history and provide evidence of individual contributions. |
+| ChargeMate Customer Project Brief | Established the initial problem, customer-facing system scope, project goals and constraints. |
+| COMP2050 Assignment 1 SRS Template | Provided the required structure for the SRS, Group Activity Record and Appendices. |
+| Team B Requirements Clarification — 7 September 2026 | Used to refine Customer–Ops information exchange, rental and return behaviour, pricing responsibilities, guest rentals and error handling. |
+| Team A Meeting Minutes — August–September 2026 | Provided evidence of team requirements analysis, decisions, task allocation and project development. |
+| GitHub Repository History | Provided version history and evidence of document development and individual contributions. |
+| LifeSaver Power | Reviewed as an existing power-bank rental service during requirements elicitation and comparison. |
+| Ezycharge | Reviewed as an Australian power-bank rental service, including its cross-location return model. |
 
 ### Appendix D — Third-Party Resources
 
