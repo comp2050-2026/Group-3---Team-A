@@ -494,18 +494,19 @@ For each defined customer-facing error condition, the displayed message identifi
 ### Discussion
 
 - Elicitation Methods: Explaining what techniques you used to elicit the requirements you've reported. This is very important. Be sure to include a fair amount of detail.
-
-In order to create the requirements for the chargemate systems, We employed a wide variety of techniques to gather the information needed and create the specifications. 
-
-In order to gather the base requirements, we first created a set of questions to outline the basic requirements we thought this type of system would require.
-
-We then moved into several rounds of minutes with our clients, where we asked our base set of questions and got their answers to them. We used this to build out our functional requirements. We then iterated on those questions to try and build out a more thorough suite of 
   
 - Outlook: How you would, if you were continuing the project, further develop the requirements. What other information do you need, and how do you think you could get it? What would you do to be sure that you have the "right" requirements?
 
 ### Individual Contributions
 
 - Outline what each team member has led, contributed to, discussed, and/or reviewed.
+
+| Member | Contributions |
+|---|---|
+|Yousef|documented the confirmed responses from Team B. Developed the Overall Description and Customer Ops context diagram. Created and refined FR-01 to FR-18 and NFR-01 to NFR-05. Updated the assumptions and dependencies, including pricing, rental duration, late fees, guest rentals and Customer–Ops responsibilities. Created the overall ChargeMate Customer use case diagram and selected the three main use cases for detailed analysis. Refined the project scope, purpose, vision and system boundaries for consistency and maintained the SRS change log through the requirements and modelling stages. |
+|Harrison| UC-01 created description, goals, scenarios, Steps and alternative flows. UC-01 Sequence diagram Diagrams, Reviewed Fit Criteria and Functional Requirements, Worked on the Appendix for external tools and worked on the Individual Contributions section|
+|Isaac| chose use case one - Rent a powerbank as 1/3 of the most important use cases, created a description and full use case details, goals, scenarios and interaction/sequence diagram for UC1. Wrote the discussion responses for the teams elicitation methods and wrote down the teams future outlook. Added appendix A to srs.md. Drafted the initial project scope and purpose.|
+Isaac| |
 
 
 ## Appendices
