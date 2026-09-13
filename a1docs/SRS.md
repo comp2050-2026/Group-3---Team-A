@@ -367,6 +367,49 @@ For each defined customer-facing error condition, the displayed message identifi
 2. Select the 3 "most important" use cases and create a full use case description for each (total 3 use case descriptions).
 3. Interaction diagram for each the most important use cases listed in 2. (total 3 interaction diagrams).
 
+   
+
+## UC-01: Rent a Power Bank
+
+| Field | Details |
+|---|---|
+| **Use Case** | UC-01: Rent a Power Bank |
+| **Goal** | The customer successfully rents an available, fully charged power bank from a ChargeMate station for use during their visit to Harbour North Plaza. |
+| **Preconditions** | - At least one ChargeMate station is operational and reporting availability information.<br>- At least one power bank at the selected station is available and adequately charged (FR-03).<br>- The customer can reach the ChargeMate Customer UI and provide the contact/payment details required for rental. |
+| **Success End Condition** | The power bank is unlocked for the customer, ChargeMate Ops has recorded the rental against the power bank ID, station ID and rental/payment details (A-05); the customer's current rental information becomes available to view (FR-16). |
+| **Failed End Condition** | No power bank is unlocked and no rental record exists in ChargeMate Ops, any payment made for the attempt is cancelled or refunded (FR-09). |
+| **Primary Actors** | Customer |
+| **Secondary Actors** | ChargeMate Ops |
+| **Trigger** | Customer selects a fully charged, available power bank at a ChargeMate station and chooses to begin a rental. |
+
+**Description / Main Success Scenario**
+
+| Step | Action |
+|---|---|
+| 1 | Customer views the available, adequately charged power banks at a ChargeMate station (FR-02, FR-03). |
+| 2 | Customer selects a power bank and requests to rent it. |
+| 3 | System displays pricing, deposit and rental duration information (FR-17) — *include: View Pricing and Rental Charges*. |
+| 4 | Customer confirms the rental and provides the contact and payment details required for a rental (FR-15). |
+| 5 | System sends the power bank ID, station ID and rental/payment details to ChargeMate Ops (FR-07, A-05). |
+| 6 | ChargeMate Ops authorises the rental and unlockes the power bank at the station. |
+| 7 | System displays a rental confirmation in conjunction with the released power bank (FR-08). |
+| 8 | Use case ends, the rental becomes active. |
+
+**Alternative Flows**
+
+| Step | Branching Action |
+|---|---|
+| 1a | No power banks are available at the selected station: System displays an unavailable message (FR-18) and, where possible, displays a nearby station with availability. |
+| 4a | Contact or payment details are invalid: System displays an error and returns the customer to step 4 to re-enter details. |
+| 6a | **Release Failure:** Ops reports that the rental was authorised but the station failed to unlock the power bank (FR-09). System displays a failure message, cancels/refunds payment type, and the use case extends into *Handle Rental/Return Problem*  so the customer can get further help (NFR-02). |
+
+---
+
+## Interaction Diagram — Rent a Power Bank
+
+![Interaction Diagram for "Rent a Power Bank" Use Case](a1docs/diagrams/rent-a-powerbank-UC.png)
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 ## Group Activity Record
