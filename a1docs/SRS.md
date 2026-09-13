@@ -48,6 +48,10 @@ ChargeMate provides a seamless power bank rental service for visitors to Harbour
 | 0.9 | 12 September 2026 | Added the complete ChargeMate Customer use case diagram and selected the three primary use cases for detailed analysis. | Yousef | Added to `main`; final team review pending. |
 | 1.0 | 12 September 2026 | Refined the vision statement, Purpose, Scope, ChargeMate Ops boundary, Product Perspective and Product Functions for consistency with the confirmed requirements. | Yousef | Final team review pending. |
 | 1.1 | 13 September 2026 | Added 1/3 of "important" Use cases. Elaborated on and added a description of Use Case 1 (Rent a Powerbank) and its Interaction Diagram. | Cooper | Final team review pending. |
+| 1.2 | 13 September 2026 | Added UC-02 Return a Power Bank description, alternative flows and sequence diagram. | Harrison | Reviewed and included in final submission. |
+| 1.3 | 13 September 2026 | Added UC-03 Handle Rental/Return Problem description, alternative flows and interaction diagram. | Isaac | Reviewed and included in final submission. |
+| 1.4 | 13 September 2026 | Completed the Group Activity Record discussion and outlook and added external service references. | Cooper | Reviewed and included in final submission. |
+| 1.5 | 13 September 2026 | Integrated stakeholder and meeting evidence into the appendices, completed the requirements traceability table, and performed final SRS consistency updates. | Yousef | Reviewed and included in final submission. |
 
 ## Introduction
 
