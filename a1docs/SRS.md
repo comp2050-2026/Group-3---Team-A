@@ -405,8 +405,7 @@ For each defined customer-facing error condition, the displayed message identifi
 
 ---
 
-## Interaction Diagram — Rent a Power Bank
-
+## Interaction Diagram - Rent a Power Bank
 ![Interaction Diagram for "Rent a Power Bank" Use Case](a1docs/diagrams/rent-a-powerbank-UC.png)
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
