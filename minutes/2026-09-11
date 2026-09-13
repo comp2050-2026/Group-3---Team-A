@@ -1,0 +1,38 @@
+# DATE
+    2026-09-12
+
+# MEETING PLACE
+    Zoom
+
+# PRESENT:
+ - Harrison McLuckie (Team A)
+ - Cooper Went (Team A)
+ - Isaac Lynn (Team A)
+ - Yousef Mustafa (Team A)
+
+
+# APOLOGIES:
+- None
+
+# MINUTE TAKER:
+- Isaac Lynn
+
+# AGENDA
+1. Review functional/non-functional requirements fit criteria (v0.7) against the Client's expectations.
+2. Confirm pricing, rental-duration, and late-fee ownership assumptions (v0.8).
+3. Finalize Use Case diagram and primary use case selections (v0.9, v1.0) with client sign-off.
+
+# DISCUSSION SUMMARY
+- Reviewed PR #2 submitted by Yousef, adding complete fit criteria to FR-01 through FR-18 and NFR-01 through NFR-05.
+- Confirmed assumption A-04 with the Client: ChargeMate Customer manages and displays customer-facing pricing, deposit/pre-authorisation, rental-duration, and late-fee information, including calculating overdue fees.
+- Verified Use Case Diagram and confirmed the selection of UC-01 (Rent a Power Bank), UC-02 (Return Power Bank), and UC-03 (Handle Rental/Return Problem) for detailed analysis.
+
+# DECISIONS
+- Approved PR #2 for merge into main branch with the Client's formal sign-off.
+- SRS baseline updated to v1.0 with consistent vision, scope, and Ops boundaries.
+
+# ACTIONS
+- Yousef: Merge PR #2 and finalize fit criteria for FR-01 through FR-18 (v0.7 - v1.0).
+- Cooper: Finalize UC-01 description and interaction diagram (v1.1).
+- Harrison: Finalize UC-03 interaction diagram and alternative branching flows in PlantUML.
+- Isaac: Perform final document assembly check, verify Markdown formatting, and compile final PDF package.
