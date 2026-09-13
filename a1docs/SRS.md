@@ -586,3 +586,7 @@ The following meeting records document the team's requirements analysis, stakeho
  - **Provider:** Open Source
  - **Tool** Mermaid.js.org
  - **Use** Used to create Context diagram for the Return
+
+## References
+- LifeSaver Power - https://www.lifesaverpower.com/
+- Ezycharge - https://www.ezycharge.com.au/
