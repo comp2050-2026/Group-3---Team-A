@@ -1,45 +1,55 @@
-# the Client Requirements Clarification
+# Team B Requirements Clarification
 
-# DATE
-    2026-09-07
+## Header
 
-# MEETING PLACE
-    Marquarie University Library
+- **Date:** 7 September 2026
+- **Present:** Yousef, Harrison, Cooper
+- **Apologies:** Isaac
+- **Minute taker:** Yousef
 
-# PRESENT:
- - Harrison McLuckie 
- - Cooper Went 
- - Isaac Lynn 
- - Yousef Mustafa 
+## Agenda
 
-# APOLOGIES:
-- None
+- Clarify information exchanged between ChargeMate Customer and ChargeMate Ops.
+- Confirm rental, return and error-handling responsibilities.
 
-# MINUTE TAKER:
-- Isaac Lynn
+## Discussion Summary
 
-# AGENDA
-1. Clarify exact data payloads exchanged between ChargeMate Customer (Team A) and ChargeMate Ops (the Client).
-2. Confirm rental, return, and error-handling operational responsibilities with the Client.
-3. Finalize SRS artifacts v0.3 – v0.6 for main branch merge.
+Team B confirmed that ChargeMate Customer will receive:
 
-# DISCUSSION SUMMARY
-- the Client confirmed that ChargeMate Customer will receive station location, exact available power bank counts, individual charge status, open return slots, and station online/offline state.
-- For rentals, ChargeMate Customer sends power bank ID, station ID, and transaction details; Ops confirms physical release.
-- For returns, Customer sends power bank ID and return station ID.
-- If a station is full or release fails, clear error messages and nearby station recommendations must be presented.
-- Active rentals will show start time, elapsed time, current cost, and return options.
+- Station location.
+- Exact number of available power banks.
+- Power bank charge status.
+- Exact number of available return slots.
+- Station online/offline status.
 
-# DECISIONS
-- Exact station availability numbers will be displayed to users.
-- Cross-station returns and guest/minimal-registration rentals are permitted.
-- Approved Pull Request #1 merging SRS baseline versions v0.3 to v0.6.
+Availability will update whenever a rental, return, fault or station status changes.
 
-# ACTIONS
-- Yousef: Merge PR #1 (Overall Description, Context Diagram, Stakeholder Q&A v0.3, v0.6).
-- Cooper: Apply wording/typo corrections across overall description (v0.4).
-- Harrison: Integrate complete SRS Table of Contents and standardise minute layout (v0.5).
-- Isaac: Review merged v0.3-v0.6 PRs and audit technical terminology across FR fit criteria.
+For rentals, ChargeMate Customer will send the power bank ID, station ID and rental details. ChargeMate Ops will confirm the rental and released power bank.
 
-# NEXT MEETING
-    2026-09-11
+For returns, the system will send the power bank ID and return station. Customers may return to any operational station with an available return slot.
+
+If a return station is full, the customer will be shown another nearby station.
+
+If a rental release or return fails, the customer will receive a clear error message and support instructions where required.
+
+Guest or minimal-registration rentals will be supported.
+
+Active rentals will show start time, elapsed time, current price, status and available return locations.
+
+## Decisions
+
+- Exact station availability will be shown to customers.
+- Cross-station returns are allowed.
+- Guest/minimal-registration rentals are allowed.
+- Failed rentals and returns must be handled clearly.
+- Active rental information must be available to customers.
+
+## Actions
+
+- Team A to update requirements using the confirmed information.
+- Team A and Team B to confirm who owns pricing, late-fee and rental-duration rules.
+- Team A and Team B to confirm the exact rental details exchanged when a rental starts.
+
+## Next Meeting
+
+- **Date:** To be confirmed
