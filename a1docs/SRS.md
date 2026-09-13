@@ -58,6 +58,7 @@ ChargeMate provides a seamless power bank rental service for visitors to Harbour
 | 0.8 | 12 September 2026 | Updated assumptions and dependencies and clarified pricing, rental-duration and late-fee responsibilities. | Yousef | Added to `main`; final team review pending. |
 | 0.9 | 12 September 2026 | Added the complete ChargeMate Customer use case diagram and selected the three primary use cases for detailed analysis. | Yousef | Added to `main`; final team review pending. |
 | 1.0 | 12 September 2026 | Refined the vision statement, Purpose, Scope, ChargeMate Ops boundary, Product Perspective and Product Functions for consistency with the confirmed requirements. | Yousef | Final team review pending. |
+| 1.1 | 13 September 2026 | Added 1/3 of "important" Use cases. Elaborated on and added a description of Use Case 1 (Rent a Powerbank) and its Interaction Diagram. | Cooper | Final team review pending. |
 
 ## Introduction
 
@@ -388,7 +389,7 @@ For each defined customer-facing error condition, the displayed message identifi
 |---|---|
 | 1 | Customer views the available, adequately charged power banks at a ChargeMate station (FR-02, FR-03). |
 | 2 | Customer selects a power bank and requests to rent it. |
-| 3 | System displays pricing, deposit and rental duration information (FR-17) — *include: View Pricing and Rental Charges*. |
+| 3 | System displays pricing, deposit and rental duration information (FR-17) - *include: View Pricing and Rental Charges*. |
 | 4 | Customer confirms the rental and provides the contact and payment details required for a rental (FR-15). |
 | 5 | System sends the power bank ID, station ID and rental/payment details to ChargeMate Ops (FR-07, A-05). |
 | 6 | ChargeMate Ops authorises the rental and unlockes the power bank at the station. |
@@ -406,7 +407,7 @@ For each defined customer-facing error condition, the displayed message identifi
 ---
 
 ## Interaction Diagram - Rent a Power Bank
-![Interaction Diagram for "Rent a Power Bank" Use Case](a1docs/srsimages/InteractionDiagram_UC_1.png)
+![Interaction Diagram for "Rent a Power Bank" Use Case](srsimages/InteractionDiagram_UC_1.png)
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
