@@ -494,6 +494,12 @@ For each defined customer-facing error condition, the displayed message identifi
 ### Discussion
 
 - Elicitation Methods: Explaining what techniques you used to elicit the requirements you've reported. This is very important. Be sure to include a fair amount of detail.
+
+In order to create the requirements for the chargemate systems, We employed a wide variety of techniques to gather the information needed and create the specifications. 
+
+In order to gather the base requirements, we first created a set of questions to outline the basic requirements we thought this type of system would require.
+
+We then moved into several rounds of minutes with our clients, where we asked our base set of questions and got their answers to them. We used this to build out our functional requirements. We then iterated on those questions to try and build out a more thorough suite of 
   
 - Outlook: How you would, if you were continuing the project, further develop the requirements. What other information do you need, and how do you think you could get it? What would you do to be sure that you have the "right" requirements?
 
@@ -559,3 +565,7 @@ The following meeting records document the team's requirements analysis, stakeho
 - **Tool:** diagrams.net / Draw.io
 - **Use:** Used to create and edit the ChargeMate Customer context diagram and use case diagram.
 
+#### Mermaid.js.org
+ - **Provider:** Open Source
+ - **Tool** Mermaid.js.org
+ - **Use** Used to create Context diagram for the Return
