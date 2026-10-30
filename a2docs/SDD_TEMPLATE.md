@@ -10,10 +10,10 @@
 
 | Team member | Student ID |
 |---|---|
-| Yousef [CONFIRM OFFICIAL FULL NAME] | [FILL] |
-| Harrison McLuckie | [FILL] |
-| Cooper Went | [FILL] |
-| Isaac Lynn | [FILL] |
+| Yousef | [FILL] |
+| Harrison | [FILL] |
+| Cooper  | [FILL] |
+| Isaac  | [FILL] |
 
 ---
 
