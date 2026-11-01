@@ -62,7 +62,7 @@ Fill this with the current position; blank fields are not evidence that work is 
 | Baseline, assumptions, architecture | Yousef | Sections 1, 3 and 4 drafted; review pending | [FILL] | [FILL] | [FILL] |
 | Vision and two storyboard/wireframe sets | Cooper | [FILL] | [FILL] | [FILL] | [FILL] |
 | Three state diagrams | Harrison | [FILL] | [FILL] | [FILL] | [FILL] |
-| Persistence, caching and data access | Yousef | Section 9.1 drafted; 9.2–9.3 pending; review pending | [FILL] | [FILL] | [FILL] |
+| Persistence, caching and data access | Yousef | Sections 9.1–9.3 drafted; review pending | [FILL] | [FILL] | [FILL] |
 | Maintenance and deployment | Isaac; Yousef reviews | [FILL] | [FILL] | [FILL] | [FILL] |
 | RTM | Yousef | [FILL] | [FILL] | [FILL] | [FILL] |
 | Test specifications and plan | Harrison | [FILL] | [FILL] | [FILL] | [FILL] |
@@ -135,7 +135,7 @@ Rental release and return-confirmation ownership requires an explicit decision. 
 | SRC-02 | Team B handover, `Untitled design (3).mp4`, duration approximately 8:01; recording date not established | Approximately 4:23–6:07: information quality, physical confirmation and unanswered questions; 6:23–7:49: more specific workflow claims | Explanation and discrepancy identification |
 | SRC-03 | Group 3 Team A, *ChargeMate Customer SRS*, `Group3_TeamA_COMP2050.pdf`; change log through v1.5 dated 13 September 2026 | Dependencies and requirements pp.7–12; Customer–Ops Q&A pp.23–24; return/problem flows pp.17–19 | External expectations and allocation conflicts |
 | SRC-04 | Supplied COMP2050 Assignment 2 instructions | System Design, RTM, Test Specifications and Staff Report headings | Deliverable structure and project swap |
-| SRC-05 | Released Project B brief, repository copy | [Project B — ChargeMate Ops](https://github.com/comp2050-2026/Group-3---Team-A/blob/main/project-briefs/PROJECT_B_CHARGEMATE_OPS.md), §§2–4; accessed 1 November 2026 | Plaza context and operator/customer boundary |
+| SRC-05 | Released Project B brief, repository copy | [Project B — ChargeMate Ops](https://github.com/comp2050-2026/Group-3---Team-A/blob/main/project-briefs/PROJECT_B_CHARGEMATE_OPS.md), §§2–4 | Plaza context and operator/customer boundary |
 
 The supplied ChargeMate Ops SRS is the requirements baseline for this design. Additional or conflicting details in the handover video are recorded as clarification questions or clearly labelled design assumptions.
 
@@ -278,7 +278,7 @@ External systems do not access C-DB directly. C-INT authenticates/authorises ext
 | FR-07 — Confirmed redistribution | C-MOVE checks suitability, expected device version and physical confirmation at completion. | Selecting a destination does not itself establish a new physical location. Conflicting reports require investigation. |
 | GAP-01/02/07 — External boundary | C-INT isolates field mapping and communication from the core modules. | The design can describe provisional exchanges without treating unconfirmed rental-control or dock-blocking behaviour as an inherited requirement. |
 
-The access-control approach follows the principles of least privilege, denial by default and permission checks on every request described in the [OWASP Authorization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html) (accessed 1 November 2026). The ability to coordinate short record-changing transactions using row locks is documented in [PostgreSQL 18: Explicit Locking](https://www.postgresql.org/docs/18/explicit-locking.html) (accessed 1 November 2026). These sources support implementation choices; they do not supply ChargeMate business requirements.
+The access-control approach follows the principles of least privilege, denial by default and permission checks on every request described in the [OWASP Authorization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html). The ability to coordinate short record-changing transactions using row locks is documented in [PostgreSQL 18: Explicit Locking](https://www.postgresql.org/docs/18/explicit-locking.html). These sources support implementation choices; they do not supply ChargeMate business requirements.
 
 ## 4.4 External interface responsibilities
 
@@ -398,7 +398,7 @@ The object choice is proposed. If replaced, choose another object with meaningfu
 
 # 9. Persistent data, caching and maintenance
 
-**Owners: Yousef for 9.1–9.3; Isaac for 9.4 | Reviewers: Harrison for data strategy; Yousef for maintenance | Status: Section 9.1 drafted — review pending; 9.2–9.4 pending**
+**Owners: Yousef for 9.1–9.3; Isaac for 9.4 | Reviewers: Harrison for data strategy; Yousef for maintenance | Status: Sections 9.1–9.3 drafted — review pending; 9.4 pending**
 
 ## 9.1 Persistent data strategy
 
@@ -419,7 +419,7 @@ The following is a proposed logical data model. Field names describe the intende
 | Command receipt | Requesting identity, operation ID, input fingerprint, committed result and resulting record/version | Responsible domain module records the result; C-AUTH checks access | Save the successful receipt with its business change. Repeating the same authorised operation must not create another fault or movement. A failed save must not leave a success receipt. |
 | Pending outgoing update | Event ID, entity/version, agreed operational payload, intended recipient, delivery state and attempt/acknowledgement information | Domain transaction creates; C-INT delivers and records outcomes | Save with the local business change under DEC-04. Local commit and acknowledged external delivery are distinct outcomes; an acknowledgement does not itself prove physical hardware action. |
 
-Unique keys protect record identities; foreign keys link faults and movements to registered devices/stations. Required-field and allowed-value constraints reject structurally invalid records. Cross-record business rules, such as checking all unresolved faults before confirming suitability, remain the responsibility of the backend transaction rather than a single device-status field. PostgreSQL documents these identity and relationship mechanisms in its [constraints guidance](https://www.postgresql.org/docs/18/ddl-constraints.html) (accessed 1 November 2026).
+Unique keys protect record identities; foreign keys link faults and movements to registered devices/stations. Required-field and allowed-value constraints reject structurally invalid records. Cross-record business rules, such as checking all unresolved faults before confirming suitability, remain the responsibility of the backend transaction rather than a single device-status field. PostgreSQL documents these identity and relationship mechanisms in its [constraints guidance](https://www.postgresql.org/docs/18/ddl-constraints.html).
 
 ### Separate operational facts from information quality
 
@@ -434,15 +434,66 @@ Observation time and received time remain separate so delayed input can be recog
 - **Complete redistribution:** recheck permission, suitability, expected device version and physical confirmation; save movement completion and the destination/version change together with the receipt and any outgoing update.
 - **Accept an external event:** save its processing result with any accepted domain changes. Repeated input must not apply the same change again; contradictory evidence is retained for investigation rather than silently replacing a reliable value.
 
-Success is returned only after commit. If the transaction fails, its related database changes are rolled back together, consistent with PostgreSQL's [transaction model](https://www.postgresql.org/docs/18/tutorial-transactions.html) (accessed 1 November 2026). A database rollback cannot undo a physical movement: recording failure after an actual move requires the investigation/reconciliation handling in §7. External delivery occurs after the local commit and is retried separately. Detailed concurrency controls follow in §10; backup and recovery are addressed in §9.3. These are proposed behaviours and test obligations, not claims that an implementation or recovery test has already run.
+Success is returned only after commit. If the transaction fails, its related database changes are rolled back together, consistent with PostgreSQL's [transaction model](https://www.postgresql.org/docs/18/tutorial-transactions.html). A database rollback cannot undo a physical movement: recording failure after an actual move requires the investigation/reconciliation handling in §7. External delivery occurs after the local commit and is retried separately. Detailed concurrency controls follow in §10; backup and recovery are addressed in §9.3. These are proposed behaviours and test obligations, not claims that an implementation or recovery test has already run.
 
 ## 9.2 Caching and component data access
 
-[FILL: Say what is cached, where, when invalidated and how stale/last-known facts are labelled. Explain how components request data, access controls and what occurs when a source is unavailable. If you choose no cache, explain why.]
+### Cache scope and refresh rules
+
+Under DEC-05, the initial design uses C-DB directly for operational reads and does not add a separate backend business-data cache. This avoids maintaining another copy of fault exclusion, device location and movement information during the pilot. The trade-off is that operational requests depend on the backend/database being available. Stored station observations remain external evidence with source/time information; reading them from the database does not establish that the station is currently connected or that its physical state is unchanged.
+
+C-UI keeps only the currently displayed operational results temporarily in screen memory. The proposed interface does not persist these results as an offline operational database or queue record-changing commands for automatic submission later. Static interface assets may be cached separately, but must not contain staff operational records. Protected operational responses are configured to avoid persistent browser/shared caching.
+
+The screen copy is replaced by a fresh backend response when the operator opens or manually refreshes a view. After a successful fault or movement change, C-UI invalidates the affected device, fault and station results and retrieves them again. It also re-fetches after a version conflict or reconnection; signing out clears displayed operational data. If retrieval fails temporarily, any retained previous values are labelled last-known and the failure is visible. Denied access or an expired session clears protected results and requires authorisation before loading them again. Manual refresh is part of the proposed interface; an automatic polling/push mechanism and numerical refresh interval remain GAP-01 rather than an assumed real-time guarantee.
+
+### Component requests and consistency
+
+| Request / activity | Component route | Data and checks |
+|---|---|---|
+| Station status, availability and recorded issues | C-UI → C-AUTH → C-MON; C-MON uses C-DEV/C-FAULT query functions | Combine accepted station observations with device records and unresolved faults. Return relevant quality, source/time and record-version information with values. |
+| Individual device lookup | C-UI → C-AUTH → C-DEV; C-DEV uses C-FAULT information | Check access and registration; distinguish not-found from a registered device whose location or other facts are unknown/unavailable. |
+| Fault creation/resolution or movement completion | C-UI → C-AUTH → C-FAULT/C-MOVE, coordinating with C-DEV and C-DB | Recheck permission, input, expected versions and current business rules; use the transaction boundaries in §9.1 and command outcomes in §4.4. |
+| External observations and outgoing delivery | External system ↔ C-INT; accepted changes pass through domain modules | Validate the source and agreed fields, recognise duplicate input where supported, and keep delivery status separate from committed local records. |
+
+These are logical module calls within the proposed backend, not a requirement to deploy a separate service for every arrow. Database access uses restricted backend/service credentials; staff and external callers cannot submit database queries directly.
+
+Where a view needs multiple queries, the backend assembles it in a short read-only repeatable-read transaction so its fault indicators and eligibility calculation use the same database snapshot. This follows PostgreSQL's [transaction-isolation guidance](https://www.postgresql.org/docs/18/transaction-iso.html#XACT-REPEATABLE-READ). A consistent snapshot is a consistent reading of stored information, not proof of current physical conditions. Record-changing requests still recheck current state under the concurrency rules in §10.
+
+C-AUTH checks every protected request, including a repeated command whose saved receipt is being retrieved. A previously visible button or screen result does not grant permission or establish current redistribution suitability. This implements DEC-03 and follows the per-request checks described in the [OWASP Authorization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html).
+
+### Unavailable information and uncertain outcomes
+
+If an external source cannot provide information, C-MON/C-DEV preserve any useful last-known evidence with its source/time and an explicit qualification. Unknown values, unavailable retrieval and inconsistent evidence remain distinguishable under NFR-02. They are not converted to zero stock, a healthy station or confirmed device suitability. If C-DB cannot be read, the interface shows an unavailable/read-failed outcome. If a write is confirmed rolled back, it shows save failed; the interface claims a newly saved result only after a confirmed commit.
+
+If a connection is lost after a command was submitted, the save outcome may be unconfirmed rather than definitely failed. C-UI shows that uncertainty and, after reconnection, checks/retries using the same operation ID and input. The backend checks permission and the stored receipt before applying a duplicate change. A committed local fault remains effective if outgoing delivery fails; the interface distinguishes saved locally from synchronisation pending under DEC-04. These failure/recovery paths must be covered by the proposed §12 tests and reflected in Cooper's screens; they are not reported test results.
 
 ## 9.3 Backup, recovery and retention
 
-[FILL: Describe the proposed approach and how recovery would be checked. Clearly label unconfirmed retention, backup frequency and recovery targets as assumptions.]
+### Proposed backup approach
+
+The proposed deployment uses scheduled PostgreSQL base backups together with continuous archiving of its write-ahead log (WAL), which records database changes. Recovery restores a base backup and replays the available archived changes to a selected consistent recovery point. It requires a complete usable backup and the necessary uninterrupted log sequence; it does not guarantee that every change immediately before an incident can be recovered. PostgreSQL describes this mechanism and its dependencies in its [continuous archiving and point-in-time recovery guidance](https://www.postgresql.org/docs/18/continuous-archiving.html).
+
+The backup scope covers the whole operational store, including stations/devices, faults, movements, observation evidence, command receipts, incoming event-processing records and pending outgoing updates. Recovering these together preserves the relationships in §9.1. Database access definitions and deployment configuration needed to restore the service must also be recoverable; a data backup alone is insufficient to recreate the complete deployment.
+
+Backup copies and archived logs are proposed to be encrypted and kept in restricted storage separate from the application/database host, with controlled access to the recovery keys. The maintenance process records backup completion, archive failures and the latest recoverable point. A failed or incomplete backup must not replace the last known usable recovery set. Exact schedules, storage arrangements and maintenance responsibilities must be configured and documented with §9.4 before deployment. This is a proposed operational mechanism, not a claim that backups already exist.
+
+### Recovery sequence and verification
+
+1. **Contain the incident:** suspend record-changing requests and outgoing delivery while recovery is prepared. The interface shows service unavailability or maintenance rather than accepting apparently successful writes. Preserve available incident records before replacing a damaged environment.
+2. **Restore separately:** use an isolated recovery environment, a compatible database/application version and a verified recovery set. Record the chosen recovery point, restore errors and any possible lost-data interval. Keep external delivery disabled during verification.
+3. **Check database and domain consistency:** verify schema/access configuration, identifiers and relationships. Confirm that restored unresolved faults still exclude normal availability, movements agree with recorded device destinations/versions, and processing receipts and outgoing records correspond to restored business changes.
+4. **Reconcile external and physical facts:** compare recovered information with available station/Customer records and staff investigation. An old station observation or restored movement record is not proof of a device's current physical location. Keep uncertain facts labelled unknown, unavailable or inconsistent and exclude affected devices from confirmed suitability until reconciled.
+5. **Resume in a controlled way:** permit normal operations only after the recovery checks and required reconciliation succeed. Resume incoming processing/outgoing delivery with duplicate checks and preserve visible pending or investigation outcomes. Record the recovery decision and outstanding limitations as actual operational evidence when this process is implemented.
+
+The §12 test plan should specify an isolated restoration exercise covering a usable backup, missing/corrupt recovery material, restored fault exclusion, movement/location consistency and old observation labels. It should also check repeated external messages and uncertain outgoing acknowledgements. A failed restore or failed consistency check must prevent normal service resumption. The exercise should record elapsed restoration time and any unrecovered interval so they can be compared with agreed targets. No restoration exercise or pass result is claimed in this SDD.
+
+Restoring command receipts and integration records reduces duplicate processing, but records created after the recovery point may be missing. Consequently, a missing receipt after recovery does not prove that a physical action or external delivery never happened. Do not blindly replay uncertain fault/movement commands or pending external actions. Reconcile them first; recipient-side deduplication and acknowledgement behaviour remain part of the provisional interface contract in GAP-01 and ASSUMP-05. Database recovery cannot reverse physical movement or guarantee exactly-once external effects.
+
+### Retention and unconfirmed targets
+
+Under GAP-08, the SRS does not establish backup frequency, retention periods, maximum acceptable data loss or maximum acceptable restoration time. These require explicit operational decisions and validation before deployment; this proposal does not invent numerical promises.
+
+Retention rules must cover operational records, source evidence, processing receipts and recovery sets. They must preserve unresolved-fault exclusion and required record relationships, and keep duplicate-detection information for the agreed retry/replay period. Expiry must not make an old command appear new: commands outside the supported retry period require explicit review rather than automatic replay. The policy must also explain when backup copies expire so restoring an older copy does not silently reintroduce records already removed under an agreed policy. Until these rules are established, no automatic purge interval is assumed.
 
 ## 9.4 Maintenance, updates and deployment
 
