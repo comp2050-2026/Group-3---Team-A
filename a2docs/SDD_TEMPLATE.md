@@ -6,7 +6,7 @@
 **Document version:** [VERSION]  
 **Document date:** [DATE]  
 **Submission deadline:** Sunday 1 November 2026, 23:55 — check the iLearn submission display  
-**Document status:** Section-by-section working draft — Section 1 drafted; remaining sections pending their authors and review
+**Document status:** Section-by-section working draft — Sections 1 and 3 drafted; remaining sections pending their authors and review
 
 | Team member | Student ID |
 |---|---|
@@ -61,7 +61,7 @@ Fill this with the current position; blank fields are not evidence that work is 
 
 | Deliverable | Owner | Current status | Actual draft/task link | Reviewer feedback link | Review date |
 |---|---|---|---|---|---|
-| Baseline, assumptions, architecture | Yousef | Section 1 drafted; assumptions/architecture pending | [FILL] | [FILL] | [FILL] |
+| Baseline, assumptions, architecture | Yousef | Sections 1 and 3 drafted; architecture pending | [FILL] | [FILL] | [FILL] |
 | Vision and two storyboard/wireframe sets | Cooper | [FILL] | [FILL] | [FILL] | [FILL] |
 | Three state diagrams | Harrison | [FILL] | [FILL] | [FILL] | [FILL] |
 | Persistence, caching and data access | Yousef | [FILL] | [FILL] | [FILL] | [FILL] |
@@ -181,38 +181,55 @@ Redistribution is required despite not having a fourth complete detailed use cas
 
 # 3. Assumptions, clarification gaps and design decisions
 
-**Owner: Yousef | Reviewer: Harrison | Input: everyone | Status: [FILL]**
+**Owner: Yousef | Reviewer: Harrison | Input: everyone | Status: Section 3 drafted — review pending**
+
+This section distinguishes missing information from proposed implementation choices. A **clarification gap** is an unanswered question in the supplied material. A **design assumption** is a provisional condition used to continue planning. A **design decision** selects an approach and explains why it fits the requirements. Neither assumptions nor proposed decisions represent stakeholder approval.
 
 ## 3.1 Open clarification register
 
-The following are starting questions, not recorded stakeholder answers. Add actual responses and evidence as they arrive.
+The SRS explicitly leaves several operational and integration details open. The following register identifies their effect on this design and the proposed handling while clarification is pending. Source labels refer to the documents listed in §1.3. No additional stakeholder response is recorded in this draft.
 
-| Gap ID | Question / ambiguity | Affected requirements | Provisional handling | Actual response/evidence | Status |
-|---|---|---|---|---|---|
-| GAP-01 | Which fields are exchanged, who owns them, and how current must they be? | FR-01, FR-02, FR-03, NFR-02 | [FILL] | [NOT YET RECORDED] | Open |
-| GAP-02 | Who authorises a rental, controls device release and confirms returns? | Cross-system allocation; FR-02, FR-03 | [FILL] | [NOT YET RECORDED] | Open |
-| GAP-03 | How are charge eligibility, available counts and return capacity defined? | FR-02, FR-05, FR-07 | [FILL] | [NOT YET RECORDED] | Open |
-| GAP-04 | What are the exact device/station states, fault fields and resolution permissions? | FR-01, FR-03–FR-06, NFR-03 | [FILL] | [NOT YET RECORDED] | Open |
-| GAP-05 | What are the movement-confirmation, destination-capacity and conflicting-update rules? | FR-07, NFR-02 | [FILL] | [NOT YET RECORDED] | Open |
-| GAP-06 | Which recorded issues are displayed, and are any automatic alert rules agreed? | FR-08 | [FILL] | [NOT YET RECORDED] | Open |
-| GAP-07 | How are video claims about real-time telemetry, dock blocking and restored availability reconciled with the written SRS? | FR-01, FR-03, FR-05, FR-06, NFR-02 | [FILL] | [NOT YET RECORDED] | Open |
-| GAP-08 | [ADD OTHER GAP ACTUALLY IDENTIFIED] | [FILL] | [FILL] | [FILL] | [FILL] |
+| Gap ID | Unanswered question and source | Affected requirements | Provisional handling | Status |
+|---|---|---|---|---|
+| GAP-01 | Which fields are exchanged between Ops, stations and Customer, which system owns them, and how quickly must updates arrive? [SRC-01, pp.5,30,33,37] | FR-01, FR-02, FR-03, NFR-02 | Define explicit interface fields and ownership; retain source/time information and show unavailable or conflicting values. Do not promise a numerical refresh interval. | Open — interface and update expectations need agreement |
+| GAP-02 | Who authorises rentals, controls device release and confirms returns? Customer expects Ops-side actions that are not fully specified by Ops' numbered requirements. [SRC-03, pp.7–12,15,23–24; SRC-01, pp.7–9] | Cross-system allocation; FR-02, FR-03 | Keep an integration boundary for the exchanges. Do not silently add payment processing or an unconfirmed release controller to Ops. | Open — responsibilities must be allocated explicitly |
+| GAP-03 | What makes a device sufficiently charged and available, and how are exact counts and return capacity determined? [SRC-01, pp.7–8,30–31,37; SRC-03, pp.8,23] | FR-02, FR-05, FR-07 | Keep charge, physical presence, rental occupancy and unresolved faults as separate facts. Missing eligibility information is not treated as confirmed suitability or a confirmed zero count. | Open — eligibility and capacity definitions needed |
+| GAP-04 | What exact station/device statuses and fault fields are required, and who may resolve faults? [SRC-01, pp.31,37] | FR-01, FR-03, FR-04, FR-06, NFR-03 | Use the provisional fault fields in ASSUMP-03 and check permission for each protected action. Do not invent a separate staff role or fixed category/priority list. | Open — data dictionary and permission rules needed |
+| GAP-05 | What happens if a movement's destination becomes unavailable, another operator changes the device, or physical movement occurs but recording fails? [SRC-01, pp.8,32] | FR-07, NFR-02 | Recheck suitability when recording completion. Require physical confirmation; preserve contradictory movement evidence for investigation instead of presenting an uncertain location as confirmed. | Open — capacity and reconciliation rules needed |
+| GAP-06 | Which conditions generate automatic alerts, with what priorities and resolution process? [SRC-01, p.32] | FR-08 | Display recorded issues and attention indicators. Add automatic thresholds, notifications or recommendations only when their rules are established. | Open — automatic alert scope not confirmed |
+| GAP-07 | How should the video's real-time telemetry, automatic dock blocking and restored-availability claims be reconciled with the written SRS? [SRC-02, approximately 6:23–7:49; SRC-01, pp.18–19,33] | FR-01, FR-03, FR-05, FR-06, NFR-02 | Use latest-available information. Keep faulty devices excluded locally; external blocking requires an agreed contract. Resolving a fault alone does not establish charge, physical presence or rental eligibility. | Open — conflicting handover details need clarification |
+| GAP-08 | What performance, availability, backup, retention and recovery targets must the implementation meet? The numbered SRS gives qualitative fit criteria without these numerical targets. [SRC-01, pp.7–9] | NFR-01, NFR-02, NFR-03; operational planning | Specify failure/recovery mechanisms and testable qualitative behaviour. Record proposed numerical targets separately for agreement rather than presenting them as inherited requirements. | Open — operational targets needed |
+
+These gaps do not remove confirmed behaviour. For example, FR-07 already requires confirmed physical movement and excludes faulty/unavailable candidates; only the additional capacity and exception rules remain unresolved. Similarly, FR-08 requires visibility of recorded issues even though automatic alert rules are open.
 
 ## 3.2 Design assumptions
 
-| Assumption ID | Explicit assumption | Why it is reasonable | Risk if wrong | Affected design/tests | Validation status |
-|---|---|---|---|---|---|
-| ASSUMP-01 | [FILL] | [FILL] | [FILL] | [FILL] | [PROVISIONAL / AGREED WITH SOURCE] |
-| ASSUMP-02 | [FILL] | [FILL] | [FILL] | [FILL] | [FILL] |
+The following assumptions make the proposal concrete while exposing what would need to change if they are incorrect. They are provisional planning assumptions, not extra requirements attributed to Team B.
 
-Do not invent performance targets, charge thresholds, staff roles or alert priorities and present them as inherited requirements.
-
-## 3.3 Design decision log
-
-| Decision ID | Decision and alternatives considered | Rationale | Related requirement/gap | Actual decision date and evidence |
+| Assumption ID | Provisional assumption | Reason for using it | Risk if incorrect / required change | Affected area and validation status |
 |---|---|---|---|---|
-| DEC-01 | [FILL] | [FILL] | [FILL] | [FILL; DO NOT BACKDATE] |
-| DEC-02 | [FILL] | [FILL] | [FILL] | [FILL] |
+| ASSUMP-01 | Authorised staff can access a supported browser and network connection for normal operational tasks. | Provides a common staff interface without assuming a separate installed mobile or desktop application. | If tasks must work without connectivity or on restricted devices, the interface/deployment approach must be revised. | NFR-01, NFR-03; device/connectivity context unconfirmed |
+| ASSUMP-02 | Registered station/device identities and authorised staff identities are supplied through an agreed setup process. | The SRS assumes registered unique identities and authorised access, but does not specify registration/account-administration screens. [SRC-01, p.6] | Agree a provisioning/import process before implementation; do not assume missing registration features already exist. | FR-01–FR-07, NFR-03; provisioning mechanism open |
+| ASSUMP-03 | Fault creation requires the registered device ID and a non-empty fault description. Resolution requires a resolution note and an operator permitted to resolve that fault. | Gives concrete provisional validation rules for the SRS's requirement to save valid fault information against the correct device. | Stakeholders may require different/additional fields; update forms, validation and tests together. | FR-04, FR-06, NFR-03; fields and permission assignments open |
+| ASSUMP-04 | A device may have multiple independent fault records. It remains excluded from normal availability while any fault is unresolved. | Prevents resolving one issue from hiding another unresolved issue. | If only one active fault record is permitted, revise the workflow/schema while preserving unresolved-fault exclusion. | FR-04–FR-06; multiple-fault policy unconfirmed |
+| ASSUMP-05 | External sources can supply stable event identifiers and ordering information, such as a source revision, where automated deduplication/ordering is needed. | Allows repeated or late updates to be recognised without relying only on arrival time. | If ordering cannot be established, retain conflicting evidence for investigation rather than automatically treating the last arrival as correct. | FR-01–FR-03, NFR-02; external contract open |
+
+No numerical charge threshold, refresh deadline, low-stock trigger or recovery target is assumed. Unique device IDs also do not imply GPS tracking: the design uses available recorded location information, including an explicit unknown/investigation outcome where required.
+
+## 3.3 Proposed design decisions
+
+The following choices are proposed for the design. They are recorded on **1 November 2026**, the date of this draft, and remain subject to review. This date does not represent a previous meeting or stakeholder agreement. Section 4 will show their architectural effect; the later data and test sections must remain consistent with them.
+
+| Decision ID | Proposed choice and alternative | Rationale | Requirement / gap link | Status |
+|---|---|---|---|---|
+| DEC-01 | Use a staff web interface, a modular backend and a PostgreSQL relational database. Alternative: separately deployed services for each business feature. | Fault, device and movement updates are closely related. A shared transaction boundary simplifies consistent updates while named modules keep responsibilities clear. | FR-04–FR-07, NFR-01; ASSUMP-01 | Proposed — architecture review pending |
+| DEC-02 | Store fault state, physical location, charge/occupancy facts and information quality separately. Alternative: one combined device-status flag. | A device can be at a known station while faulty or insufficiently charged. One cleared fault must not imply every other eligibility condition is satisfied. | FR-02, FR-03, FR-05, FR-06, NFR-02; GAP-03/04 | Proposed — detailed state dictionary pending |
+| DEC-03 | Check permissions on the backend for every protected request, and recheck the relevant device/record version when a change is saved. Alternative: trusting a visible UI control and previously loaded data. | Prevents unauthorised direct requests and changes based on outdated suitability information. | NFR-03, FR-05, FR-07; GAP-04/05 | Proposed — permission assignments pending |
+| DEC-04 | Save a pending outgoing-update record with the local business change, then deliver/retry it separately. Alternative: require an external response before recognising local save success. | A saved fault should remain durable when Customer is unreachable. Local success and confirmed external synchronisation must be distinguishable. | FR-04–FR-06, NFR-02; GAP-01/07 | Proposed — outgoing contract pending |
+| DEC-05 | Use database-backed operational views without a separate business-data cache or offline browser write queue initially. Alternative: additional cached copies and queued offline changes. | Reduces inconsistent copies and stale management commands for the pilot. The UI can refresh, while the backend remains responsible for validating changes. | NFR-02, FR-05, FR-07; ASSUMP-01 | Proposed — revisit if measured workload or offline needs justify it |
+| DEC-06 | Implement recorded-issue visibility first; introduce automatic alerts/recommendations only with defined rules. Alternative: invent alert thresholds or predictive features. | Meets the confirmed operator need without expanding an unspecified rule set. | FR-08; GAP-06; SRC-05, §3 | Proposed — automatic alert rules remain open |
+
+Changes to a decision must update the affected diagrams, data rules, RTM and tests together. Once a question is answered or a decision reviewed, record the actual response/review evidence and date; an open item should not be marked agreed solely because a plausible design has been written.
 
 # 4. System architecture and rationale
 
