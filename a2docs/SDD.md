@@ -851,13 +851,14 @@ Suggested length: approximately 3–4 pages. The brief specifies Sprint 1 from t
 
 | Reference ID | Author / organisation | Resource title | Version/date and access date | Link / source location | Where used |
 |---|---|---|---|---|---|
-| REF-01 | Team B | ChargeMate Ops SRS | [v1.2, 12 October 2026] | A1 Week 8 Handover forum (iLearn) | Sections 1, 3, 5, 11, 12, 13 |
-| REF-02 | Team B | ChargeMate Ops handover explainer video | 12 October 2026 | A1 Week 8 Handover forum (iLearn) | Section 3 |
+| REF-01 | Team B | ChargeMate Ops SRS | [v1.2, 12 September 2026] | A1 Week 8 Handover forum (iLearn) | Sections 1, 3, 5, 11, 12, 13 |
+| REF-02 | Team B | ChargeMate Ops handover explainer video | 12 September 2026 | A1 Week 8 Handover forum (iLearn) | Section 3 |
 | REF-03 | Team A | ChargeMate Customer SRS | Change log to v1.5, 13 Sep 2026 | a1docs/srs.md |
 | REF-04 | COMP2050 teaching team | Assignment 2 brief | 12th September 2026 | Ilearn, Assessment 2 | Deliverable structure, sprint timing.
-| REF-05 | COMP2050 convenor | Assignment 1 Project B brief: ChargeMate Ops | 22 Jul 2026 | iLearn Assessment 1 | Session 1.2, 3 |
+| REF-05 | COMP2050 convenor | Assignment 1 Project B brief: ChargeMate Ops | 22 Jul 2026 | iLearn Assessment 1 | Section 1.2, 3 |
 | REF-06 | JGraph Ltd | Draw.io | | https://www.drawio.com/ | 7chart.png, 8chart.png |
 | REF-07 | Lucid Software Inc | Lucid Chart | | lucid.app | WF-01-08, SD-03.png |
+| REF-08 | Anthropic | Claude | | | claude.ai | Used for breaking down and clarifying assessment brief |
 
 [FILL: Include diagram tools, borrowed assets/templates, technical resources and AI assistance actually used, with the required acknowledgement. Cite sources within the relevant sections as well as in this list.]
 
