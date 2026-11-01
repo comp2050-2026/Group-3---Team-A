@@ -311,52 +311,49 @@ This example shows why the interface, permissions, business modules, database an
 
 **Owner: Cooper | Reviewers: Yousef for requirements/UI behaviour; Harrison for state/test consistency | Status: Review Pending **
 
-images/WF-01.png
-images/WF-02.png
-images/WF-03.png
-images/WF-04.png
-images/WF-05.png
-images/WF-06.png
-images/WF-07.png
-images/WF-08.png
-
-Use multi-step operator interactions. Suggested choices are UC-01 and UC-03. Include actual screens and the sequence between them, not only a written use-case summary.
-
 ## 5.1 Storyboard SB-01 — UC-01 View Station Status
 
-**Actor:** [DESCRIBE AUTHORISED OPERATOR, GOAL, WORKING CONTEXT AND KNOWLEDGE]  
-**Preconditions:** [FILL]  
-**Requirements:** [FILL]  
-**Related tests:** [FILL]
+**Actor:** ChargeMate Operator. An authorised staff member on shift who looks after the day-to-day running of the power bank network at Harbour North Plaza. They know the centre and where each station is, but they aren't technical and shouldn't need database access or commandm line tools (NFR-01). A usual time they use this is at the start of a shift, or just before a busy period like the food court lunch rush, when they want to quickly see which stations are free of faults, which need someone to check them, and where the system doesn't have reliable information. They could be at a desk or walking around the centre, so the screens are designed to work on a desktop or tablet (ASSUMP-01).
 
-| Step | Screen ID/title | Operator action | System response and information displayed | Next screen / branch |
-|---|---|---|---|---|
-| 1 | WF-01 — Station overview | [FILL] | [FILL] | [FILL] |
-| 2 | WF-02 — Selected station | [FILL] | [FILL] | [FILL] |
-| 3 | WF-03 — Attention/recovery view | [FILL] | [FILL] | [FILL] |
+**Preconditions:** The operator is signed in and authorised to view station information (NFR-03). The stations are registered in ChargeMate Ops (SRC-01 A01).
 
-**Figures WF-01 to WF-03:** [INSERT ANNOTATED WIREFRAMES]
+**Requirements:** FR-01, FR-02, FR-05, FR-08, NFR-01, NFR-02, NFR-03
 
-[FILL: Explain unavailable data, conflicting data, confirmed zero versus unknown availability, attention indicators and recovery navigation.]
+### SB-01 Wireframes
 
-## 5.2 Storyboard SB-03 — UC-03 Report and Manage a Faulty Power Bank
+![WF-01 Station overview](images/WF-01.png)
+*Figure 5.1.2 — WF-01 Station overview.*
 
-**Actor:** [DESCRIBE OPERATOR; DISTINGUISH RESOLUTION PERMISSION IF APPLICABLE]  
-**Preconditions:** [FILL]  
-**Requirements:** [FILL]  
-**Related tests:** [FILL]
+![WF-02 Selected station](images/WF-02.png)
+*Figure 5.1.3 — WF-02 Selected station.*
 
-| Step | Screen ID/title | Operator action | System response and information displayed | Next screen / branch |
-|---|---|---|---|---|
-| 1 | WF-04 — Device search/detail | [FILL] | [FILL] | [FILL] |
-| 2 | WF-05 — Fault entry | [FILL] | [FILL] | [FILL] |
-| 3 | WF-06 — Save result | [FILL] | [FILL] | [FILL] |
-| 4 | WF-07 — Later fault review | [FILL] | [FILL] | [FILL] |
-| 5 | WF-08 — Resolution entry/result | [FILL] | [FILL] | [FILL] |
+![WF-03 Attention / recovery view](images/WF-03.png)
+*Figure 5.1.4 — WF-03 Attention / recovery view.*
 
-**Figures WF-04 to WF-08:** [INSERT ANNOTATED WIREFRAMES]
+## 5.2 Storyboard SB-03 - UC-03 Report and Manager a Faulty Powerbank
 
-[FILL: Show not-found, missing information, save failure, unresolved investigation, denied resolution and failed resolution. Later resolution can occur in a different session. Do not show success before a successful save or automatic rental eligibility after resolution.]
+**Actor:** ChargeMate Operator, the same staff member described in SB-01. They've either found a power bank that won't charge or is damaged, or been told about one through the customer reporting system. They're usually standing at the station holding the device, so the fault form needs to be short and quick to fill in. Finding a resolution for the fault usually happens later, often in a different shift and by a different staff member, once the device has been looked at. Team B's SRS says resolution is done by "an operator authorised for the action" but doesn't confirm a separate role (SRC-01 §7.3.3), so we treat resolving a fault as a permission that can be given to any operator account rather than a separate actor (GAP-04, ASSUMP-03).
+
+**Preconditions:** The operator is signed in and has permission to record faults (NFR-03). The power bank is registered with a unique ID (SRC-01 A02).
+
+**Requirements:** FR-03, FR-04, FR-05, FR-06, FR-08, NFR-01, NFR-02, NFR-03
+
+### SB-03 Wireframes
+
+![WF-04 Device search / detail](images/WF_04.png)
+*Figure 5.2.1 — WF-04 Device search / detail.*
+
+![WF-05 Fault entry](images/WF-05.png)
+*Figure 5.2.2 — WF-05 Fault entry.*
+
+![WF-06 Save result](images/WF-06.png)
+*Figure 5.2.3 — WF-06 Save result.*
+
+![WF-07 Later fault review](images/WF-07.png)
+*Figure 5.2.4 — WF-07 Delayed error review.*
+
+![WF-08 Resolution entry / result](images/WF-08.png)
+*Figure 5.2.5 — WF-08 Resolution entry / result.*
 
 # 6. State diagram 1 — FaultRecord
 
