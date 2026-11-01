@@ -425,16 +425,11 @@ The object choice is proposed. If replaced, choose another object with meaningfu
 
 | Current state | Event | Guard / condition | Action | Next state | Related test |
 |---|---|---|---|---|---|
-| Initial | powerbankregistered(powerbankid) | Unique ID supplied through the agreed setup process| Create tracking record; no location recorded | No reliable location -> Location unknown | [FILL] |
-| Location unknown | locationobserved(powerbankid, powerbanklocation, powerbanksource, powerbanktime) | Observation is reliable and consistent with recorded data | Store observation; set recorded location | Location known (via exit point) | [FILL] |
-| Location known | locationobserved(powerbankid, powerbanklocation, powerbanksource, powerbanktime) | Reliable and consistent | Update last-known location and time | Location known | [FILL] |
-| Location known | locationunavailable(powerbankid) | Source reports no reliable current location | Mark location unknown | Location unknown | [FILL] |
-| Location known | conflictingObservation(powerbankid) | Sources disagree and order cannot be established| Keep both observations and flag as requiring investigation | Information conflicting | [FILL] |
-| Location unknown | conflictingobservation(powerbankid) | Sources disagree and order cannot be established | Keep both observations; flag as requiring investigation | Information conflicting (within No reliable location) | [FILL] |
-| Information conflicting | conflictreconciled(powerbankid) | A reliable location is established | Record outcome and clear the flag | Location known | [FILL] |
-| All States | searchPowerBank(id) | Operator authorised, ID registered and information retrievable | Display status and location, or "unknown", or "requires investigation", according to the state | Same state | [FILL] |
-| All States | searchPowerBank(id) | Information cannot be retrieved | Show error; nothing stored | Same state | [FILL] |
-| All States | searchPowerBank(id) | Operator not authorised | Deny access; nothing displayed | Same state | [FILL] |
+| Initial | searchPowerBank(powerBankID) | Operator authorised; ID registered; information retrievable | Open tracking lookup; display "unknown" until reliable information is available | No reliable location → Location unknown (via entry point) | [FILL] |
+| Location unknown | locationObserved(id, location, source, time) | Observation is reliable and consistent with recorded data | Display recorded status and location | Location known (via exit point) | [FILL] |
+| Location unknown | conflictingObservation(id) | Sources disagree and order cannot be established (ASSUMP-05) | Keep both observations; display "requires investigation" | Information conflicting | [FILL] |
+| Information conflicting | conflictReconciled(id) | A reliable location is established | Record outcome; clear the investigation flag; display location | Location known (via exit point) | [FILL] |
+| Location known | resultReviewed() | Operator has viewed the information | Close the lookup | Final | [FILL] |
 
 [FILL: Distinguish selecting/planning a movement from confirming physical movement and successfully recording completion. Handle faulty/unavailable devices, competing updates and failed recording after a physical move. Mark capacity/in-transit policies as assumptions where not agreed.]
 
