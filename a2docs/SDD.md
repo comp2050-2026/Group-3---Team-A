@@ -396,7 +396,7 @@ The object choice is proposed. If replaced, choose another object with meaningfu
 **Object and purpose:** FaultRecord Represents a reported fault against a submitted power bank. It tracks when the faulty record was submitted, and what is wrong with it.
 **Requirements/use cases:** UC-03 – Report and Manage a Faulty Power Ban, FR-04, FR-05, FR-06, FR-07, FR-08
 **Figure SD-01:** 
-![Fault Record State Diagram](images\image.png)
+![Fault Record State Diagram](images\7chart.png)
 
 | Current state | Event | Guard / condition | Action | Next state | Related test |
 |---|---|---|---|---|---|
@@ -418,7 +418,7 @@ The object choice is proposed. If replaced, choose another object with meaningfu
 
 **Owner: Harrison | Reviewer: Yousef | Coordinate the movement/data rules with section 9 | Status: [FILL]**
 
-**Object and purpose:** [FILL]  
+**Object and purpose:** Powerbank tracking status. represents the data that ChargeMate Ops  
 **Requirements/use cases:** [FILL]  
 **Figure SD-02:** [INSERT UML STATE DIAGRAM]
 
