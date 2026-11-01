@@ -309,7 +309,16 @@ This example shows why the interface, permissions, business modules, database an
 
 # 5. User experience: two wireframe/storyboard sets
 
-**Owner: Cooper | Reviewers: Yousef for requirements/UI behaviour; Harrison for state/test consistency | Status: [FILL]**
+**Owner: Cooper | Reviewers: Yousef for requirements/UI behaviour; Harrison for state/test consistency | Status: Review Pending **
+
+images/WF-01.png
+images/WF-02.png
+images/WF-03.png
+images/WF-04.png
+images/WF-05.png
+images/WF-06.png
+images/WF-07.png
+images/WF-08.png
 
 Use multi-step operator interactions. Suggested choices are UC-01 and UC-03. Include actual screens and the sequence between them, not only a written use-case summary.
 
