@@ -6,7 +6,7 @@
 **Document version:** [VERSION]  
 **Document date:** [DATE]  
 **Submission deadline:** Sunday 1 November 2026, 23:55 — check the iLearn submission display  
-**Document status:** Working template — incomplete and not team-approved
+**Document status:** Section-by-section working draft — Section 1 drafted; remaining sections pending their authors and review
 
 | Team member | Student ID |
 |---|---|
@@ -61,7 +61,7 @@ Fill this with the current position; blank fields are not evidence that work is 
 
 | Deliverable | Owner | Current status | Actual draft/task link | Reviewer feedback link | Review date |
 |---|---|---|---|---|---|
-| Baseline, assumptions, architecture | Yousef | [FILL] | [FILL] | [FILL] | [FILL] |
+| Baseline, assumptions, architecture | Yousef | Section 1 drafted; assumptions/architecture pending | [FILL] | [FILL] | [FILL] |
 | Vision and two storyboard/wireframe sets | Cooper | [FILL] | [FILL] | [FILL] | [FILL] |
 | Three state diagrams | Harrison | [FILL] | [FILL] | [FILL] | [FILL] |
 | Persistence, caching and data access | Yousef | [FILL] | [FILL] | [FILL] | [FILL] |
@@ -104,65 +104,74 @@ Appendix B. Evidence index and contributions
 
 # 1. Project scope and requirements baseline
 
-**Owner: Yousef | Reviewer: Harrison | Status: [FILL]**
+**Owner: Yousef | Reviewer: Harrison | Status: Section 1 drafted — review pending**
 
 ## 1.1 Purpose and intended audience
 
-[FILL: Explain that this SDD plans implementation of ChargeMate Ops for a development team and project managers, and demonstrates the COMP2050 design work.]
+This System Design Document describes how ChargeMate Ops can be implemented to support the power bank network at Harbour North Plaza. It translates the paired Team B's requirements into component responsibilities, information flows, data rules and verification links. Its intended readers are a development team planning implementation and project managers allocating and reviewing that work. The accompanying test specifications describe how the proposed behaviour would be verified; they do not report an existing implementation.
+
+For Assignment 2, Group 3 Team A designs the operator-facing project specified by Team B. The earlier ChargeMate Customer SRS supplies external interface context. It does not replace the Ops requirements baseline. [SRC-01, §4; SRC-04]
 
 ## 1.2 System scope and boundary
 
-[FILL: Define staff station monitoring, device tracking, fault management, recorded operational issues and confirmed redistribution. Explain the Harbour North Plaza context.]
+ChargeMate Ops helps authorised staff inspect stations, find registered devices, record and resolve faults, identify recorded operational issues and record confirmed redistribution. Different demand patterns around the plaza make a shared operational view useful, but the system does not assume that every external observation is current or correct. Unknown, unavailable and conflicting information remain visible rather than being replaced with plausible values. [SRC-01, §§5–6; SRC-05]
 
-| Inside ChargeMate Ops | External responsibility or unresolved boundary |
+| Inside ChargeMate Ops | External responsibility or boundary |
 |---|---|
-| [FILL] | [FILL] |
-| [FILL] | [FILL] |
+| Station status, available power bank information and recorded attention indicators | The Rental Station System supplies physical observations; a displayed status does not independently prove hardware health |
+| Registered device lookup and available recorded location/status | No GPS or guaranteed continuous physical tracking is assumed |
+| Fault recording, unresolved-fault exclusion and valid resolution | Physical inspection/repair is staff work; clearing a fault does not itself certify rental eligibility |
+| Recording suitable devices' confirmed movement between registered stations | A planned destination is not a completed physical transfer; staff provide confirmation |
+| Receiving and reconciling relevant operational/rental/return information | Exact Customer/station contracts remain subject to the clarification register |
+| Protected staff operations | Customer registration, payment processing, prices, late-fee calculation and the customer kiosk journey remain outside Ops |
 
-[FILL: Identify the primary ChargeMate Operator and the external Rental Station System and Customer-Facing ChargeMate System. Keep customer accounts and payment processing outside Ops. Resolve or explicitly document who owns rental release and return confirmation.]
+The primary actor is the **ChargeMate Operator**. The **Rental Station System** and **Customer-Facing ChargeMate System** are external collaborators. Other staff may investigate or repair a device, but the source does not establish a separate maintenance-system role. Authorisation is therefore expressed through permissions until a staff permission matrix is confirmed. [SRC-01, pp.5–6,14–15]
+
+Rental release and return-confirmation ownership requires an explicit decision. Customer's SRS expects Ops-side confirmations and device release, while Ops' numbered FRs mainly describe operational records and views. This design provides an adapter boundary for those exchanges without silently allocating payment processing or hardware release control to Ops. [SRC-03, pp.7–12,15,23–24]
 
 ## 1.3 Received baseline and source documents
 
-| Source ID | Document or recording | Version/date | Exact source location | How it is used |
-|---|---|---|---|---|
-| SRC-01 | Team B ChargeMate Ops SRS — `SRS (1).pdf` | Cover v1.2, 12 September 2026; verify received baseline | [SHARED FILE LINK] | Primary inherited requirements and fit criteria |
-| SRC-02 | Team B handover — `Untitled design (3).mp4` | [VERIFY DATE] | [SHARED FILE LINK] | Explanation; log conflicts with the written SRS |
-| SRC-03 | Team A ChargeMate Customer SRS — `Group3_TeamA_COMP2050.pdf` | [VERIFY VERSION/DATE] | [SHARED FILE LINK] | External interface context |
-| SRC-04 | Current COMP2050 Assignment 2 instructions | [VERSION/ACCESS DATE] | [ILEARN LINK OR SUPPLIED BRIEF] | Submission requirements |
-| SRC-05 | [OTHER SOURCE ACTUALLY USED] | [FILL] | [FILL] | [FILL] |
+| Source ID | Source and version | Precise locator | Use in this design |
+|---|---|---|---|
+| SRC-01 | Team B, *ChargeMate Ops Software Requirements Specification*, supplied as `SRS (1).pdf`; cover v1.2, 12 September 2026 | Requirements/fit criteria pp.7–9; use cases pp.12–19; recorded open questions pp.30–37 | Primary behaviour and acceptance baseline |
+| SRC-02 | Team B handover, `Untitled design (3).mp4`, duration approximately 8:01; recording date not established | Approximately 4:23–6:07: information quality, physical confirmation and unanswered questions; 6:23–7:49: more specific workflow claims | Explanation and discrepancy identification |
+| SRC-03 | Group 3 Team A, *ChargeMate Customer SRS*, `Group3_TeamA_COMP2050.pdf`; change log through v1.5 dated 13 September 2026 | Dependencies and requirements pp.7–12; Customer–Ops Q&A pp.23–24; return/problem flows pp.17–19 | External expectations and allocation conflicts |
+| SRC-04 | Supplied COMP2050 Assignment 2 instructions | System Design, RTM, Test Specifications and Staff Report headings | Deliverable structure and project swap |
+| SRC-05 | Released Project B brief, repository copy | [Project B — ChargeMate Ops](https://github.com/comp2050-2026/Group-3---Team-A/blob/main/project-briefs/PROJECT_B_CHARGEMATE_OPS.md), §§2–4; accessed 1 November 2026 | Plaza context and operator/customer boundary |
 
-[FILL: Explain how conflicting document/video statements and later clarifications are handled. Do not silently replace the numbered Ops baseline.]
+The supplied ChargeMate Ops SRS is the requirements baseline for this design. Additional or conflicting details in the handover video are recorded as clarification questions or clearly labelled design assumptions.
 
 ## 1.4 Requirement reference list
 
-These IDs and titles come from SRC-01 §6, pp.7–9. Read the **full requirement sentences and fit criteria** when designing and testing. The titles alone do not define acceptance.
+The baseline contains eight functional and three non-functional requirements. The following summaries preserve their design implications; the full requirement sentences and fit criteria remain in SRC-01, pp.7–9.
 
-| ID | Inherited requirement title |
-|---|---|
-| FR-01 | View Rental Station Status |
-| FR-02 | View Power Bank Availability |
-| FR-03 | Track Individual Power Bank |
-| FR-04 | Record Power Bank Fault |
-| FR-05 | Identify Faulty Power Banks |
-| FR-06 | Resolve Power Bank Fault |
-| FR-07 | Support Power Bank Redistribution |
-| FR-08 | Identify Operational Issues |
-| NFR-01 | Usability |
-| NFR-02 | Operational Data Reliability |
-| NFR-03 | Security and Access Control |
+| ID | Requirement title | Acceptance consequence for the design |
+|---|---|---|
+| FR-01 | View Rental Station Status | Match latest available station information and identify unreliable information |
+| FR-02 | View Power Bank Availability | Match available records; unknown is not a confirmed count; unresolved faults exclude normal availability |
+| FR-03 | Track Individual Power Bank | Match a unique registered ID; not-found, unknown location and conflicting data have distinct outcomes |
+| FR-04 | Record Power Bank Fault | Validate and save against the correct device; report missing details and failed saves |
+| FR-05 | Identify Faulty Power Banks | Any unresolved fault keeps the device visibly requiring attention and excluded from normal availability |
+| FR-06 | Resolve Power Bank Fault | Store a valid resolution and update the associated fault/device view |
+| FR-07 | Support Power Bank Redistribution | Record suitable devices' confirmed movement and new station; exclude faulty/unavailable candidates |
+| FR-08 | Identify Operational Issues | Distinguish recorded attention conditions from normal operation |
+| NFR-01 | Usability | Ordinary staff tasks use visible controls without database/command-line intervention |
+| NFR-02 | Operational Data Reliability | Do not display assumed values as confirmed; expose unavailable, unknown and conflicting information |
+| NFR-03 | Security and Access Control | Deny unauthorised operational access; allow only permitted actions |
 
-Use `Customer.FR-xx` for Team A's earlier requirements when comparing interfaces, because both SRS documents restart their numbering at FR-01.
+`FR-xx` refers to Ops throughout this document. A Customer requirement is prefixed `Customer.FR-xx` to prevent collisions between the two SRS numbering schemes.
 
 ## 1.5 Use-case baseline
 
-| Source use case | Name | Main SRS location |
+| Source use case | Design interpretation | Source |
 |---|---|---|
-| UC-01 | View Station Status | SRC-01 pp.12–13; Figure 3 p.16 |
-| UC-02 | Track a Power Bank | SRC-01 pp.13–14; Figure 4 p.17 |
-| UC-03 | Report and Manage a Faulty Power Bank | SRC-01 pp.14–15; Figure 5 p.18 and note p.19 |
-| UC-04 / supporting model | Redistribute Power Banks Between Stations | Historical discussion and overall model; not a fourth fully detailed use case in the final SRS |
+| UC-01 — View Station Status | Open monitoring, inspect available station information, select a station and recognise unavailable/conflicting/attention conditions | SRC-01 pp.12–13; Figure 3 p.16 |
+| UC-02 — Track a Power Bank | Search a unique ID and inspect available status/location; distinguish missing ID from unknown location and conflicting observations | SRC-01 pp.13–14; Figure 4 p.17 |
+| UC-03 — Report and Manage a Faulty Power Bank | Identify device, validate/save a fault, preserve exclusion and later record a permitted resolution; failed updates do not count as success | SRC-01 pp.14–19; Figure 5 p.18 |
+| Supporting redistribution scenario | Select candidate/source/destination, revalidate suitability, confirm physical movement and commit the new recorded location | FR-07; overall model p.11 and historical UC-04 discussion pp.36–38 |
+| Supporting issue-view scenario | Inspect the attention indicators generated by recorded faults, unavailable stations and inconsistent information | FR-08 and UC-01/02/03 failure/alternative branches |
 
-[FILL: Explain how FR-07 and FR-08 are covered even though the source has only three detailed use cases. Label new supporting scenarios as design elaborations.]
+Redistribution is required despite not having a fourth complete detailed use case in the final SRS. The supporting scenarios above are design elaborations. A successful return, a fault resolution and a rental-ready device are treated as different facts.
 
 # 2. Project vision
 
