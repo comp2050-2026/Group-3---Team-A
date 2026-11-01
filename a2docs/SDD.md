@@ -421,7 +421,8 @@ The object choice is proposed. If replaced, choose another object with meaningfu
 
 **Object and purpose:** Powerbank tracking status. represents the data that ChargeMate Ops can see about the location of a power bank, seperating known location, and information that needs to be investigated.
 **Requirements/use cases:** UC-02 - Track a Power Bank, FR-03 
-**Figure SD-02:** [INSERT UML STATE DIAGRAM]
+**Figure SD-02:**
+![Fault Record State Diagram](./images/8chart.png)
 
 | Current state | Event | Guard / condition | Action | Next state | Related test |
 |---|---|---|---|---|---|
@@ -431,7 +432,9 @@ The object choice is proposed. If replaced, choose another object with meaningfu
 | Information conflicting | conflictReconciled(id) | A reliable location is established | Record outcome; clear the investigation flag; display location | Location known (via exit point) | [FILL] |
 | Location known | resultReviewed() | Operator has viewed the information | Close the lookup | Final | [FILL] |
 
-[FILL: Distinguish selecting/planning a movement from confirming physical movement and successfully recording completion. Handle faulty/unavailable devices, competing updates and failed recording after a physical move. Mark capacity/in-transit policies as assumptions where not agreed.]
+**What the Object is:** Diagram shows 1 pass of the location tracking on the power bank
+**How the Lookup Starts:** an authorised operator starts the search with an id for a powerbank. Location is put into location unknown state until a valid location is found.
+**Failed Search:** 
 
 # 8. State diagram 3 — ViewStationStatus
 
