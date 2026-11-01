@@ -9,32 +9,19 @@
 
 | Team member | Student ID |
 |---|---|
-| Yousef Mustafa | 48603090 |
+| Yousef Musleh | 48603090 |
 | Harrison McLuckie | 49154788 |
 | Cooper Went | 49067281 |
-| Isaac Lynn | [FILL] |
+| Isaac Lynn | 49067265 |
 
 ---
 
 # Contents
 
 - [1. Project scope and requirements baseline](#1-project-scope-and-requirements-baseline)
-  - [1.1 Purpose and intended audience](#11-purpose-and-intended-audience)
-  - [1.2 System scope and boundary](#12-system-scope-and-boundary)
-  - [1.3 Received baseline and source documents](#13-received-baseline-and-source-documents)
-  - [1.4 Requirement reference list](#14-requirement-reference-list)
-  - [1.5 Use-case baseline](#15-use-case-baseline)
 - [2. Project vision](#2-project-vision)
 - [3. Assumptions, clarification gaps and design decisions](#3-assumptions-clarification-gaps-and-design-decisions)
-  - [3.1 Open clarification register](#31-open-clarification-register)
-  - [3.2 Design assumptions](#32-design-assumptions)
-  - [3.3 Proposed design decisions](#33-proposed-design-decisions)
 - [4. System architecture and rationale](#4-system-architecture-and-rationale)
-  - [4.1 Architecture overview](#41-architecture-overview)
-  - [4.2 Component catalogue](#42-component-catalogue)
-  - [4.3 Requirement-driven architecture rationale](#43-requirement-driven-architecture-rationale)
-  - [4.4 External interface responsibilities](#44-external-interface-responsibilities)
-  - [4.5 Example: recording a power bank fault](#45-example-recording-a-power-bank-fault)
 - [5. User experience: two wireframe/storyboard sets](#5-user-experience-two-wireframestoryboard-sets)
   - [5.1 Storyboard SB-01 — UC-01 View Station Status](#51-storyboard-sb-01--uc-01-view-station-status)
   - [5.2 Storyboard SB-03 — UC-03 Report and Manage a Faulty Power Bank](#52-storyboard-sb-03--uc-03-report-and-manage-a-faulty-power-bank)
@@ -47,8 +34,6 @@
   - [9.3 Backup, recovery and retention](#93-backup-recovery-and-retention)
   - [9.4 Maintenance, updates and deployment](#94-maintenance-updates-and-deployment)
 - [10. Trade-offs and concurrent processes](#10-trade-offs-and-concurrent-processes)
-  - [10.1 Important trade-offs](#101-important-trade-offs)
-  - [10.2 Concurrent activities and race conditions](#102-concurrent-activities-and-race-conditions)
 - [11. Requirements Traceability Matrix](#11-requirements-traceability-matrix)
 - [12. Test specifications and test plan](#12-test-specifications-and-test-plan)
   - [12.1 Test approach and fixtures](#121-test-approach-and-fixtures)
@@ -60,11 +45,8 @@
   - [13.2 Tools, communication and changes from A1 to A2](#132-tools-communication-and-changes-from-a1-to-a2)
   - [13.3 Sprint allocations and repository evidence](#133-sprint-allocations-and-repository-evidence)
 - [14. References and resources](#14-references-and-resources)
-- [Appendix A. Team interaction log and full records](#appendix-a-team-interaction-log-and-full-records)
-  - [A.1 Interaction index](#a1-interaction-index)
-  - [A.2 Full record template — duplicate for each actual interaction](#a2-full-record-template--duplicate-for-each-actual-interaction)
-- [Appendix B. Evidence index and contributions](#appendix-b-evidence-index-and-contributions)
-  - [B.1 Evidence index](#b1-evidence-index)
+- [Appendix A. Team interaction records](#appendix-a-team-interaction-records)
+- [Appendix B. Evidence and contributions](#appendix-b-evidence-and-contributions)
   - [B.2 Individual contributions supported by evidence](#b2-individual-contributions-supported-by-evidence)
 
 ---
@@ -81,14 +63,7 @@ For A2, Group 3 Team A designs Team B’s operator-facing Ops project. The earli
 
 Authorised staff inspect stations/devices, record and resolve faults, view issues and record confirmed redistribution. Unknown, unavailable and conflicting information remain explicit. [SRC-01, Sections 5–6; SRC-05]
 
-| Inside ChargeMate Ops | External responsibility or boundary |
-|---|---|
-| Station status, available power bank information and recorded attention indicators | The Rental Station System supplies physical observations; a displayed status does not independently prove hardware health |
-| Registered device lookup and available recorded location/status | No GPS or guaranteed continuous physical tracking is assumed |
-| Fault recording, unresolved-fault exclusion and valid resolution | Physical inspection/repair is staff work; clearing a fault does not itself certify rental eligibility |
-| Recording suitable devices' confirmed movement between registered stations | A planned destination is not a completed physical transfer; staff provide confirmation |
-| Receiving and reconciling relevant operational/rental/return information | Exact Customer/station contracts remain subject to the clarification register |
-| Protected staff operations | Customer registration, payment processing, prices, late-fee calculation and the customer kiosk journey remain outside Ops |
+Ops covers station/device views, fault recording/resolution, recorded attention indicators and suitable devices’ confirmed redistribution. Physical inspection/repair and station hardware remain external; planning a move is not completing it. The design assumes neither GPS nor continuous tracking. Customer accounts, payments, prices, penalties and the kiosk journey stay outside Ops. Exact integration ownership remains in Section 4.4; fault resolution alone does not establish rental eligibility.
 
 The **ChargeMate Operator** is the primary actor; the **Rental Station System** and **Customer-Facing ChargeMate System** are external collaborators. The SRS establishes no separate maintenance role, so access uses action permissions pending GAP-04. [SRC-01, pp.5–6,14–15]
 
@@ -108,23 +83,7 @@ The supplied ChargeMate Ops SRS is the requirements baseline for this design. Ad
 
 ## 1.4 Requirement reference list
 
-The following design summaries cover all eight FRs and three NFRs; exact requirements and fit criteria remain in SRC-01, pp.7–9.
-
-| ID | Requirement title | Acceptance consequence for the design |
-|---|---|---|
-| FR-01 | View Rental Station Status | Match latest available station information and identify unreliable information |
-| FR-02 | View Power Bank Availability | Match available records; unknown is not a confirmed count; unresolved faults exclude normal availability |
-| FR-03 | Track Individual Power Bank | Match a unique registered ID; not-found, unknown location and conflicting data have distinct outcomes |
-| FR-04 | Record Power Bank Fault | Validate and save against the correct device; report missing details and failed saves |
-| FR-05 | Identify Faulty Power Banks | Any unresolved fault keeps the device visibly requiring attention and excluded from normal availability |
-| FR-06 | Resolve Power Bank Fault | Store a valid resolution and update the associated fault/device view |
-| FR-07 | Support Power Bank Redistribution | Record suitable devices' confirmed movement and new station; exclude faulty/unavailable candidates |
-| FR-08 | Identify Operational Issues | Distinguish recorded attention conditions from normal operation |
-| NFR-01 | Usability | Ordinary staff tasks use visible controls without database/command-line intervention |
-| NFR-02 | Operational Data Reliability | Do not display assumed values as confirmed; expose unavailable, unknown and conflicting information |
-| NFR-03 | Security and Access Control | Deny unauthorised operational access; allow only permitted actions |
-
-`FR-xx` refers to Ops throughout this document. A Customer requirement is prefixed `Customer.FR-xx` to prevent collisions between the two SRS numbering schemes.
+The inherited baseline contains FR-01–FR-08 and NFR-01–NFR-03. Exact requirements and fit criteria are in SRC-01, pp.7–9; Section 11 maps every requirement to use cases, components and tests. `FR-xx` always means Ops; Customer requirements use the prefix `Customer.FR-xx`.
 
 ## 1.5 Use-case baseline
 
@@ -151,16 +110,16 @@ A **gap** is an unanswered source question; an **assumption** is a provisional p
 
 The register records unresolved source questions, their impact and provisional handling. Source labels are defined in Section 1.3; no later stakeholder response is claimed.
 
-| Gap ID | Unanswered question and source | Affected requirements | Provisional handling | Status |
-|---|---|---|---|---|
-| GAP-01 | Exchange fields, ownership and update timing? [SRC-01, pp.5,30,33,37] | FR-01–FR-03, NFR-02 | Agree the contract; retain source/time and expose unavailable/conflicting data. No numerical refresh promise. | Open — interface/timing |
-| GAP-02 | Who authorises rentals, releases devices and confirms returns? [SRC-03, pp.7–12,15,23–24; SRC-01, pp.7–9] | Cross-system allocation; FR-02, FR-03 | Keep C-INT as the exchange boundary; do not assume payment or hardware-control responsibilities. | Open — ownership |
-| GAP-03 | Charge/availability criteria, exact counts and return capacity? [SRC-01, pp.7–8,30–31,37; SRC-03, pp.8,23] | FR-02, FR-05, FR-07 | Separate charge, presence, occupancy and faults. Missing eligibility does not establish suitability or zero stock. | Open — eligibility/capacity |
-| GAP-04 | Required statuses/fault fields and resolver permissions? [SRC-01, pp.31,37] | FR-01, FR-03, FR-04, FR-06, NFR-03 | Use ASSUMP-03 fields and per-action permission checks; no invented roles, categories or priorities. | Open — dictionary/access |
-| GAP-05 | Unavailable destination, competing changes or failed recording after physical movement? [SRC-01, pp.8,32] | FR-07, NFR-02 | Recheck suitability/version and require physical confirmation; retain contradictory movement evidence for investigation. | Open — reconciliation/capacity |
-| GAP-06 | Automatic alert triggers, priority and resolution rules? [SRC-01, p.32] | FR-08 | Show recorded issues; add automatic thresholds/notifications only after agreement. | Open — automation |
-| GAP-07 | Video claims of real-time telemetry, dock blocking and restored availability versus the SRS? [SRC-02, 6:23–7:49; SRC-01, pp.18–19,33] | FR-01, FR-03, FR-05, FR-06, NFR-02 | Use latest-available facts. Keep local fault exclusion; agree remote blocking separately. Resolution alone proves neither charge, presence nor eligibility. | Open — handover conflict |
-| GAP-08 | Performance, availability, backup, retention and recovery targets? [SRC-01, pp.7–9] | NFR-01–NFR-03; operations | Specify mechanisms and qualitative checks; seek agreement on numerical targets. | Open — operational targets |
+| Gap ID | Unanswered question and source | Affected requirements | Provisional handling |
+|---|---|---|---|
+| GAP-01 | Exchange fields, ownership and update timing? [SRC-01, pp.5,30,33,37] | FR-01–FR-03, NFR-02 | Agree the contract; retain source/time and expose unavailable/conflicting data. No numerical refresh promise. |
+| GAP-02 | Who authorises rentals, releases devices and confirms returns? [SRC-03, pp.7–12,15,23–24; SRC-01, pp.7–9] | Cross-system allocation; FR-02, FR-03 | Keep C-INT as the exchange boundary; do not assume payment or hardware-control responsibilities. |
+| GAP-03 | Charge/availability criteria, exact counts and return capacity? [SRC-01, pp.7–8,30–31,37; SRC-03, pp.8,23] | FR-02, FR-05, FR-07 | Separate charge, presence, occupancy and faults. Missing eligibility does not establish suitability or zero stock. |
+| GAP-04 | Required statuses/fault fields and resolver permissions? [SRC-01, pp.31,37] | FR-01, FR-03, FR-04, FR-06, NFR-03 | Use ASSUMP-03 fields and per-action permission checks; no invented roles, categories or priorities. |
+| GAP-05 | Unavailable destination, competing changes or failed recording after physical movement? [SRC-01, pp.8,32] | FR-07, NFR-02 | Recheck suitability/version and require physical confirmation; retain contradictory movement evidence for investigation. |
+| GAP-06 | Automatic alert triggers, priority and resolution rules? [SRC-01, p.32] | FR-08 | Show recorded issues; add automatic thresholds/notifications only after agreement. |
+| GAP-07 | Video claims of real-time telemetry, dock blocking and restored availability versus the SRS? [SRC-02, 6:23–7:49; SRC-01, pp.18–19,33] | FR-01, FR-03, FR-05, FR-06, NFR-02 | Use latest-available facts. Keep local fault exclusion; agree remote blocking separately. Resolution alone proves neither charge, presence nor eligibility. |
+| GAP-08 | Performance, availability, backup, retention and recovery targets? [SRC-01, pp.7–9] | NFR-01–NFR-03; operations | Specify mechanisms and qualitative checks; seek agreement on numerical targets. |
 
 Open details do not weaken confirmed FRs: FR-07 still requires confirmed movement and excludes unsuitable candidates; FR-08 still requires recorded-issue visibility.
 
@@ -182,14 +141,12 @@ No charge threshold, refresh deadline, low-stock trigger or recovery target is i
 
 Drafted 1 November 2026, these choices remain proposals where confirmation is open. Their implications appear in Sections 4 and 9–12; the date is not evidence of a meeting or approval.
 
-| Decision ID | Proposed choice and alternative | Rationale | Requirement / gap link | Status |
-|---|---|---|---|---|
-| DEC-01 | Web UI, modular backend and PostgreSQL; alternative: separate business services. | Shared transactions keep fault/device/movement changes consistent; modules separate responsibilities. | FR-04–FR-07, NFR-01; ASSUMP-01 | Proposed deployment |
-| DEC-02 | Separate fault, location, charge/occupancy and quality facts; alternative: one status flag. | Known location or resolved fault does not establish full eligibility. | FR-02/03/05/06, NFR-02; GAP-03/04 | Dictionary pending |
-| DEC-03 | Backend action permissions and save-time version checks; alternative: trusting UI controls/stale reads. | Reject unauthorised requests and outdated decisions. | NFR-03, FR-05/07; GAP-04/05 | Access assignments pending |
-| DEC-04 | Commit an outgoing-update record with the business change; deliver/retry separately. Alternative: await remote response. | Preserve local durability during remote outages and distinguish saved from synchronised. | FR-04–FR-06, NFR-02; GAP-01/07 | Contract pending |
-| DEC-05 | Database-backed reads, no separate business cache or offline write queue; alternative: cached copies/queued changes. | Reduce stale copies and commands; backend validates every change. | NFR-02, FR-05/07; ASSUMP-01 | Revisit with measured/offline needs |
-| DEC-06 | Recorded issues first; automatic alerts need defined rules. Alternative: assumed thresholds/predictions. | Meet the confirmed need without inventing business rules. | FR-08; GAP-06; SRC-05 Section 3 | Alert rules open |
+- **DEC-01:** Web UI, modular backend and PostgreSQL, rather than independent business services, keep related updates atomic with clear responsibilities. [FR-04–FR-07; NFR-01; ASSUMP-01]
+- **DEC-02:** Separate fault, location, charge/occupancy and quality instead of one status flag: location or resolution cannot establish full eligibility. Dictionary remains GAP-03/04. [FR-02/03/05/06; NFR-02]
+- **DEC-03:** Check backend action permissions and versions at save, rather than trust UI controls/stale reads. Access assignments remain GAP-04; competing changes need GAP-05 handling. [NFR-03; FR-05/07]
+- **DEC-04:** Commit an outgoing record with the business change, then deliver/retry separately rather than wait for a remote response. This preserves local durability and exposes pending synchronisation. Contract remains GAP-01/07. [FR-04–FR-06; NFR-02]
+- **DEC-05:** Use database-backed reads without a separate business cache/offline write queue to limit stale copies/commands. Revisit with measured workload or offline needs. [NFR-02; FR-05/07; ASSUMP-01]
+- **DEC-06:** Display recorded issues before adding automatic alerts/recommendations; defined rules must precede automation. [FR-08; GAP-06; SRC-05 Section 3]
 
 Decision changes require coordinated diagrams, data rules, RTM and tests. Record actual responses/reviews with evidence and date before marking an open item agreed.
 
@@ -228,16 +185,11 @@ External systems cannot access C-DB directly. C-INT validates service access and
 
 ## 4.3 Requirement-driven architecture rationale
 
-| Requirement / concern | Design response | Reason and limitation |
-|---|---|---|
-| NFR-01 — Usability | C-UI presents visible task controls/results. | Ordinary tasks need no database/CLI access; representative-user tests must verify usability. |
-| NFR-02 — Operational Data Reliability | C-INT keeps source/time; C-MON/C-DEV expose data quality. | Unknown/unavailable/conflicting never becomes normal/zero. Timestamps imply no freshness guarantee. |
-| NFR-03 — Security and Access Control | Backend C-AUTH checks; restricted C-INT exchanges. | Hidden buttons are insufficient. Denial changes no records; permission assignments remain open. |
-| FR-04–FR-06 — Fault lifecycle | C-FAULT/C-DEV share transactions; exclusion derives from unresolved faults. | No partial successful resolution; one resolution cannot clear another fault. |
-| FR-07 — Confirmed redistribution | C-MOVE rechecks suitability, version and physical confirmation. | A selected destination is not a physical location; conflicts require investigation. |
-| GAP-01/02/07 — External boundary | C-INT separates external mapping/communication from domain logic. | Provisional exchanges do not silently allocate rental control or dock blocking. |
+NFR-01 drives visible C-UI task controls without database/CLI access, verified with representative users. NFR-02 drives C-INT source/time evidence and explicit quality in C-MON/C-DEV; missing values never become confirmed zero and timestamps promise no refresh deadline. NFR-03 drives backend per-action checks, default denial and restricted service access; hiding a button cannot protect records. Permission assignments remain GAP-04.
 
-Least privilege, default denial and per-request checks follow [OWASP authorisation guidance](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html); short row-locked writes follow [PostgreSQL locking](https://www.postgresql.org/docs/18/explicit-locking.html). These support technical choices, not ChargeMate business rules.
+For FR-04–FR-06, shared C-FAULT/C-DEV transactions prevent partial saves and preserve exclusion while any fault remains unresolved. FR-07 drives save-time suitability, version and physical-confirmation checks: selecting a destination does not establish physical location. C-INT isolates provisional external contracts and conflicts under GAP-01/02/07.
+
+These technical choices follow [OWASP authorisation](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html) and [PostgreSQL locking](https://www.postgresql.org/docs/18/explicit-locking.html); those sources do not supply ChargeMate business rules.
 
 ## 4.4 External interface responsibilities
 
@@ -255,16 +207,6 @@ Docking/release hardware stays with the external station system; accounts, prici
 ### Consistent command results
 
 Protected writes carry a target ID, expected version and operation ID. Outcomes are **committed**, **validation rejected**, **not found**, **access denied**, **version conflict** or **save failed**. Commit returns the saved ID/version. An authorised retry with the same identity, operation ID and input returns that result without repeating the change; altered reuse is rejected. Rejected/rolled-back requests never leave success receipts.
-
-## 4.5 Example: recording a power bank fault
-
-1. The operator finds a device through C-UI. C-AUTH checks access, and C-DEV returns the registered device information.
-2. The operator submits fault details for that selected device. C-AUTH checks permission to record the fault.
-3. C-FAULT validates the details and coordinates with C-DEV/C-DB to save the fault, update the device version and record any pending outgoing update together.
-4. C-UI shows success only after the save commits. C-DEV/C-MON/C-MOVE use the unresolved-fault rule so the device is visibly requiring attention and is not normally available or a suitable movement candidate.
-5. C-INT delivers the outgoing status update under the proposed contract. If delivery fails temporarily, the saved fault remains active and external synchronisation remains pending.
-
-The sequence separates responsibilities while preserving one committed operational result.
 
 # 5. User experience: two wireframe/storyboard sets
 
@@ -316,72 +258,67 @@ The sequence separates responsibilities while preserving one committed operation
 
 ### SB-03 Wireframes
 
-![WF-04 Device search / detail](images/WF-04.png)
-*Figure 5.2.1 — WF-04 Device search / detail.*
+Supporting screens: [WF-04 Device search/detail](images/WF-04.png) and [WF-07 Later fault review](images/WF-07.png). The complete sequence is specified above; the embedded samples below show fault entry, save outcomes and resolution.
 
 ![WF-05 Fault entry](images/WF-05.png)
-*Figure 5.2.2 — WF-05 Fault entry.*
+*Figure 5.2.1 — WF-05 Fault entry.*
 
 ![WF-06 Save result](images/WF-06.png)
-*Figure 5.2.3 — WF-06 Save result.*
-
-![WF-07 Later fault review](images/WF-07.png)
-*Figure 5.2.4 — WF-07 Later fault review.*
+*Figure 5.2.2 — WF-06 Save result.*
 
 ![WF-08 Resolution entry / result](images/WF-08.png)
-*Figure 5.2.5 — WF-08 Resolution entry / result.*
+*Figure 5.2.3 — WF-08 Resolution entry / result.*
 
 # 6. State diagram 1 — FaultRecord
 
-**Owner: Harrison | Reviewer: Yousef | Cooper checks the related screen behaviour | Status: [FILL]**
-
-The object choice is proposed. If replaced, choose another object with meaningful states and update the contents and links.
 
 **Object and purpose:** FaultRecord Represents a reported fault against a submitted power bank. It tracks when the faulty record was submitted, and what is wrong with it.
-**Requirements/use cases:** UC-03 – Report and Manage a Faulty Power Ban, FR-04, FR-05, FR-06, FR-07, FR-08
+**Requirements/use cases:** UC-03 – Report and Manage a Faulty Power Bank, FR-04, FR-05, FR-06, FR-07, FR-08
 **Figure SD-01:** 
-![Fault Record State Diagram](./images/7chart.png)
+![Fault Record State Diagram](images/7chart.png)
+
+Resolution closes the active fault workflow while retaining the stored record/history. The figure’s rental-availability wording is subject to the independent eligibility checks in Sections 9 and 12; resolution alone does not certify rental readiness.
 
 | Current state | Event | Guard / condition | Action | Next state | Related test |
 |---|---|---|---|---|---|
-| Initial | reportfault(powerbankID, powerbankproblem) | Power bank is registered, details are valid | Create record for the power bank, mark it as faulty | Active -> reported | [FILL] |
-| Reported | reviewfault(FaultID) | fault exists | record that the fault is under investigation | Reviewing | [FILL] |
-| Under-Investigation | fixfault(FaultID, status) | fault fix is successful | store that bank is fixed, remove record, allow for rehiring | Resolved | [FILL] |
-| Under-Investigation | fixfault() | save fails | show error, leave record unchanged | Under-Investigation | [FILL] |
-| Under-Investigation | fixfault() | reviewer has improper access | show error, leave record unchanged | Under-Investigation | [FILL] |
-| Resolved | None | None | None | FinalState | n/a |
+| Initial | reportfault(powerbankID, powerbankproblem) | Operator authorised; device registered; details valid | Create record for the power bank, mark it as faulty | Reported (inside Active) | [T-09](#t-09--record-a-valid-fault), [T-10](#t-10--fault-rejected-for-missing-details), [T-11](#t-11--fault-save-fails-and-rolls-back), [T-18](#t-18--access-control-on-direct-backend-requests), [T-23](#t-23--lost-response-and-retry-with-the-same-operation-id) |
+| Reported | reviewfault(FaultID) | fault exists | record that the fault is under investigation | Under investigation | [T-12](#t-12--review-and-successfully-resolve-a-fault) |
+| Under investigation | fixfault(FaultID, status) | Authorised resolution; valid note; save commits | retain resolution note/actor/time and device history; recompute unresolved-fault exclusion without certifying rental eligibility | Resolved | [T-12](#t-12--review-and-successfully-resolve-a-fault), [T-13](#t-13--resolve-one-of-several-faults-exclusion-persists) |
+| Under investigation | fixfault() | save fails | show error, leave record unchanged | Under investigation | [T-14](#t-14--resolution-rejected-blank-note-no-permission-failed-save) |
+| Under investigation | fixfault() | reviewer has improper access | show error, leave record unchanged | Under investigation | [T-14](#t-14--resolution-rejected-blank-note-no-permission-failed-save), [T-18](#t-18--access-control-on-direct-backend-requests) |
+| Resolved | workflowClosed() | Resolution already committed | Close workflow; retain record/history | Final | [T-12](#t-12--review-and-successfully-resolve-a-fault) (retention); closure is a model review check |
 
 
 **Valid Creation**: Only an authorised person can report that a fault has been created/fixed. it is then flagged as needing repairs, and that the repair is active.
 **Unresolved Investigation**: The record stays active when an error occurs, leaving the data untouched so it can be successfully resolved
-**Successfull Resolution**: The authorised user submits the fixed fault, and the save succeeds. the records are resolved and the device status is updated to reflect this.
+**Successful Resolution**: The authorised user submits the fixed fault, and the save succeeds. the records are resolved and the device status is updated to reflect this.
 **Failed Save**: If the save fails, the record of the fault remains active, and no further data is saved. The failure isnt treated as a resolution to the fault.
 **Unauthorised Resolution**: the resolution is denied, and the record remains active.
 
+
 # 7. State diagram 2 — PowerBank Tracking Status
 
-**Owner: Harrison | Reviewer: Yousef | Coordinate the movement/data rules with section 9 | Status: [FILL]**
-
-**Object and purpose:** Powerbank tracking status. represents the data that ChargeMate Ops can see about the location of a power bank, seperating known location, and information that needs to be investigated.
+**Object and purpose:** Powerbank tracking status. represents the data that ChargeMate Ops can see about the location of a power bank, separating known location, and information that needs to be investigated.
 **Requirements/use cases:** UC-02 - Track a Power Bank, FR-03 
 **Figure SD-02:**
-![Fault Record State Diagram](./images/8chart.png)
+![PowerBank Tracking Status State Diagram](images/8chart.png)
 
 | Current state | Event | Guard / condition | Action | Next state | Related test |
 |---|---|---|---|---|---|
-| Initial | searchPowerBank(powerBankID) | Operator authorised; ID registered; information retrievable | Open tracking lookup; display "unknown" until reliable information is available | No reliable location → Location unknown (via entry point) | [FILL] |
-| Location unknown | locationObserved(id, location, source, time) | Observation is reliable and consistent with recorded data | Display recorded status and location | Location known (via exit point) | [FILL] |
-| Location unknown | conflictingObservation(id) | Sources disagree and order cannot be established (ASSUMP-05) | Keep both observations; display "requires investigation" | Information conflicting | [FILL] |
-| Information conflicting | conflictReconciled(id) | A reliable location is established | Record outcome; clear the investigation flag; display location | Location known (via exit point) | [FILL] |
-| Location known | resultReviewed() | Operator has viewed the information | Close the lookup | Final | [FILL] |
+| Initial | searchPowerBank(powerBankID) | Operator authorised; ID registered; information retrievable | Open tracking lookup; display "unknown" until reliable information is available | No reliable location → Location unknown (via entry point) | [T-06](#t-06--track-a-device-unknown-then-known-location), [T-07](#t-07--track-a-device-unknown-id-retrieval-failure-denied-access) |
+| Location unknown | locationObserved(id, location, source, time) | Observation is reliable and consistent with recorded data | Display recorded status and location | Location known (via exit point) | [T-06](#t-06--track-a-device-unknown-then-known-location) |
+| Location unknown | conflictingObservation(id) | Sources disagree and order cannot be established (ASSUMP-05) | Keep both observations; display "requires investigation" | Information conflicting | [T-08](#t-08--conflicting-device-location-and-reconciliation) |
+| Information conflicting | conflictReconciled(id) | A reliable location is established | Record outcome; clear the investigation flag; display location | Location known (via exit point) | [T-08](#t-08--conflicting-device-location-and-reconciliation) |
+| Location known | resultReviewed() | Operator has viewed the information | Close the lookup | Final | [T-06](#t-06--track-a-device-unknown-then-known-location) |
 
 **What the Object is:** Diagram shows 1 pass of the location tracking on the power bank
 **How the Lookup Starts:** an authorised operator starts the search with an id for a powerbank. Location is put into location unknown state until a valid location is found.
 **Failed Search:** If the id is not registered or cannot be retrieved, an error is shown and nothing is stored.
 **Unknown State:** If the operator cannot see the current state of the power bank, a specific unknown value is returned, instead of a guessed value.
-**Conflicting Information:** if multiple sources of data come in and the order is not proper, the operator will see a requires investivation flag to try and fix it.
+**Conflicting Information:** if multiple sources of data come in and the order is not proper, the operator will see a requires investigation flag to try and fix it.
 **Successful Outcome:** in order for the outcome to be successful, a meaningfully ordered location data must be transmitted and saved to the main operator
 **Unchanged on failure:** if something fails, the system saves no data and nothing is altered.
+
 
 # 8. State diagram 3 — OperationalSnapshotQuality
 
@@ -398,20 +335,20 @@ The object choice is proposed. If replaced, choose another object with meaningfu
 | Current state | Event | Guard / condition | Action | Next state | Related test |
 |---|---|---|---|---|---|
 | Initial | registerStation(stationID) | station is registered | create a snapshot with no values, show "Unknown" | Unknown | [T-01](#t-01--view-station-status-with-reliable-information) |
-| Unknown | retrieveStationInfo(stationID) | information retrieved, no sources disagree | store status and availability with source and time, show "Last updated" | Reliable | [T-03](#t-03--conflicting-station-information-flagged-and-cleared) |
+| Unknown | retrieveStationInfo(stationID) | information retrieved, no sources disagree | store status and availability with source and time, show "Last updated" | Reliable | [T-01](#t-01--view-station-status-with-reliable-information) |
 | Unknown | retrieveStationInfo(stationID) | information retrieved but sources disagree | preserve both observations and their source/time; flag “Needs investigation” | Inconsistent | [T-03](#t-03--conflicting-station-information-flagged-and-cleared) |
 | Unknown | retrieveStationInfo(stationID) | information cannot be retrieved | show "Unavailable" and "—" instead of a number | Unavailable | [T-02](#t-02--station-information-unavailable-then-retry) |
 | Reliable | retrieveStationInfo(stationID) | information retrieved, sources agree | update values and "Last updated" time | Reliable | [T-01](#t-01--view-station-status-with-reliable-information) |
 | Reliable | retrieveStationInfo(stationID) | Rental Station System and Customer system disagree | keep both values with their source, flag "Needs investigation" | Inconsistent | [T-03](#t-03--conflicting-station-information-flagged-and-cleared) |
 | Reliable | retrieveStationInfo(stationID) | information cannot be retrieved | hide values, show "Unavailable" with the time of the last response | Unavailable | [T-02](#t-02--station-information-unavailable-then-retry) |
-| Unavailable | retry() | information retrieved, no sources disagree | store values, remove "Unavailable" label | Reliable | [T-03](#t-03--conflicting-station-information-flagged-and-cleared) |
+| Unavailable | retry() | information retrieved, no sources disagree | store values, remove "Unavailable" label | Reliable | [T-02](#t-02--station-information-unavailable-then-retry) |
 | Unavailable | retry() | information retrieved but sources disagree | keep both values, flag "Needs investigation" | Inconsistent | [T-03](#t-03--conflicting-station-information-flagged-and-cleared) |
 | Unavailable | retry() | station still not responding | show error, leave values hidden | Unavailable | [T-02](#t-02--station-information-unavailable-then-retry) |
 | Inconsistent | retrieveStationInfo(stationID) | all sources now agree | store agreed values, remove "Needs investigation" | Reliable | [T-03](#t-03--conflicting-station-information-flagged-and-cleared) |
 | Inconsistent | retrieveStationInfo(stationID) | information cannot be retrieved | show "Unavailable", keep record for investigation | Unavailable | [T-03](#t-03--conflicting-station-information-flagged-and-cleared) |
 | Any state | deregisterStation(stationID) | operator has permission | archive the snapshot history | Final state | [T-26](#t-26--station-snapshot-archival-permitted-and-denied) |
 
-**Initial conflicting retrieval:** The Unknown → Inconsistent transition in the table also applies when the first successful retrieval already contains conflicting observations. This supplements the supplied SD-03 figure; no confirmed count is shown in that case.
+**Initial conflicting retrieval:** The Unknown → Inconsistent transition in the table also applies when the first successful retrieval already contains conflicting observations. The table specifies this path; it is not explicit in the supplied figure. No conflicting count is shown as confirmed.
 
 - **Unknown information**: The snapshot starts as Unknown because nothing has been retrieved for the station yet. The system shows "Unknown" and "—", never 0, so a station with no data can't be mistaken for an empty station.
 - **Reliable information**: The latest station information was retrieved and no source disagrees with it (UC-01 main success scenario). Status and availability are shown with the time they were last updated.
@@ -419,6 +356,7 @@ The object choice is proposed. If replaced, choose another object with meaningfu
 - **Inconsistent information**: The sources disagree, for example the Rental Station System says 6 docked but the rental records imply 5 (UC-01 alternative flow "Inconsistent Station Information"). Both values are kept side by side and the station is flagged "Needs investigation". Neither value is treated as confirmed and the operator can't overwrite either one (WF-03).
 - **Quality vs health**: This  only describes how much the station information can be trusted. Whether the station is offline or has a faulty power bank is stored separately (DEC-02).
 - **No deadline**: The SRS doesn't give a time limit for how old station information can be (GAP-01), so it only moves to unavailable when it actually fails, not after a set amount of time.
+
 # 9. Persistent data, caching and maintenance
 
 ## 9.1 Persistent data strategy
@@ -471,12 +409,7 @@ Fetch fresh results on opening/manual refresh. Re-fetch affected device/fault/st
 
 ### Component requests and consistency
 
-| Request / activity | Component route | Data and checks |
-|---|---|---|
-| Station status, availability and recorded issues | C-UI → C-AUTH → C-MON; C-MON uses C-DEV/C-FAULT query functions | Combine accepted station observations with device records and unresolved faults. Return relevant quality, source/time and record-version information with values. |
-| Individual device lookup | C-UI → C-AUTH → C-DEV; C-DEV uses C-FAULT information | Check access and registration; distinguish not-found from a registered device whose location or other facts are unknown/unavailable. |
-| Fault creation/resolution or movement completion | C-UI → C-AUTH → C-FAULT/C-MOVE, coordinating with C-DEV and C-DB | Recheck permission, input, expected versions and current business rules; use the transaction boundaries in Section 9.1 and command outcomes in Section 4.4. |
-| External observations and outgoing delivery | External system ↔ C-INT; accepted changes pass through domain modules | Validate the source and agreed fields, recognise duplicate input where supported, and keep delivery status separate from committed local records. |
+C-UI sends protected requests through C-AUTH. C-MON combines station observations with C-DEV/C-FAULT queries; device searches go to C-DEV. Fault and movement writes go through C-FAULT/C-MOVE, coordinated with C-DEV and C-DB under Section 9.1. C-INT routes validated incoming facts through these same domain functions and records outgoing delivery separately. Results include relevant quality, source/time and version information.
 
 Routes are calls within the modular backend; restricted service credentials mediate C-DB access.
 
@@ -535,15 +468,11 @@ Agree retention for records, evidence, receipts and recovery sets. Preserve unre
 
 These Section 3 choices balance reliability, usability and implementation cost; they are design decisions, not additional inherited requirements.
 
-| Decision | Alternative considered | Competing needs | Choice and justification | Limitation |
-|---|---|---|---|---|
-| Modular backend + relational DB (DEC-01) | Separate business services | Atomic updates versus independent scaling/releases | One transaction for related fault/device/movement changes; distinct modules. | Shared dependency and coordinated releases. |
-| Database-backed views (DEC-05) | Business-data cache | Less staleness versus faster reads | Read domain records; add caching only for measured need. | DB outages block reads; screens can still become stale. |
-| Explicit quality (DEC-02) | Trust latest arrival | Reliable decisions versus simpler display | Keep qualified evidence; distinguish unknown/unavailable/conflicting from confirmed zero. | Investigation may delay action; labels must be clear. |
-| Online validated writes (DEC-03/05) | Offline write queue | Disconnected convenience versus current validity | Recheck faults, suitability, access and version at save; no automatic stale-command replay. | Outages prevent confirmed saves; physical work may need reconciliation. |
-| Backend permissions (DEC-03) | Login/hidden buttons only | Simple UI versus protected operations | Check every action/resource, including retries; expose permitted controls. | GAP-04 assignments; understandable denial messages. |
-| Local save, separate delivery (DEC-04) | Await remote response | Durability versus immediate synchronisation | Commit business change/outgoing record together; C-INT delivers. | Local success proves no remote blocking; pending/uncertain delivery remains visible. |
-| Base backup + archived changes (Section 9.3) | Periodic copies alone | Later recovery versus maintenance/storage cost | Replay available logs beyond the base backup. | Needs usable logs, archive monitoring and restore checks; GAP-08 targets. |
+- **Consistency versus independence:** DEC-01 keeps related writes atomic in one modular backend/database, trading separate service scaling/releases for simpler coordination.
+- **Freshness versus responsiveness:** DEC-02/05 expose qualified evidence and avoid another business cache. Reads depend on the database and screens may become stale; investigate uncertainty rather than display guessed zero/normal values. Add caching only for measured need.
+- **Disconnected convenience versus valid writes:** DEC-03/05 require online, per-action permission/version checks instead of offline replay. Denial must be understandable; physical work during outages may need reconciliation. Permission assignments remain GAP-04.
+- **Local durability versus immediate synchronisation:** DEC-04 commits the outgoing record with the change and delivers separately. Local success proves neither remote blocking nor exactly-once delivery; retain pending/uncertain status.
+- **Recovery depth versus maintenance cost:** base backups plus archived changes support a later recovery point than periodic copies alone, but need usable logs, monitoring and restore checks. Numerical recovery targets remain GAP-08.
 
 The design addresses qualitative usability, reliability and access without inventing update intervals/availability percentages. Recorded issues stay in scope; unconfirmed alert thresholds do not justify extra infrastructure. [SRC-01 pp.7–9; GAP-01/06/08]
 
@@ -594,21 +523,10 @@ Impact links identify implementation/interface/test dependencies for review, not
 | NFR-02 | FR-01, FR-02, FR-03, FR-05, FR-07, FR-08 | UC-01/UC-02; information used in UC-03 and supporting scenarios | C-UI, C-MON, C-DEV, C-MOVE, C-INT, C-DB | 	[T-02](#t-02--station-information-unavailable-then-retry), [T-03](#t-03--conflicting-station-information-flagged-and-cleared), [T-04](#t-04--confirmed-zero-availability-versus-unknown-availability), [T-06](#t-06--track-a-device-unknown-then-known-location), [T-08](#t-08--conflicting-device-location-and-reconciliation), [T-22](#t-22--duplicate-late-and-conflicting-external-events), [T-25](#t-25--isolated-restore-and-consistency-check) |
 | NFR-03 | FR-01–FR-08, NFR-01 | Every protected operational use case/scenario | C-AUTH; C-UI, C-MON, C-DEV, C-FAULT, C-MOVE, C-INT and C-DB apply the access boundaries | [T-07](#t-07--track-a-device-unknown-id-retrieval-failure-denied-access), [T-14](#t-14--resolution-rejected-blank-note-no-permission-failed-save), [T-18](#t-18--access-control-on-direct-backend-requests), [T-23](#t-23--lost-response-and-retry-with-the-same-operation-id) |
 
-Fault changes affect availability, device views and movement: review FR-02/05/07 when changing resolution so remaining faults or unknown charge cannot be hidden. [DEC-02; ASSUMP-04]
-
-FR-03 affects correct fault/movement association; FR-07 affects station/device views when destinations change. These concrete dependencies explain the impact links.
-
-C-AUTH/C-DB provide shared protection/storage, while C-FAULT owns faults, C-MOVE movement, C-DEV device facts and C-MON station views. NFR-01/03 span those modules’ usable, authorised outcomes.
-
-Concurrency, receipts, retries and recovery are DEC-03–DEC-05 safeguards, not new inherited requirements. Their tests identify relevant decisions. Redistribution elaborates FR-07 without claiming an approved UC-04.
-
-Customer responsibilities remain in the clarification register, outside the 11-row baseline. Conditional tests identify unresolved rules. Check every requirement/test/component link in both directions.
+Fault rules affect availability/device/movement views; device identity affects correct association, and completed movement changes station views. C-AUTH/C-DB provide shared protection/storage without owning domain rules. DEC safeguards are additional design obligations, not new inherited requirements; redistribution elaborates FR-07 without asserting an approved UC-04. Customer ownership and conditional acceptance remain in Sections 3/12.4. Check all links in both directions.
 
 # 12. Test specifications and test plan
 
-**Owner: Harrison | Reviewer: Yousef | Input: all design owners | Status: [FILL]**
-
-Suggested length: approximately 10–15 pages in the final PDF. Specify how the future implementation would be verified. Proposed tests in the earlier review can be reused after checking them against your final design. Keep IDs stable across this section and the RTM.
 
 ## 12.1 Test approach and fixtures
 
@@ -633,52 +551,15 @@ For the final state diagrams in Sections 6–8, identify tests for the permitted
 
 Each case in Section 12.3 must identify its requirement/decision, chosen fixture variant, exact input, steps and expected UI/API and persisted outcomes. Section 12.2 supplies the case IDs; fixture IDs below are not test-case IDs. Record conditional or uncovered behaviour explicitly so the RTM does not imply coverage that has not been specified.
 
-### Fault-record coverage from Section 6
+### State-transition coverage
 
-Expand these checks into detailed cases for UC-03, FR-04–FR-06, unresolved-fault exclusion in FR-02/FR-07 and protected access under NFR-03. Use DATA-01/DATA-02/DATA-04, with DATA-06 for lost-response retries. Final case IDs belong in Sections 12.2–12.3; these checks are specifications, not results.
+The detailed cases in Section 12.3 replace the repeated transition checklists. They specify future verification, not executed results. Use the independent fixture variants below; an error must not change protected business state.
 
-| Transition / check | Fixture and action | Expected observable result |
-|---|---|---|
-| Valid creation → Reported | An authorised test identity submits a non-empty fault description for PB-001, which starts with no faults. | Save one fault linked to PB-001 and its reporting details; show success only after commit. The unresolved fault requires attention and excludes normal rental availability/redistribution. |
-| Rejected or rolled-back creation | Separately use a blank description, PB-999, an unauthorised identity or a confirmed database rollback before commit. | Show the relevant rejection/failure. Create no fault, successful command receipt or outgoing business update; do not claim the fault was recorded. |
-| Reported → Under investigation | Review existing F-001 on PB-002 and leave the issue unresolved. | Record investigation progress while retaining the unresolved fault and its exclusion effect. Reviewing the record alone does not resolve it. |
-| Resolution rejected or save rolled back | Start with F-001 under investigation. Separately submit a missing required note, deny the action to the test identity, or force a confirmed rollback. | Show the appropriate rejection/failure. Keep the prior fault, device version and exclusion unchanged; create no saved resolution success. Required-note validation is provisional ASSUMP-03. |
-| Resolve one of multiple faults | Successfully resolve F-001 while F-002 remains unresolved on PB-002. | Save F-001's resolution note and actor/time; preserve F-002 and keep PB-002 excluded. Do not clear all faults with a single resolution. [ASSUMP-04] |
-| Last fault resolved → Completed workflow | Use a separate variant where F-001 is the last unresolved fault and charge eligibility is unknown. Save its valid resolution, then end the fault workflow. | Retain the resolved record and device association. Clear that unresolved-fault indication, but do not certify rental eligibility or delete the device/history. An unchanged retry after a lost response returns the saved result without another resolution. |
+- **FaultRecord (Section 6):** [T-09](#t-09--record-a-valid-fault), [T-10](#t-10--fault-rejected-for-missing-details), [T-11](#t-11--fault-save-fails-and-rolls-back), [T-12](#t-12--review-and-successfully-resolve-a-fault), [T-13](#t-13--resolve-one-of-several-faults-exclusion-persists), [T-14](#t-14--resolution-rejected-blank-note-no-permission-failed-save), [T-18](#t-18--access-control-on-direct-backend-requests), [T-23](#t-23--lost-response-and-retry-with-the-same-operation-id), using DATA-01/02/04/06. Cover valid creation, rejected/rolled-back creation, investigation, successful/failed/denied resolution, multiple faults and lost-response retries. Retain resolved records; a remaining fault preserves exclusion, while resolution alone proves neither charge, presence nor rental eligibility. A lost response is unconfirmed, not proof of rollback. The Section 6 model uses these retained-history and eligibility rules. [SRC-01 p.19]
+- **PowerBank tracking (Section 7):** [T-06](#t-06--track-a-device-unknown-then-known-location), [T-07](#t-07--track-a-device-unknown-id-retrieval-failure-denied-access), [T-08](#t-08--conflicting-device-location-and-reconciliation), using DATA-01/02/03. Cover unknown→known, conflicting→reconciled and rejected/unavailable searches. Preserve both unordered reports and keep unresolved conflicts flagged. Opening an unknown view must not erase accepted location. Closing/reopening ends only the lookup, without deleting the device, location/version or faults; location updates do not certify eligibility.
+- **OperationalSnapshotQuality (Section 8):** [T-01](#t-01--view-station-status-with-reliable-information), [T-02](#t-02--station-information-unavailable-then-retry), [T-03](#t-03--conflicting-station-information-flagged-and-cleared), [T-04](#t-04--confirmed-zero-availability-versus-unknown-availability), [T-17](#t-17--recorded-issues-distinguished-from-normal-operation), [T-26](#t-26--station-snapshot-archival-permitted-and-denied), using DATA-03/08. Cover initial Unknown, agreeing retrieval/refresh, unavailable retrieval, retry with agreeing/disagreeing/failed results, conflict/reconciliation and first-read conflicts. Unknown/unavailable is never confirmed zero; conflicting counts stay unconfirmed. Failures hide current counts without inventing a response time and preserve conflict evidence. Check all model starting states, including failure from Inconsistent; do not infer unlisted variants are specified. The table includes the first-read conflict path; the supplied figure does not show it explicitly. Archival from each active state is conditional on setup/permissions, preserves history and denies changes when unauthorised.
 
-Use consistent progress-state names when linking the final Section 6 model to these cases. Its current resolution action says “remove record, allow for rehiring”; this needs alignment with the retained resolution in Section 9.1 and SRC-01 p.19, which does not make a resolution certify charge, physical availability or rental eligibility. Harrison's diagram/table is left unchanged here. A lost response after commit is an unconfirmed outcome, not evidence that the save rolled back.
-
-### Tracking-state coverage from Section 7
-
-The updated PowerBank Tracking Status table needs the following explicit coverage. These are checks to expand into the detailed Section 12.3 specifications and assign actual test IDs; they do not report execution results.
-
-| Transition / check | Fixture and action | Expected observable result |
-|---|---|---|
-| Initial lookup → Location unknown | With DATA-01/DATA-03, an authorised operator searches for registered PB-003 with no reliable location. | Show the matching device ID and an explicit unknown location; do not invent a station or treat the device as unregistered. |
-| Location unknown → Location known | Supply an accepted, reliable ST-01 observation for PB-003, including its source and time. | Display the established location for that device. The update does not clear faults or certify charge/rental eligibility. |
-| Location unknown → Information conflicting | Use PB-004's contradictory SRC-A/ST-01 and SRC-B/ST-02 reports in DATA-03, without comparable ordering. | Preserve both reports and display “requires investigation”; do not choose one as a confirmed location merely because it arrived last. |
-| Information conflicting → Location known | Supply a verified reconciliation outcome establishing PB-004 at ST-02. Separately, attempt reconciliation without a reliable outcome. | Clear the investigation flag only when the reliable outcome is established; the unresolved variant remains conflicting. Production source/permission policy remains GAP-01/GAP-04. |
-| Location known → Final lookup state | Open and review PB-001's known location from DATA-02, close the lookup with resultReviewed(), then search again. | Close only the lookup. The registered device, location/version and fault records remain intact; reopening retrieves available information again. |
-| Unmet lookup guards | Run separate unknown-ID (PB-999), denied-access (USR-NONE) and retrieval-unavailable variants. | An authorised unknown-ID search reports not found; denied access reveals no protected result; unavailable retrieval is labelled unavailable. Search-only failures do not change recorded device facts. |
-
-The initial unknown view must not overwrite an existing accepted location. The final lookup state must not be interpreted as device deletion, fault resolution or completed redistribution. These distinctions link the state table to FR-03, NFR-02/NFR-03 and DEC-02.
-
-### Station snapshot-quality coverage from Section 8
-
-Expand the following groups into separate detailed cases for each starting state and alternative outcome. They cover Cooper's OperationalSnapshotQuality model and its FR-01/FR-02/FR-08/NFR-02 links; they are proposed checks, not executed results.
-
-| Transition / check | Controlled setup or event | Expected observable result |
-|---|---|---|
-| Initial → Unknown | Create the registered station's snapshot with no retrieved facts in DATA-08. | Show Unknown and “—”, not a confirmed zero; do not invent a last-successful-response time. |
-| Unknown → Reliable; Reliable → Reliable | Return consistent comparable facts, then refresh successfully. Include a complete-inventory variant with confirmed zero availability. | Store/display the accepted values with source/time; show 0 only in the confirmed-zero variant. Update the response time after successful retrieval. |
-| Unknown/Reliable/Inconsistent → Unavailable | Fail retrieval from each starting state separately. | Show Unavailable and hide current numeric values. Preserve last-response metadata and any unresolved conflicting evidence; a failed attempt is not a new successful update. |
-| Unavailable retry outcomes | Separately return agreeing facts, disagreeing facts, or another retrieval failure. | Move to Reliable, Inconsistent, or remain Unavailable respectively; remove only labels whose conditions have actually cleared. |
-| Reliable → Inconsistent | Supply comparable reports of 6 versus 5 for the same test count field. | Keep both values and sources, show Needs investigation, and treat neither as confirmed. |
-| Inconsistent → Reliable | Establish an accepted agreeing outcome; separately keep the sources disagreeing. | Clear the investigation flag only for the agreeing outcome; persistent disagreement remains flagged. |
-| First retrieval already conflicts | Start Unknown and return disagreeing comparable facts on the first retrieval. | FR-01/NFR-02 require an investigation indication. This transition is not explicit in the current Section 8 table/figure and needs diagram alignment; do not mark this branch covered solely by the existing model. |
-| Any state → Final (conditional design branch) | Exercise snapshot archival from each active state with permitted and denied test profiles. | Permitted archival ends the snapshot lifecycle while preserving history and operational references; denial changes no protected records. This branch depends on the agreed provisioning/permission policy, not a new inherited requirement. |
-
-Also check that a reliable report of an offline station remains reliable information about a non-operating station: data quality and physical health must stay separate. Advancing the test clock alone must not introduce an unspecified freshness deadline or a fabricated new observation time. A new station-registration interface is not implied by seeding these snapshot fixtures. [DEC-02; ASSUMP-02; GAP-01/04]
+Across these checks, a reliable report that a station is offline remains reliable information; data quality and physical health are separate. Advancing time alone creates no freshness deadline or observation. Fixtures imply no new registration UI. Where case variants do not explicitly cover a model branch, record the gap rather than claiming coverage. [DEC-02; ASSUMP-02/04/05; GAP-01/03/04]
 
 ### Synthetic fixture definitions
 
@@ -774,7 +655,7 @@ Movement fixtures may supply controlled charge/capacity facts to exercise transa
 | Expected output specification | Both values and sources shown with "Needs investigation". After C, the agreed value shows and the flag is removed. D shows the flag. E stays Reliable. |
 | Pass criteria | Neither value is shown as confirmed while they disagree. A reliable offline report is not treated as poor-quality data. |
 | Cleanup | Standard reset |
-| Dependencies / unresolved rules | Variant D is not an explicit row in the Section 8 table; align the diagram before claiming coverage. |
+| Dependencies / unresolved rules | Variant D is explicit in the Section 8 table but not the supplied figure; model alignment remains a review condition. |
 
 ### T-04 — Confirmed zero availability versus unknown availability
 
@@ -1098,19 +979,6 @@ Movement fixtures may supply controlled charge/capacity facts to exercise transa
 | Cleanup | Standard reset |
 | Dependencies / unresolved rules | Conditional on the permission policy (GAP-04, ASSUMP-02). |
 
-### Coverage prompts
-
-- Station data success, unavailable retrieval and conflicting information.
-- Confirmed zero availability versus unknown availability.
-- Valid device ID, invalid/unknown ID and unknown/conflicting location.
-- Valid fault, missing required fields and failed fault save.
-- Persistent unresolved-fault exclusion and successful/failed resolution.
-- Authorised/unauthorised access, including direct backend requests.
-- Confirmed redistribution, unsuitable device, missing confirmation and failed recording.
-- Normal operator tasks using visible controls without technical intervention.
-- State transitions, concurrent updates and duplicate/late events under the proposed design.
-- Customer/station contract behaviour only where responsibilities and rules are established.
-
 ## 12.4 Test plan
 
 ### Schedule and milestones
@@ -1142,7 +1010,7 @@ Movement fixtures may supply controlled charge/capacity facts to exercise transa
 | T-22 | Event ordering support and exchanged fields | GAP-01, ASSUMP-05 | Duplicate and conflicting-ID handling | Revision and ordering contract |
 | T-24 | Recipient acknowledgement and remote blocking | GAP-01, GAP-07 | Local commit, pending status, retry | Recipient handling |
 | T-25, T-19 | Recovery and usability targets | GAP-08 | Consistency and failure behaviour, recorded times | Numerical targets |
-| T-03 (variant D) | First-retrieval conflict is not a row in Section 8 | — | Expected result from FR-01 and NFR-02 | Diagram alignment |
+| T-03 (variant D) | First-retrieval conflict absent from supplied figure | — | Expected result and Unknown → Inconsistent table row | Diagram/table alignment remains open |
 
 # 13. Report to COMP2050 staff
 
@@ -1158,14 +1026,7 @@ The video describes blocking and restoring active inventory, but the written SRS
 
 FR-07 requires confirmed movement, yet the SRS details only UC-01–UC-03. We elaborated a supporting scenario and save-time checks in Sections 9–10. Failed recording after physical movement remains a reconciliation problem: rollback cannot reverse the move. Capacity/exception rules stay open. [SRC-01, pp.8,11,19,32,36–38; GAP-03/05]
 
-The table links completed document changes to their limitations. Commits evidence revisions, not stakeholder approval or implementation results.
-
-| Concrete issue | Effect on design | Action recorded in the draft | Remaining limitation | Evidence |
-|---|---|---|---|---|
-| Unallocated Customer/Ops responsibilities | Component and message ownership could be inconsistent. | Added clarification questions and the C-INT boundary/interface proposal. | Exact fields, ownership and acknowledgements remain open. | Sections 3.1/4.4; [Section 3 draft](https://github.com/comp2050-2026/Group-3---Team-A/commit/3d64851813c50ea421219aa52aa42dc3c60f08a5), [Section 4 draft](https://github.com/comp2050-2026/Group-3---Team-A/commit/3b22b3babbfabc97b22c203aabf3e14cd422e05f) |
-| Resolution does not establish full eligibility | A single status flag could incorrectly restore availability. | Separated operational facts and retained exclusion while any fault remains unresolved under the proposed multiple-fault policy. | Detailed field/eligibility rules and the multiple-fault policy need confirmation. | Section 9.1; [storage draft](https://github.com/comp2050-2026/Group-3---Team-A/commit/dc9cecea2f570b9f85a81464a2e3af089a99f58c) |
-| Incomplete redistribution exception detail | Planning, physical movement and successful recording could be confused. | Added transaction boundaries and competing-update/reconciliation scenarios. | Capacity and exception rules remain open; state/test integration needs review. | Sections 9.1/10.2; [concurrency draft](https://github.com/comp2050-2026/Group-3---Team-A/commit/90cda9f10c7da25b36e74868b1d74748a8579acb) |
-| Requirement/design/test relationships need checking | Shared rules could diverge between the different deliverables. | Added all 11 baseline rows and their use-case/component mappings with explicit required test coverage. | Test specifications are linked in Section 11; acceptance rules remain conditional where recorded in Section 12.4. | Section 11; [RTM draft](https://github.com/comp2050-2026/Group-3---Team-A/commit/5743fb892d672519eb4fa9ab8c2fa2fd2e78a6d8) |
+Document changes are evidenced by [Section 3 draft](https://github.com/comp2050-2026/Group-3---Team-A/commit/3d64851813c50ea421219aa52aa42dc3c60f08a5), [Section 4 draft](https://github.com/comp2050-2026/Group-3---Team-A/commit/3b22b3babbfabc97b22c203aabf3e14cd422e05f), [storage draft](https://github.com/comp2050-2026/Group-3---Team-A/commit/dc9cecea2f570b9f85a81464a2e3af089a99f58c), [concurrency draft](https://github.com/comp2050-2026/Group-3---Team-A/commit/90cda9f10c7da25b36e74868b1d74748a8579acb), [RTM draft](https://github.com/comp2050-2026/Group-3---Team-A/commit/5743fb892d672519eb4fa9ab8c2fa2fd2e78a6d8). These commits establish revisions, not stakeholder approval, peer sign-off or executed tests.
 
 Separating gaps, assumptions and decisions allowed progress without disguising provisional rules. PostgreSQL and module labels are justified design choices; charge thresholds, refresh deadlines, permission assignments and recovery targets require business agreement. This limits acceptance claims even when a technical mechanism can already be specified.
 
@@ -1182,13 +1043,11 @@ The result is a traceable design with linked tests and explicit unresolved rules
 | Document and diagram authoring | SRS in Markdown on GitHub; diagrams in Draw.io and Lucid.app | SDD in Markdown on GitHub; state diagrams in Draw.io (SD-01, SD-02) and Lucidchart (SD-03); wireframes in Lucidchart (WF-01 to WF-08) | Design needed far more visual work than requirements did, so Lucidchart was added for drawing screens and diagrams | Section 5 and 6–8 figures; REF-06, REF-07 |
 | Review and version control | GitHub with pull requests (PR #1, PR #2) and a change log tracking who changed what | GitHub `a2docs` folder, with an owner and reviewer listed on each section | Reviewers were named for every section, so cross checking was planned instead of happening only at the end | A1 SRS change log; SDD section headers; repository history |
 
-### Discussion
-The biggest change from A1 to A2 was that we no longer had a stakeholder we could ask. In A1, Team B answered our questions, which shaped most of our requirements. In A2 we had to work from Team B’s final SRS, so anything unclear became a gap or assumption in Section 3 instead of a question. The workload also contained more diagrams and visuals. Wireframes and state diagrams needed tools like Lucidchart instead of just Markdown and Draw.io. Naming an owner and a reviewer for every section helped make it clear who was doing what, and it meant sections were checked against each other, for example the wireframes against the state diagrams. One thing we would do differently is start merging and reviewing sections earlier, since most of the final integration happened close to the deadline.
-
+The main improvement for future work is earlier integration: named ownership clarified responsibility, but late merging left cross-section checks close to submission. The repository history in Section 13.3 supports this limitation.
 
 ## 13.3 Sprint allocations and repository evidence
 
-The brief requires three two-week sprints. Only repository history and working-document records were available for this report; original sprint allocations, GitHub burn-up exports and A2 minutes were not supplied. No dates, attendance or completion totals are invented.
+The brief requires three two-week sprints. Repository history supports the revisions below, and Appendix A contains the team-supplied WhatsApp-derived interaction records. Original sprint allocations and GitHub burn-up exports were not supplied; no sprint dates, assignments or completion totals are invented.
 
 | Required period | Evidence available | What can be concluded | Limitation |
 |---|---|---|---|
@@ -1210,19 +1069,14 @@ The brief requires three two-week sprints. Only repository history and working-d
 | Fault and tracking diagrams/tables integrated, 1 November | Harrison | [6893db2](https://github.com/comp2050-2026/Group-3---Team-A/commit/6893db2bb2a72cc35553a630d919fd763ee072c7); [89d5441](https://github.com/comp2050-2026/Group-3---Team-A/commit/89d544169f94e00587034397fc96006dc4986a99); [9bf8a33](https://github.com/comp2050-2026/Group-3---Team-A/commit/9bf8a33a2e697b58d24e7015d2312ad37a3f8b01) |
 | Maintenance and references updated, 1 November | Isaac | [3de0e75](https://github.com/comp2050-2026/Group-3---Team-A/commit/3de0e75946b25ec3dfd9b8b4feb9f57fcabd7b61); [cde7f15](https://github.com/comp2050-2026/Group-3---Team-A/commit/cde7f15d21519ffa5e3ab3910c87cfc1ef96fc6e); [9f435fa](https://github.com/comp2050-2026/Group-3---Team-A/commit/9f435fa6ec5e85f5426b84c4e28fc7560e716252) |
 
-Repeated late revisions/merges support earlier integration checkpoints as an improvement. They cannot prove the planned sprint process was followed; original snapshots/discussion records remain missing.
+Repeated late revisions/merges support earlier integration checkpoints as an improvement. They cannot prove the planned sprint process was followed; original sprint snapshots remain unavailable. Appendix A records the supplied discussion account separately.
 
 # 14. References and resources
 
-Source IDs SRC-01–SRC-05 are defined with precise locators in Section 1.3. The following list records additional resources used in preparing the design.
+REF-01–REF-05 correspond respectively to SRC-01–SRC-05, whose complete titles, versions and locators are listed in Section 1.3. Additional resources follow.
 
 | ID | Resource | Version / location | Use |
 |---|---|---|---|
-| REF-01 | Team B, ChargeMate Ops SRS | v1.2 cover, 12 September 2026; supplied handover PDF | Requirements and use cases; SRC-01. |
-| REF-02 | Team B, Ops handover video | Supplied 8:01 recording; recording date unconfirmed | Clarifications and discrepancies; SRC-02. |
-| REF-03 | Team A, ChargeMate Customer SRS | Change log through v1.5, 13 September 2026; repository `a1docs/SRS.md` | External interface context; SRC-03. |
-| REF-04 | COMP2050 Assignment 2 brief | Supplied released assessment instructions | Required deliverables and submission rules; SRC-04. |
-| REF-05 | COMP2050 Project B brief | [Repository brief](https://github.com/comp2050-2026/Group-3---Team-A/blob/main/project-briefs/PROJECT_B_CHARGEMATE_OPS.md) | Operational scope; SRC-05. |
 | REF-06 | JGraph, diagrams.net / draw.io | [draw.io](https://www.drawio.com/) | Architecture and SD-01/SD-02 authoring. |
 | REF-07 | Lucid Software, Lucidchart | [Lucidchart](https://lucid.app/) | Wireframes WF-01–WF-08 and SD-03. |
 | REF-08 | Anthropic, Claude | [Claude](https://claude.ai/) | Assessment-brief clarification, as recorded by the team in its resource list. |
@@ -1232,9 +1086,9 @@ Source IDs SRC-01–SRC-05 are defined with precise locators in Section 1.3. The
 | REF-12 | OWASP Foundation | [Authorization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html) | Backend permission checks and least privilege. |
 | REF-13 | Group 3 Team A | [Repository history](https://github.com/comp2050-2026/Group-3---Team-A/commits/main/) and individual commit links in Sections 13 and Appendix B | Document contribution and integration evidence. |
 
-## Appendix A
+# Appendix A. Team interaction records
 
-**Record ID:** A-01
+### A-01
 **Actual date/time:** 31 October 2026, 2:03 am – 1:15 pm
 **Channel/place:** WhatsApp, Group A
 **Participants/attendance:** Yousef, Cooper
@@ -1254,7 +1108,7 @@ Source IDs SRC-01–SRC-05 are defined with precise locators in Section 1.3. The
 
 ---
 
-**Record ID:** A-02
+### A-02
 **Actual date/time:** 1 November 2026, 2:41 pm – 2:47 pm
 **Channel/place:** WhatsApp, Group A
 **Participants/attendance:** Cooper, Ayaan, Yousef
@@ -1274,7 +1128,7 @@ Source IDs SRC-01–SRC-05 are defined with precise locators in Section 1.3. The
 
 ---
 
-**Record ID:** A-03
+### A-03
 **Actual date/time:** 1 November 2026, 4:29 pm
 **Channel/place:** WhatsApp, Group A
 **Participants/attendance:** Yousef, Harrison
@@ -1291,11 +1145,11 @@ Source IDs SRC-01–SRC-05 are defined with precise locators in Section 1.3. The
 | Push state diagram work | Harrison | None agreed | In progress |
 
 **Unresolved points:** None
-**Source link / evidence reference:** EV-01, 1 November, 4:29 pm; EV-02 [confirm commit link]
+**Source link / evidence reference:** EV-01, 1 November, 4:29 pm; EV-02; [scope draft](https://github.com/comp2050-2026/Group-3---Team-A/commit/bbff6af82979ccdcb5d470505f92a64327eda374) (document revision; not a push-time record)
 
 ---
 
-**Record ID:** A-04
+### A-04
 **Actual date/time:** 1 November 2026, 8:36 pm – 8:56 pm
 **Channel/place:** WhatsApp, Group A
 **Participants/attendance:** Yousef, Harrison, Cooper
@@ -1316,7 +1170,7 @@ Source IDs SRC-01–SRC-05 are defined with precise locators in Section 1.3. The
 
 ---
 
-**Record ID:** A-05
+### A-05
 **Actual date/time:** 1 November 2026, 9:03 pm – 9:19 pm
 **Channel/place:** WhatsApp, Group A
 **Participants/attendance:** Harrison, Cooper; Isaac tagged
@@ -1336,7 +1190,7 @@ Source IDs SRC-01–SRC-05 are defined with precise locators in Section 1.3. The
 
 ---
 
-**Record ID:** A-06
+### A-06
 **Actual date/time:** 1 November 2026, 9:30 pm
 **Channel/place:** WhatsApp, Group A
 **Participants/attendance:** Harrison, Isaac
@@ -1356,7 +1210,7 @@ Source IDs SRC-01–SRC-05 are defined with precise locators in Section 1.3. The
 
 ---
 
-**Record ID:** A-07
+### A-07
 **Actual date/time:** 1 November 2026, 9:40 pm – 9:48 pm
 **Channel/place:** WhatsApp, Group A
 **Participants/attendance:** Cooper, Harrison
@@ -1377,7 +1231,7 @@ Source IDs SRC-01–SRC-05 are defined with precise locators in Section 1.3. The
 
 ---
 
-**Record ID:** A-08
+### A-08
 **Actual date/time:** 1 November 2026, 9:51 pm – 10:03 pm
 **Channel/place:** WhatsApp, Group A
 **Participants/attendance:** Cooper, Harrison
@@ -1398,21 +1252,21 @@ Source IDs SRC-01–SRC-05 are defined with precise locators in Section 1.3. The
 
 ---
 
-## Appendix B
+# Appendix B. Evidence and contributions
 
 | Evidence ID | What it demonstrates | Actual date/period | Source link/file | Related section |
 |---|---|---|---|---|
 | EV-01 | Team communication, task allocation and decisions | 31 Oct – 1 Nov 2026 | WhatsApp chat export (Group A) | Appendix A, 13.2 |
-| EV-02 | Commit and push history for each section | [confirm] | [GitHub repo commit history link] | 13.2, 13.3, B.2 |
-| EV-03 | Wireframes WF-01 to WF-08 | 1 Nov 2026 | images/wireframes/WF_01.png – WF_08.png | Section 5 |
+| EV-02 | Recorded document commits and integration | 31 Oct–2 Nov 2026 | [Repository history](https://github.com/comp2050-2026/Group-3---Team-A/commits/main/a2docs) | 13.2, 13.3, B.2 |
+| EV-03 | Wireframes WF-01 to WF-08 | 1 Nov 2026 | images/WF-01.png through images/WF-08.png | Section 5 |
 | EV-04 | State diagrams SD-01 and SD-02 | 1 Nov 2026 | images/7chart.png, images/8chart.png | Sections 6–7 |
-| EV-05 | State diagram SD-03 | 1 Nov 2026 | images/SD-03.png | Section 8 |
+| EV-05 | State diagram SD-03 | 1 Nov 2026 | images/SD_03.png | Section 8 |
 
 ## B.2 Individual contributions supported by evidence
 
 | Team member | Work actually contributed | Review/collaboration actually performed | Supporting issue/commit/PR/record |
 |---|---|---|---|
-| Yousef | Set up the SDD template and the section allocation; wrote Section 3 [confirm other sections] | Offered to rebalance workload | A-01, A-03, A-04; EV-02 |
-| Harrison | State diagrams 1 and 2 (Sections 6–7) with tables and diagrams; flagged that state diagrams must follow use cases | Shared the state diagram guide; checked Cooper's Section 8 basis | A-03, A-04, A-07, A-08; EV-04 |
-| Cooper | Section 2 vision, Section 5 storyboards and wireframes WF-01 to WF-08, Section 8 SD-03 | Fixed the 7chart.png link; helped Isaac with 9.4 and 13.2 | A-02, A-04, A-07, A-08; EV-03, EV-05 |
-| Isaac | Section 9.4, 13.2 [confirm 13.3, 14, appendix] | Coordinated the appendix [confirm] | A-06; EV-02 |
+| Yousef | Template/allocation; Sections 1, 3, 4, 9.1–9.3, 10, 11 and 13.1; initial 12.1; final integration | Offered to rebalance workload | A-01, A-03, A-04; EV-02 |
+| Harrison | Sections 6–7 state models; Section 12 inventory, 26 test cases and test plan; coordinated use-case/state alignment | Shared the state diagram guide; checked Cooper's Section 8 basis | A-03, A-04, A-07, A-08; EV-04 |
+| Cooper | Sections 2, 5 and 8; wireframes WF-01–WF-08; final 13.2 tools discussion; Appendices A–B | Fixed the 7chart.png link; helped Isaac with 9.4 and 13.2 | A-02, A-04, A-07, A-08; EV-03, EV-05 |
+| Isaac | Section 9.4 maintenance; Section 14 reference updates; initial 13.2 contributions | Contributed section updates through GitHub | A-06; EV-02 |
