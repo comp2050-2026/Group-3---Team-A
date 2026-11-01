@@ -6,7 +6,7 @@
 **Document version:** [VERSION]  
 **Document date:** [DATE]  
 **Submission deadline:** Sunday 1 November 2026, 23:55 — check the iLearn submission display  
-**Document status:** Section-by-section working draft — Sections 1 and 3 drafted; remaining sections pending their authors and review
+**Document status:** Section-by-section working draft — Sections 1, 3 and 4 drafted; remaining sections pending their authors and review
 
 | Team member | Student ID |
 |---|---|
@@ -61,7 +61,7 @@ Fill this with the current position; blank fields are not evidence that work is 
 
 | Deliverable | Owner | Current status | Actual draft/task link | Reviewer feedback link | Review date |
 |---|---|---|---|---|---|
-| Baseline, assumptions, architecture | Yousef | Sections 1 and 3 drafted; architecture pending | [FILL] | [FILL] | [FILL] |
+| Baseline, assumptions, architecture | Yousef | Sections 1, 3 and 4 drafted; review pending | [FILL] | [FILL] | [FILL] |
 | Vision and two storyboard/wireframe sets | Cooper | [FILL] | [FILL] | [FILL] | [FILL] |
 | Three state diagrams | Harrison | [FILL] | [FILL] | [FILL] | [FILL] |
 | Persistence, caching and data access | Yousef | [FILL] | [FILL] | [FILL] | [FILL] |
@@ -233,48 +233,78 @@ Changes to a decision must update the affected diagrams, data rules, RTM and tes
 
 # 4. System architecture and rationale
 
-**Owner: Yousef | Reviewer: Harrison | Status: [FILL]**
+**Owner: Yousef | Reviewer: Harrison | Status: Section 4 drafted — review pending**
 
 ## 4.1 Architecture overview
 
-[FILL: Describe the selected architecture, how the operator reaches it, where business rules execute and how external systems connect. Explain your selection.]
+The proposed system has three layers: an operator web interface, a modular application backend and a PostgreSQL operational database. Staff use the browser interface to monitor stations, search devices, manage faults and confirm redistribution. The backend checks permissions and applies the operational rules before reading or changing stored information. The database holds the persistent records used by these functions. This implements DEC-01 and the browser-access assumption in §3.
 
-**Figure ARCH-01 — ChargeMate Ops architecture:** [INSERT LEGIBLE DIAGRAM]
+The backend separates responsibilities into named modules, but they form one application rather than independently deployed business services. This allows related fault, device and movement changes to be recorded in one database transaction. A transaction commits its related changes together or leaves them unsaved if it fails. External exchanges use a dedicated integration module and delivery worker so that station/Customer communication does not bypass the same operational rules.
 
-<!-- Insert the actual diagram here, for example as an image stored under a2docs/diagrams/. Include named components, system boundary, connections and a legend. -->
+![ARCH-01 — ChargeMate Ops system architecture](diagrams/ARCH-01.png)
+
+**Figure ARCH-01.** The operator, Rental Station System and Customer-Facing ChargeMate System are outside the Ops software boundary. C-UI and C-AUTH lead into four domain modules: C-MON, C-DEV, C-FAULT and C-MOVE. Domain modules use C-DB for persistent information. C-INT validates incoming external information, routes it through domain rules and delivers recorded outgoing updates. Solid arrows show logical requests/data relationships; the dashed Customer connection identifies an exchange whose detailed contract remains provisional. The diagram does not allocate customer payments or imply automatic hardware control. The editable source is [ARCH-01.drawio](diagrams/ARCH-01.drawio), for [diagrams.net (draw.io)](https://app.diagrams.net/). PNG and SVG exports are included for report assembly.
+
+The plaza pilot does not establish a need for separate deployment of each business function. A modular backend provides clear responsibilities while keeping device/fault/movement consistency within one transaction boundary. The trade-off is a shared application release and database dependency. Keeping module boundaries explicit supports later change without requiring distributed business services at this stage.
 
 ## 4.2 Component catalogue
 
-These component names are **suggestions from the review**, not SRS-mandated components. Agree or amend them once and update every dependent section.
+`C-` identifies a component in this design. These IDs and names must be reused in the RTM, test specifications and other diagrams.
 
-| Component ID | Suggested name | Final responsibilities | Inputs/outputs | Requirements supported |
-|---|---|---|---|---|
-| C-UI | Operator Web Interface | [FILL] | [FILL] | [FILL] |
-| C-AUTH | Staff Access Control | [FILL] | [FILL] | [FILL] |
-| C-MON | Station Monitoring | [FILL] | [FILL] | [FILL] |
-| C-DEV | Device Registry | [FILL] | [FILL] | [FILL] |
-| C-FAULT | Fault Management | [FILL] | [FILL] | [FILL] |
-| C-MOVE | Redistribution Management | [FILL] | [FILL] | [FILL] |
-| C-INT | Integration and Reconciliation | [FILL] | [FILL] | [FILL] |
-| C-DB | Operational Store | [FILL] | [FILL] | [FILL] |
+| Component | Responsibility | Main exchanges | Requirements supported |
+|---|---|---|---|
+| C-UI — Operator Web Interface | Presents station/device views, fault/resolution forms, movement confirmation and clear attention/recovery messages. Distinguishes unknown, unavailable and confirmed information. | Operator actions → backend requests; results and quality information → screens | FR-01–FR-08, NFR-01, NFR-02 |
+| C-AUTH — Staff Access Control | Establishes staff identity and checks whether each requested action/resource is permitted. Access is denied when permission cannot be established. | Staff identity, requested action and target → allow/deny decision | NFR-03; all protected operational functions |
+| C-MON — Station Monitoring | Combines accepted station observations with device/fault information to present station status, availability and recorded attention conditions. | Station query → summary/detail; uses C-DEV and C-FAULT information | FR-01, FR-02, FR-08, NFR-02 |
+| C-DEV — Device Registry | Looks up registered device IDs and maintains available recorded location, operational facts and record versions. | Device ID → device details, not-found or investigation outcome | FR-03; identification/location support for FR-02, FR-04–FR-08 |
+| C-FAULT — Fault Management | Validates and saves faults/resolutions. Preserves exclusion while any recorded fault remains unresolved. | Device-linked fault/resolution → saved record or explicit rejection/failure; exclusion information → other modules | FR-04, FR-05, FR-06, FR-08 |
+| C-MOVE — Redistribution Management | Identifies suitable candidates, checks registered source/destination and records confirmed physical movement. Rechecks suitability/current record before completion. | Device, stations and physical confirmation → recorded movement/new location or conflict/failure | FR-07; affects FR-02, FR-03, FR-05 |
+| C-INT — Integration and Reconciliation | Checks external source identity and message structure, recognises duplicates/ordering where supported, and preserves conflicting information for investigation. Delivers pending outgoing updates. | Station/Customer records → domain modules; committed outgoing records → agreed external recipient | FR-01–FR-03, FR-08, NFR-02; agreed fault/status exchange |
+| C-DB — Operational Store | Persists registered stations/devices, faults, movements, observations, versions and integration processing records with integrity constraints. | Protected backend queries/transactions → committed data or rolled-back result | Persistent support for FR-01–FR-08 and NFR-02 |
+
+C-MON obtains device and unresolved-fault information through domain query functions. C-MOVE uses C-DEV and C-FAULT checks before recording movement. C-FAULT and C-MOVE coordinate changes through the same device record/version. Sharing a database does not allow one module to ignore another module's business rules.
+
+External systems do not access C-DB directly. C-INT authenticates/authorises external exchanges under the agreed service policy and sends accepted changes through domain operations. Its worker may read pending outgoing records and record delivery outcomes, but it cannot independently declare a faulty device eligible. Detailed storage, locking and retry rules are addressed in §§9–10.
 
 ## 4.3 Requirement-driven architecture rationale
 
-| Requirement or quality concern | Architectural response | Why this response fits | Limitation/trade-off |
-|---|---|---|---|
-| NFR-01: usability | [FILL] | [FILL] | [FILL] |
-| NFR-02: operational data reliability | [FILL] | [FILL] | [FILL] |
-| NFR-03: authorised access | [FILL] | [FILL] | [FILL] |
-| Consistent fault and movement updates | [FILL] | [FILL] | [FILL] |
+| Requirement / concern | Design response | Reason and limitation |
+|---|---|---|
+| NFR-01 — Usability | C-UI follows monitoring, device lookup and fault-management tasks with visible controls and clear results. | Staff should not need direct database access or command-line tools for ordinary tasks. The actual screens and representative-user checks must still demonstrate this. |
+| NFR-02 — Operational Data Reliability | C-INT preserves source/time information; C-MON/C-DEV expose unknown, unavailable and conflicting facts. | Missing information is not converted into zero or normal operation. A timestamp does not establish an unsupported freshness guarantee. |
+| NFR-03 — Security and Access Control | C-AUTH checks protected requests on the backend; C-INT restricts service exchanges. | Hiding a button is insufficient protection. Permission assignments remain provisional, but denied requests must not change operational records. |
+| FR-04–FR-06 — Fault lifecycle | C-FAULT and C-DEV use a shared transaction boundary and derive exclusion from unresolved faults. | A failed save cannot count as a successful resolution or leave a partially updated device view. Resolving one fault does not clear another. |
+| FR-07 — Confirmed redistribution | C-MOVE checks suitability, expected device version and physical confirmation at completion. | Selecting a destination does not itself establish a new physical location. Conflicting reports require investigation. |
+| GAP-01/02/07 — External boundary | C-INT isolates field mapping and communication from the core modules. | The design can describe provisional exchanges without treating unconfirmed rental-control or dock-blocking behaviour as an inherited requirement. |
+
+The access-control approach follows the principles of least privilege, denial by default and permission checks on every request described in the [OWASP Authorization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html) (accessed 1 November 2026). The ability to coordinate short record-changing transactions using row locks is documented in [PostgreSQL 18: Explicit Locking](https://www.postgresql.org/docs/18/explicit-locking.html) (accessed 1 November 2026). These sources support implementation choices; they do not supply ChargeMate business requirements.
 
 ## 4.4 External interface responsibilities
 
-| Exchange / operation | Sender → receiver | Required fields | Confirmation/failure handling | Owner/source of truth | Agreement or assumption |
-|---|---|---|---|---|---|
-| Station/device observations | [FILL] | [FILL] | [FILL] | [FILL] | [FILL] |
-| Rental/return information | [FILL] | [FILL] | [FILL] | [FILL] | [FILL] |
-| Fault/availability changes | [FILL] | [FILL] | [FILL] | [FILL] | [FILL] |
-| Rental release / return confirmation ownership | [FILL] | [FILL] | [FILL] | [FILL] | [UNRESOLVED UNLESS EVIDENCED] |
+The following exchanges are proposed for implementation planning under the assumptions in §3. They describe intended responsibilities and minimum information, rather than an existing deployed API. Exact field formats, source ownership and timing remain identified gaps; the proposed approach allows the design to proceed without claiming external approval.
+
+| Exchange | Direction and proposed information | Processing / failure behaviour | Responsibility and assumption |
+|---|---|---|---|
+| Station observations | Rental Station System → C-INT: station/device identifiers, observation time, available status/location/availability facts, event ID and source revision where supplied | Validate source and registration; preserve missing fields; record conflicts rather than overwrite contradictory facts blindly | Stations supply physical observations. Charge/capacity semantics and ordering support remain GAP-01/03 and ASSUMP-05. |
+| Rental/return facts | Customer → C-INT: event ID, device ID, station ID where applicable, event type/time and source revision where available | Route accepted facts through C-DEV/domain rules; repeated or late input cannot silently erase newer or conflicting evidence | Customer supplies its recorded rental/return information. This exchange does not itself define who authorises release or confirms physical docking. |
+| Operational changes | C-INT → agreed Customer/station recipient: entity ID, changed operational facts, local revision and event ID | Save the pending outgoing update with the business change; retry delivery separately and distinguish pending from acknowledged delivery | Ops owns its recorded fault/movement changes. Remote exclusion/blocking requires the recipient's agreed handling; local success alone does not prove it happened. |
+| Operational information requests | Agreed external caller → C-INT: permitted station/device query; response includes accepted values and quality/source/time information | Apply service access checks; return unknown/unavailable/conflicting information explicitly | Share only the fields needed by the agreed interface. Exact-count/return-capacity ownership remains GAP-01/03. |
+
+For this proposal, physical docking/release hardware remains part of the external Rental Station System, and customer accounts, prices and payment processing remain with the customer-facing system. Ops manages its operational records and views. The software route for rental authorisation/release commands and return acknowledgements remains GAP-02; it is not silently implemented by the fault or redistribution modules. No payment credentials or customer card data are needed in the proposed operational exchanges.
+
+### Consistent command results
+
+Protected record-changing requests carry the target identifier, expected record version and a unique operation ID. The backend returns a consistent outcome: **committed**, **validation rejected**, **not found**, **access denied**, **version conflict** or **save failed**. A committed result includes the saved record ID and new version. Repeating the same operation ID with the same input returns the recorded outcome rather than creating a duplicate; conflicting reuse is rejected. These are proposed interface conventions for aligning screens, state diagrams and tests.
+
+## 4.5 Example: recording a power bank fault
+
+1. The operator finds a device through C-UI. C-AUTH checks access, and C-DEV returns the registered device information.
+2. The operator submits fault details for that selected device. C-AUTH checks permission to record the fault.
+3. C-FAULT validates the details and coordinates with C-DEV/C-DB to save the fault, update the device version and record any pending outgoing update together.
+4. C-UI shows success only after the save commits. C-DEV/C-MON/C-MOVE use the unresolved-fault rule so the device is visibly requiring attention and is not normally available or a suitable movement candidate.
+5. C-INT delivers the outgoing status update under the proposed contract. If delivery fails temporarily, the saved fault remains active and external synchronisation remains pending.
+
+This example shows why the interface, permissions, business modules, database and integration worker have separate responsibilities while preserving one consistent operational result.
 
 # 5. User experience: two wireframe/storyboard sets
 
