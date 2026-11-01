@@ -584,7 +584,7 @@ Retention rules must cover operational records, source evidence, processing rece
 | Operator interface | Build as a versioned web bundle. Staff get the new version on their next page load. | The backend accepts the current and previous interface version for one release. An out-of-date page that sends an incompatible request is rejected with a “refresh and retry” message and nothing is partially saved. | Redeploy the previous bundle. No data migration is needed. |
 | Backend/business logic | Deploy a new version while the old one finishes in-flight requests, so a fault save is not dropped mid-write. Permission checks and version rechecks (DEC-03) are part of every release. | On startup the backend checks that the database schema version matches, and takes no traffic if it doesn’t. Changes commit fully or not at all, so a failed save is never shown as successful (FR-04, FR-06). | Redeploy the previous build, but only if the schema is still compatible. |
 | Database/schema | Changes go through versioned, scripted migrations. We add new structures first, switch the code over, and only remove the old ones in a later release. A backup is taken before every migration. | We rehearse each migration on a copy loaded with synthetic test data (see Section 12). Existing faults, resolutions, movements and observations are kept, including each station’s last-response time. | If the change only added things, roll back the code and leave the data alone. If it removed or changed things, restore the pre-migration backup and manually review anything entered after it was taken. |
-| Station/customer adapters | Each adapter is versioned against its agreed message format and deployed separately from the core logic, so a change on the station or Customer side doesn’t force a full release. | Messages we can’t recognise or that are malformed are kept and flagged, not guessed at. Outgoing updates (DEC-04) wait in a queue while the other system is down and retry once it’s back. | Revert to the previous adapter version. Before replaying any queued messages, check for duplicates (ASSUMP-05). |
+| Station/customer adapters | Each adapter is versioned against its agreed message format and deployed separately from the core logic, so a change on the station or Customer side doesn’t force a full release. | Messages we can’t recognise or that are corrupted are kept and flagged, not guessed at. Outgoing updates (DEC-04) wait in a queue while the other system is down and retry once it’s back. | Revert to the previous adapter version. Before replaying any queued messages, check for duplicates (ASSUMP-05). |
 | External physical devices | These sit outside Ops (SRS Figure 1). Updating them is up to the station hardware supplier or ChargeMate. Who owns the station firmware isn’t established (GAP-01), so we don’t assume it, and Ops doesn’t install or update it. | If the station side changes its data format or behaviour, we treat it as an interface change (GAP-01, GAP-07). | Ops can roll back its own adapter. Until data arrives again, affected stations show as Unavailable with the time they last responded (NFR-02, SD-03). |
 
 
@@ -675,14 +675,79 @@ Suggested length: approximately 10–15 pages in the final PDF. Specify how the 
 
 ## 12.1 Test approach and fixtures
 
-[FILL: Explain test levels, requirement/state/branch coverage, simulated external systems, synthetic test data and fault injection. Identify acceptance rules still blocked by unanswered questions.]
+Testing is proposed for a future implementation of the design in Sections 4 and 9–10. Expected behaviour is derived from the eight functional and three non-functional requirements and their fit criteria in SRC-01, pp.7–9. Design safeguards such as record versions, duplicate handling and recovery are additionally traced to the relevant DEC/ASSUMP entries. This section defines the approach and synthetic setup; it does not report completed tests or pass results.
 
-| Fixture ID | Synthetic input / setup | Purpose | Relevant assumption |
+### Test levels and observations
+
+| Level | Focus | Evidence to collect during implementation testing |
+|---|---|---|
+| Component/domain | C-MON station summaries, C-DEV lookup, C-FAULT validation/exclusion, C-MOVE suitability and C-AUTH permission decisions, with controlled dependencies | Actual versus expected outputs for valid, missing, unknown, denied and conflicting inputs. Check that unresolved faults remain effective through reporting/investigation. |
+| Integration | Domain modules with an isolated PostgreSQL database and C-INT connected to station/Customer simulators | Saved records, versions, command receipts and pending updates before/after each operation; transaction rollback, duplicates, delayed events and delivery failures. |
+| End-to-end/operator | The proposed C-UI workflows for UC-01, UC-02, UC-03 and the supporting redistribution scenario | Visible navigation, labels, messages and resulting saved state. Representative staff perform normal tasks through the interface without database/command-line access or administrative help, as required by NFR-01. |
+| Recovery/concurrency | The isolated restore process and overlapping operations described in Sections 9.3/10.2 | Consistent restored records, qualified old information, conflict responses and duplicate protection. Control the order of competing submissions so both relevant commit orders can be examined. |
+
+The test harness may inspect stored records to verify outcomes; ordinary operator tasks must still use the normal interface. A failure message is insufficient evidence of rollback on its own: check that the relevant fault, movement, device version and receipt/outgoing records agree with the expected transaction outcome.
+
+### Coverage and case selection
+
+The detailed specifications must collectively cover every inherited requirement, the main and alternative/failure branches of the three supplied use cases, and the FR-07 supporting redistribution scenario. Include registered versus unknown identifiers, required values present versus missing, permitted versus denied actions, confirmed zero availability versus unknown information, unresolved faults, valid/failed resolution and confirmed versus unconfirmed movement.
+
+For the final state diagrams in Sections 6–8, identify tests for the permitted transitions, guarded rejections and relevant same-state queries. A rejected operation must leave the protected business state unchanged; a rejected or rolled-back new fault submission must not create a fault record. Resolving one fault must not clear another unresolved fault or independently establish rental eligibility. The concurrency scenarios in Section 10.2 also need explicit detailed cases.
+
+Each case in Section 12.3 must identify its requirement/decision, chosen fixture variant, exact input, steps and expected UI/API and persisted outcomes. Section 12.2 supplies the case IDs; fixture IDs below are not test-case IDs. Record conditional or uncovered behaviour explicitly so the RTM does not imply coverage that has not been specified.
+
+### Tracking-state coverage from Section 7
+
+The updated PowerBank Tracking Status table needs the following explicit coverage. These are checks to expand into the detailed Section 12.3 specifications and assign actual test IDs; they do not report execution results.
+
+| Transition / check | Fixture and action | Expected observable result |
+|---|---|---|
+| Initial lookup → Location unknown | With DATA-01/DATA-03, an authorised operator searches for registered PB-003 with no reliable location. | Show the matching device ID and an explicit unknown location; do not invent a station or treat the device as unregistered. |
+| Location unknown → Location known | Supply an accepted, reliable ST-01 observation for PB-003, including its source and time. | Display the established location for that device. The update does not clear faults or certify charge/rental eligibility. |
+| Location unknown → Information conflicting | Use PB-004's contradictory SRC-A/ST-01 and SRC-B/ST-02 reports in DATA-03, without comparable ordering. | Preserve both reports and display “requires investigation”; do not choose one as a confirmed location merely because it arrived last. |
+| Information conflicting → Location known | Supply a verified reconciliation outcome establishing PB-004 at ST-02. Separately, attempt reconciliation without a reliable outcome. | Clear the investigation flag only when the reliable outcome is established; the unresolved variant remains conflicting. Production source/permission policy remains GAP-01/GAP-04. |
+| Location known → Final lookup state | Open and review PB-001's known location from DATA-02, close the lookup with resultReviewed(), then search again. | Close only the lookup. The registered device, location/version and fault records remain intact; reopening retrieves available information again. |
+| Unmet lookup guards | Run separate unknown-ID (PB-999), denied-access (USR-NONE) and retrieval-unavailable variants. | An authorised unknown-ID search reports not found; denied access reveals no protected result; unavailable retrieval is labelled unavailable. Search-only failures do not change recorded device facts. |
+
+The initial unknown view must not overwrite an existing accepted location. The final lookup state must not be interpreted as device deletion, fault resolution or completed redistribution. These distinctions link the state table to FR-03, NFR-02/NFR-03 and DEC-02.
+
+### Station snapshot-quality coverage from Section 8
+
+Expand the following groups into separate detailed cases for each starting state and alternative outcome. They cover Cooper's OperationalSnapshotQuality model and its FR-01/FR-02/FR-08/NFR-02 links; they are proposed checks, not executed results.
+
+| Transition / check | Controlled setup or event | Expected observable result |
+|---|---|---|
+| Initial → Unknown | Create the registered station's snapshot with no retrieved facts in DATA-08. | Show Unknown and “—”, not a confirmed zero; do not invent a last-successful-response time. |
+| Unknown → Reliable; Reliable → Reliable | Return consistent comparable facts, then refresh successfully. Include a complete-inventory variant with confirmed zero availability. | Store/display the accepted values with source/time; show 0 only in the confirmed-zero variant. Update the response time after successful retrieval. |
+| Unknown/Reliable/Inconsistent → Unavailable | Fail retrieval from each starting state separately. | Show Unavailable and hide current numeric values. Preserve last-response metadata and any unresolved conflicting evidence; a failed attempt is not a new successful update. |
+| Unavailable retry outcomes | Separately return agreeing facts, disagreeing facts, or another retrieval failure. | Move to Reliable, Inconsistent, or remain Unavailable respectively; remove only labels whose conditions have actually cleared. |
+| Reliable → Inconsistent | Supply comparable reports of 6 versus 5 for the same test count field. | Keep both values and sources, show Needs investigation, and treat neither as confirmed. |
+| Inconsistent → Reliable | Establish an accepted agreeing outcome; separately keep the sources disagreeing. | Clear the investigation flag only for the agreeing outcome; persistent disagreement remains flagged. |
+| First retrieval already conflicts | Start Unknown and return disagreeing comparable facts on the first retrieval. | FR-01/NFR-02 require an investigation indication. This transition is not explicit in the current Section 8 table/figure and needs diagram alignment; do not mark this branch covered solely by the existing model. |
+| Any state → Final (conditional design branch) | Exercise snapshot archival from each active state with permitted and denied test profiles. | Permitted archival ends the snapshot lifecycle while preserving history and operational references; denial changes no protected records. This branch depends on the agreed provisioning/permission policy, not a new inherited requirement. |
+
+Also check that a reliable report of an offline station remains reliable information about a non-operating station: data quality and physical health must stay separate. Advancing the test clock alone must not introduce an unspecified freshness deadline or a fabricated new observation time. A new station-registration interface is not implied by seeding these snapshot fixtures. [DEC-02; ASSUMP-02; GAP-01/04]
+
+### Synthetic fixture definitions
+
+All identities, devices, faults and messages below are proposed test data, not production records, actual accounts or historical team activity. Reset the database and simulators before each independent case and apply only the stated variant. Complete-inventory, unavailable-source and conflicting-location variants are separate setups; do not combine them while retaining an unsupported confirmed total.
+
+| Fixture ID | Synthetic input / setup | Purpose | Relevant assumption / dependency |
 |---|---|---|---|
-| DATA-01 | [FILL: AUTHORISED AND UNAUTHORISED USER FIXTURES] | [FILL] | [FILL] |
-| DATA-02 | [FILL: REGISTERED STATIONS/DEVICES] | [FILL] | [FILL] |
-| DATA-03 | [FILL: VALID, MISSING AND CONFLICTING OBSERVATIONS] | [FILL] | [FILL] |
-| DATA-04 | [FILL: FAULTS, RESOLUTIONS AND MOVEMENT REQUESTS] | [FILL] | [FILL] |
+| DATA-01 | Two test identities, `USR-OPS-A` and `USR-OPS-B`, permitted for the tested action; `USR-VIEW` permitted to view but denied changes; `USR-NONE` unauthorised. Add an expired-session variant. | Allowed/denied requests, concurrent operators and changed access. These are test permission profiles, not proposed production staff roles. | ASSUMP-02; GAP-04; NFR-03 |
+| DATA-02 | Registered `ST-01`/`ST-02`; baseline `PB-001` at ST-01, version 7, with no faults; `PB-002` at ST-01, version 3, with unresolved faults. For the complete-inventory variant, ST-02 has confirmed zero devices. `PB-999` is unregistered. | Station/device matching, known-empty versus unknown information, correct device association and movement setup. | ASSUMP-02; completeness/eligibility semantics remain GAP-03 |
+| DATA-03 | Separate variants add registered `PB-003` with unknown location, registered `PB-004` reported at ST-01 by `SRC-A` and ST-02 by `SRC-B` without comparable ordering, or registered `ST-03` whose source cannot supply information. Retain observation/received times; include reliable-update, verified-reconciliation and still-conflicting variants. | Unknown/known/conflicting transitions, reconciliation and preservation of useful last-known evidence. | GAP-01; ASSUMP-05; NFR-02 |
+| DATA-04 | `F-001` (“damaged connector”) and `F-002` (“charging issue”) both unresolved on PB-002. Fault-input variants use a non-empty or blank description; resolution variants use a non-empty or blank note and permitted/denied identities. | Correct fault creation, missing details, multiple-fault exclusion and successful/failed/denied resolution. | ASSUMP-03/04; final field/permission rules remain GAP-04 |
+| DATA-05 | Proposed `MOVE-001`: PB-001, ST-01 → ST-02, expected version 7, physical confirmation true/false. For competing destinations, add registered available ST-04 and submit ST-02 versus ST-04 confirmations against the same starting version. | Confirmed movement, missing confirmation, outdated versions and competing reports. | Charge/capacity inputs use a configured test policy; actual fault, registration, version and confirmation guards still run. GAP-03/05 |
+| DATA-06 | Source `SRC-STATION` sends event `EVT-001`, revision 10; replay identical input, conflicting input with the same ID, and a different event with older revision 9. Command variants reuse `OP-001` unchanged or with altered input; outgoing variants lose delivery/acknowledgement. | Duplicate/late messages, lost responses, command receipts and pending synchronisation. | ASSUMP-05; acknowledgement/recipient rules remain GAP-01 |
+| DATA-07 | Prepare a consistent recovery set containing unresolved faults, a completed movement with matching location/version, receipts and pending outgoing updates. Add an unusable recovery-set variant, such as a missing required archived log. | Restore consistency, unrecovered intervals, old observations and uncertain replay. These are setup definitions, not existing backup files. | Section 9.3; recovery/retention targets remain GAP-08 |
+| DATA-08 | Registered test snapshots: `ST-Q01` starts Unknown with no facts; `ST-Q02` starts Reliable with an accepted count of 6 and a recorded response time. Variants provide count 0 from a complete inventory, comparable source counts 6/5, a reliable offline-station report, failed retrieval, recovery and permitted/denied archival. | Station-quality transitions, zero versus unknown, preserved conflict evidence and quality versus health. | Section 8; ASSUMP-02; external field/completeness and archival permissions remain GAP-01/03/04 |
+
+### Controlled failures and unresolved acceptance rules
+
+Station/Customer simulators use the proposed Section 4.4 fields to produce successful, missing, conflicting, duplicate, delayed and unavailable responses without operating real rental hardware. Inject database failure before commit, loss of the response after commit and external delivery/acknowledgement failure as distinct conditions. A confirmed rollback leaves no successful business update; a lost post-submission response leaves the outcome unconfirmed until checked using the original operation ID. A local commit can coexist with pending external delivery.
+
+Movement fixtures may supply controlled charge/capacity facts to exercise transaction mechanics while the actual fault, registration, version and confirmation rules remain active. This does not validate an unconfirmed charge threshold or capacity policy. Numerical freshness, charge, alert, performance, recovery and retention limits are not invented for testing. Cases depending on those values, exact exchanged fields or permission assignments must identify their gap and conditional expected result; the missing rule must be established before the corresponding acceptance claim can be finalised.
 
 ## 12.2 Test inventory
 
@@ -850,13 +915,14 @@ Suggested length: approximately 3–4 pages. The brief specifies Sprint 1 from t
 
 | Reference ID | Author / organisation | Resource title | Version/date and access date | Link / source location | Where used |
 |---|---|---|---|---|---|
-| REF-01 | Team B | ChargeMate Ops SRS | [v1.2, 12 October 2026] | A1 Week 8 Handover forum (iLearn) | Sections 1, 3, 5, 11, 12, 13 |
-| REF-02 | Team B | ChargeMate Ops handover explainer video | 12 October 2026 | A1 Week 8 Handover forum (iLearn) | Section 3 |
+| REF-01 | Team B | ChargeMate Ops SRS | [v1.2, 12 September 2026] | A1 Week 8 Handover forum (iLearn) | Sections 1, 3, 5, 11, 12, 13 |
+| REF-02 | Team B | ChargeMate Ops handover explainer video | 12 September 2026 | A1 Week 8 Handover forum (iLearn) | Section 3 |
 | REF-03 | Team A | ChargeMate Customer SRS | Change log to v1.5, 13 Sep 2026 | a1docs/srs.md |
 | REF-04 | COMP2050 teaching team | Assignment 2 brief | 12th September 2026 | Ilearn, Assessment 2 | Deliverable structure, sprint timing.
-| REF-05 | COMP2050 convenor | Assignment 1 Project B brief: ChargeMate Ops | 22 Jul 2026 | iLearn Assessment 1 | Session 1.2, 3 |
+| REF-05 | COMP2050 convenor | Assignment 1 Project B brief: ChargeMate Ops | 22 Jul 2026 | iLearn Assessment 1 | Section 1.2, 3 |
 | REF-06 | JGraph Ltd | Draw.io | | https://www.drawio.com/ | 7chart.png, 8chart.png |
 | REF-07 | Lucid Software Inc | Lucid Chart | | lucid.app | WF-01-08, SD-03.png |
+| REF-08 | Anthropic | Claude | | | claude.ai | Used for breaking down and clarifying assessment brief |
 
 [FILL: Include diagram tools, borrowed assets/templates, technical resources and AI assistance actually used, with the required acknowledgement. Cite sources within the relevant sections as well as in this list.]
 
