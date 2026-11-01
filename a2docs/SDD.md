@@ -355,16 +355,25 @@ Use multi-step operator interactions. Suggested choices are UC-01 and UC-03. Inc
 
 The object choice is proposed. If replaced, choose another object with meaningful states and update the contents and links.
 
-**Object and purpose:** [FILL]  
-**Requirements/use cases:** [FILL]  
+**Object and purpose:** FaultRecord Represents a reported fault against a submitted power bank. It tracks when the faulty record was submitted, and what is wrong with it.
+**Requirements/use cases:** UC-03 – Report and Manage a Faulty Power Ban, FR-04, FR-05, FR-06, FR-07, FR-08
 **Figure SD-01:** [INSERT UML STATE DIAGRAM]
 
 | Current state | Event | Guard / condition | Action | Next state | Related test |
 |---|---|---|---|---|---|
-| [FILL] | [FILL] | [FILL] | [FILL] | [FILL] | [FILL] |
-| [FILL] | [FILL] | [FILL] | [FILL] | [FILL] | [FILL] |
+| Initial | reportfault(powerbankID, powerbankproblem) | Power bank is registered, details are valid | Create record for the power bank, mark it as faulty | Active -> reported | [FILL] |
+| Reported | reviewfault(FaultID) | fault exists | record that the fault is under investigation | Reviewing | [FILL] |
+| Under-Investigation | fixfault(FaultID, status) | fault is successfu | store that bank is fixed, remove record, allow for rehiring | Resolved | [FILL] |
+| Under-Investigation | fixfault() | save fails | show error, leave record unchanged | Under-Investigation | [FILL] |
+| Under-Investigation | fixfault() | reviewer has improper access | show error, leave record unchanged | Under-Investigation | [FILL] |
+| Resolved | None | None | None | FinalState | n/a |
 
-[FILL: Explain valid creation, unresolved investigation, successful resolution, failed save and unauthorised resolution. State what remains unchanged when an operation fails.]
+
+**Valid Creation**: Only an authorised person can report that a fault has been created/fixed. it is then flagged as needing repairs, and that the repair is active.
+**Unresolved Investigation**: The record stays active when an error occurs, leaving the data untouched so it can be successfully resolved
+**Successfull Resolution**: The authorised user submits the fixed fault, and the save succeeds. the records are resolved and the device status is updated to reflect this.
+**Failed Save**: If the save fails, the record of the fault remains active, and no further data is saved. The failure isnt treated as a resolution to the fault.
+**Unauthorised Resolution**: the resolution is denied, and the record remains active.
 
 # 7. State diagram 2 — RedistributionJob
 

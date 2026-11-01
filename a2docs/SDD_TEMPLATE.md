@@ -341,7 +341,7 @@ The object choice is proposed. If replaced, choose another object with meaningfu
 **Valid Creation**: Only an authorised person can report that a fault has been created/fixed. it is then flagged as needing repairs, and that the repair is active.
 **Unresolved Investigation**: The record stays active when an error occurs, leaving the data untouched so it can be successfully resolved
 **Successfull Resolution**: The authorised user submits the fixed fault, and the save succeeds. the records are resolved and the device status is updated to reflect this.
-**Failed Save**:If the save fails, the record of the fault remains active, and no further data is saved. The failure isnt treated as a resolution to the fault.
+**Failed Save**: If the save fails, the record of the fault remains active, and no further data is saved. The failure isnt treated as a resolution to the fault.
 **Unauthorised Resolution**: the resolution is denied, and the record remains active.
 
 # 7. State diagram 2 — RedistributionJob
