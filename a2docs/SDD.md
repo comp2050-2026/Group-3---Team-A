@@ -414,7 +414,7 @@ The object choice is proposed. If replaced, choose another object with meaningfu
 **Failed Save**: If the save fails, the record of the fault remains active, and no further data is saved. The failure isnt treated as a resolution to the fault.
 **Unauthorised Resolution**: the resolution is denied, and the record remains active.
 
-# 7. State diagram 2 — RedistributionJob
+# 7. State diagram 2 — TrackPowerBank
 
 **Owner: Harrison | Reviewer: Yousef | Coordinate the movement/data rules with section 9 | Status: [FILL]**
 
@@ -429,7 +429,7 @@ The object choice is proposed. If replaced, choose another object with meaningfu
 
 [FILL: Distinguish selecting/planning a movement from confirming physical movement and successfully recording completion. Handle faulty/unavailable devices, competing updates and failed recording after a physical move. Mark capacity/in-transit policies as assumptions where not agreed.]
 
-# 8. State diagram 3 — OperationalSnapshotQuality
+# 8. State diagram 3 — ViewStationStatus
 
 **Owner: Harrison | Reviewer: Yousef | Cooper checks the related screen behaviour | Status: [FILL]**
 
