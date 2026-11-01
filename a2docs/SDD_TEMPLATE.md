@@ -334,8 +334,10 @@ These component names are **suggestions from the review**, not SRS-mandated comp
 The object choice is proposed. If replaced, choose another object with meaningful states and update the contents and links.
 
 **Object and purpose:** FaultRecord Represents a reported fault against a submitted power bank. It tracks when the faulty record was submitted, and what is wrong with it.
-**Requirements/use cases:** UC-03 – Report and Manage a Faulty Power Ban, FR-04, FR-05, FR-06, FR-07, FR-08
-**Figure SD-01:** [INSERT UML STATE DIAGRAM]
+**Requirements/use cases:** UC-03 – Report and Manage a Faulty Power Bank, FR-04, FR-05, FR-06, FR-07, FR-08
+**Figure :** 
+
+![SD-01 UC-03 Report and Manage a Faulty Power Bank](images/7chart.png)
 
 | Current state | Event | Guard / condition | Action | Next state | Related test |
 |---|---|---|---|---|---|
