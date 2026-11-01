@@ -327,26 +327,6 @@ These component names are **suggestions from the review**, not SRS-mandated comp
 ![WF-08 Resolution entry / result](images/WF-08.png)
 *Figure 5.2.5 — WF-08 Resolution entry / result.*
 
-
-## 5.2 Storyboard SB-03 — UC-03 Report and Manage a Faulty Power Bank
-
-**Actor:** [DESCRIBE OPERATOR; DISTINGUISH RESOLUTION PERMISSION IF APPLICABLE]  
-**Preconditions:** [FILL]  
-**Requirements:** [FILL]  
-**Related tests:** [FILL]
-
-| Step | Screen ID/title | Operator action | System response and information displayed | Next screen / branch |
-|---|---|---|---|---|
-| 1 | WF-04 — Device search/detail | [FILL] | [FILL] | [FILL] |
-| 2 | WF-05 — Fault entry | [FILL] | [FILL] | [FILL] |
-| 3 | WF-06 — Save result | [FILL] | [FILL] | [FILL] |
-| 4 | WF-07 — Later fault review | [FILL] | [FILL] | [FILL] |
-| 5 | WF-08 — Resolution entry/result | [FILL] | [FILL] | [FILL] |
-
-**Figures WF-04 to WF-08:** [INSERT ANNOTATED WIREFRAMES]
-
-[FILL: Show not-found, missing information, save failure, unresolved investigation, denied resolution and failed resolution. Later resolution can occur in a different session. Do not show success before a successful save or automatic rental eligibility after resolution.]
-
 # 6. State diagram 1 — FaultRecord
 
 **Owner: Harrison | Reviewer: Yousef | Cooper checks the related screen behaviour | Status: [FILL]**
