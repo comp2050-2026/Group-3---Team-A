@@ -372,14 +372,14 @@ The object choice is proposed. If replaced, choose another object with meaningfu
 
 # 8. State diagram 3 — OperationalSnapshotQuality
 
-# 8. State diagram 3 — OperationalSnapshotQuality
-
 **Owner: Cooper | Reviewer: Yousef | Status: Review Pending**
 
 **Object and purpose:** OperationalSnapshotQuality represents how trustworthy the information ChargeMate Ops currently holds about a rental station is. It does not track whether the station itself is working. A station can be reported as offline and that report can still be reliable. It only tracks whether the system can trust the status and availability it is showing the operator in UC-01.
 **Requirements/use cases:** UC-01 – View Station Status, FR-01, FR-02, FR-08, NFR-02
 **Related screens:** WF-01, WF-02, WF-03
-**Figure SD-03:** [INSERT UML STATE DIAGRAM]
+**Figure SD-03:** 
+
+![SD-03 UC-01 View Station Status](images/SD_03.png)
 
 | Current state | Event | Guard / condition | Action | Next state | Related test |
 |---|---|---|---|---|---|
