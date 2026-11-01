@@ -415,18 +415,26 @@ The object choice is proposed. If replaced, choose another object with meaningfu
 **Failed Save**: If the save fails, the record of the fault remains active, and no further data is saved. The failure isnt treated as a resolution to the fault.
 **Unauthorised Resolution**: the resolution is denied, and the record remains active.
 
-# 7. State diagram 2 — TrackPowerBank
+# 7. State diagram 2 — PowerBank Tracking Status
 
 **Owner: Harrison | Reviewer: Yousef | Coordinate the movement/data rules with section 9 | Status: [FILL]**
 
 **Object and purpose:** Powerbank tracking status. represents the data that ChargeMate Ops can see about the location of a power bank, seperating known location, and information that needs to be investigated.
-**Requirements/use cases:** [FILL]  
+**Requirements/use cases:** UC-02 - Track a Power Bank, FR-03 
 **Figure SD-02:** [INSERT UML STATE DIAGRAM]
 
 | Current state | Event | Guard / condition | Action | Next state | Related test |
 |---|---|---|---|---|---|
-| [FILL] | [FILL] | [FILL] | [FILL] | [FILL] | [FILL] |
-| [FILL] | [FILL] | [FILL] | [FILL] | [FILL] | [FILL] |
+| Initial | powerbankregistered(powerbankid) | Unique ID supplied through the agreed setup process| Create tracking record; no location recorded | No reliable location -> Location unknown | [FILL] |
+| Location unknown | locationobserved(powerbankid, powerbanklocation, powerbanksource, powerbanktime) | Observation is reliable and consistent with recorded data | Store observation; set recorded location | Location known (via exit point) | [FILL] |
+| Location known | locationobserved(powerbankid, powerbanklocation, powerbanksource, powerbanktime) | Reliable and consistent | Update last-known location and time | Location known | [FILL] |
+| Location known | locationunavailable(powerbankid) | Source reports no reliable current location | Mark location unknown | Location unknown | [FILL] |
+| Location known | conflictingObservation(powerbankid) | Sources disagree and order cannot be established| Keep both observations and flag as requiring investigation | Information conflicting | [FILL] |
+| Location unknown | conflictingobservation(powerbankid) | Sources disagree and order cannot be established | Keep both observations; flag as requiring investigation | Information conflicting (within No reliable location) | [FILL] |
+| Information conflicting | conflictreconciled(powerbankid) | A reliable location is established | Record outcome and clear the flag | Location known | [FILL] |
+| All States | searchPowerBank(id) | Operator authorised, ID registered and information retrievable | Display status and location, or "unknown", or "requires investigation", according to the state | Same state | [FILL] |
+| All States | searchPowerBank(id) | Information cannot be retrieved | Show error; nothing stored | Same state | [FILL] |
+| All States | searchPowerBank(id) | Operator not authorised | Deny access; nothing displayed | Same state | [FILL] |
 
 [FILL: Distinguish selecting/planning a movement from confirming physical movement and successfully recording completion. Handle faulty/unavailable devices, competing updates and failed recording after a physical move. Mark capacity/in-transit policies as assumptions where not agreed.]
 
