@@ -849,19 +849,18 @@ The current outcome is a traceable design draft with visible unresolved question
 
 ## 13.2 Tools, communication and changes from A1 to A2
 
-**Owner: Isaac | Reviewer: Harrison | Everyone supplies their actual experience | Status: [FILL]**
-
-Suggested length: approximately 1–2 pages.
+**Owner: Isaac | Reviewer: Harrison | Everyone supplies their actual experience | Status: Review Pending**
 
 | Activity | What the team actually used in A1 | What the team actually used in A2 | What changed and its effect | Evidence |
 |---|---|---|---|---|
-| Communication and clarification | Joint WhatsApp channels with Team B, plus six minuted meetings with all four members present | WhatsApp group chat. | A1 had a stakeholder who could answer questions. In A2 the gaps in the SRS had to be handled as documented assumptions | [FILL] |
-| Tasks and sprint planning | [FILL] | [FILL] | [FILL] | [FILL] |
-| Document and diagram authoring | [FILL] | [FILL] | [FILL] | [FILL] |
-| Review and version control | [FILL] | [FILL] | [FILL] | [FILL] |
+| Communication and clarification | Joint WhatsApp channels with Team B, plus six minuted meetings with all four members present | WhatsApp group chat | A1 had a stakeholder who could answer questions. In A2 the gaps in the SRS had to be handled as documented assumptions | A1 SRS Appendices A–B; Section 3 (GAP-01 to GAP-08) |
+| Tasks and sprint planning | Tasks allocated in meetings and recorded in the minutes (e.g. UC-01 to Cooper, UC-02 to Harrison, UC-03 to Isaac) | Sections allocated by owner and reviewer in the SDD working guide | Each section had a named owner and reviewer, so it was clear who was responsible, but most of the integration still happened close to the deadline | A1 minutes, 18 August 2026; SDD section headers |
+| Document and diagram authoring | SRS in Markdown on GitHub; diagrams in Draw.io and Lucid.app | SDD in Markdown on GitHub; state diagrams in Draw.io (SD-01, SD-02) and Lucidchart (SD-03); wireframes in Lucidchart (WF-01 to WF-08) | Design needed far more visual work than requirements did, so Lucidchart was added for drawing screens and diagrams | Section 5 and 6–8 figures; REF-06, REF-07 |
+| Review and version control | GitHub with pull requests (PR #1, PR #2) and a change log tracking who changed what | GitHub `a2docs` folder, with an owner and reviewer listed on each section | Reviewers were named for every section, so cross checking was planned instead of happening only at the end | A1 SRS change log; SDD section headers; repository history |
 
+### Discussion
+The biggest change from A1 to A2 was that we no longer had a stakeholder we could ask. In A1, Team B answered our questions, which shaped most of our requirements. In A2 we had to work from Team B’s final SRS, so anything unclear became a gap or assumption in Section 3 instead of a question. The workload also contained more diagrams and visuals. Wireframes and state diagrams needed tools like Lucidchart instead of just Markdown and Draw.io. Naming an owner and a reviewer for every section helped make it clear who was doing what, and it meant sections were checked against each other, for example the wireframes against the state diagrams. One thing we would do differently is start merging and reviewing sections earlier, since most of the final integration happened close to the deadline.
 
-[FILL: Discuss real benefits/problems with examples. Do not assume the team used a tool simply because this template recommends it.]
 
 ## 13.3 Sprint allocations and GitHub burn-up evidence
 
