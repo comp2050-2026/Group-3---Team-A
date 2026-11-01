@@ -8,7 +8,7 @@
 
 | Team member | Student ID |
 |---|---|
-| Yousef | [FILL] |
+| Yousef | 48603090 |
 | Harrison | [FILL] |
 | Cooper  | 49067281 |
 | Isaac  | [FILL] |
@@ -509,26 +509,48 @@ Retention rules must cover operational records, source evidence, processing rece
 
 # 10. Trade-offs and concurrent processes
 
-**Owner: Yousef | Reviewer: Harrison | Input: Isaac and Cooper | Status: [FILL]**
+**Owner: Yousef | Reviewer: Harrison | Input: Isaac and Cooper | Status: Section 10 drafted — review pending; Section 12 test-ID links pending**
 
 ## 10.1 Important trade-offs
 
-| Decision | Alternatives | Competing needs | Choice and justification | Limitation |
-|---|---|---|---|---|
-| [FILL] | [FILL] | [FILL] | [FILL] | [FILL] |
-| [FILL] | [FILL] | [FILL] | [FILL] | [FILL] |
+The proposed choices balance reliable operational records, understandable staff tasks and implementation complexity. They implement the decisions in Section 3; they are not additional requirements attributed to Team B.
 
-[FILL: Consider data reliability versus responsiveness, usability versus access controls, deployment complexity and consistency. Explain your actual design choices.]
+| Decision | Alternative considered | Competing needs | Choice and justification | Limitation |
+|---|---|---|---|---|
+| One modular backend and relational database (DEC-01) | Independently deployed business services | Consistent related updates versus independent deployment/scaling | Keep fault, device and movement changes within one transaction boundary while separating module responsibilities. | A shared application/database dependency; modules normally need coordinated releases. |
+| Database-backed operational views (DEC-05) | Separate business-data cache | Fewer stale copies versus faster/reduced database reads | Read committed records and source observations through the domain modules. Add another cache only if measured workload justifies its consistency cost. | Database outages affect operational reads; browser results can still become outdated after retrieval. |
+| Explicit information quality (DEC-02) | Presenting the latest-arriving value as confirmed | Clear, dependable decisions versus a simpler-looking display | Retain useful last-known evidence while identifying unknown, unavailable or conflicting facts. Missing data does not become confirmed zero availability. | Some actions need investigation before they can proceed; source/time labels and recovery messages must be clear. |
+| Online writes with permission/version checks (DEC-03/05) | Automatically queued offline changes | Convenient disconnected work versus valid current decisions | Validate on the backend when saving, including current faults and movement suitability. Do not silently apply old browser commands after reconnection. | Connectivity loss prevents confirmed saves; physical work already performed requires reconciliation. |
+| Backend permission checks (DEC-03) | Relying on login or hidden buttons alone | Simple interaction versus protected management functions | Check the requested action/resource on every protected request, including retries. Keep ordinary tasks available through visible permitted controls. | Permission assignments remain GAP-04; denied actions need understandable explanations. |
+| Save locally, then deliver outgoing updates (DEC-04) | Waiting for an external response before local success | Durable local fault records versus immediate cross-system agreement | Commit the business change and pending outgoing record together; C-INT delivers separately. | Local success does not establish remote blocking or synchronisation. Pending/uncertain delivery remains visible. |
+| Base backups with archived database changes (Section 9.3) | Periodic backup copies alone | Recovering later changes versus storage/maintenance complexity | Available archived changes can support recovery beyond the base backup's state. | Requires a usable recovery set, archive monitoring and restoration checks; numerical recovery targets remain GAP-08. |
+
+The design supports the SRS's qualitative usability, information-reliability and access criteria without claiming an unprovided real-time update interval or availability percentage. Recorded issues remain in scope under DEC-06; unspecified automatic alerts and thresholds are not used to justify additional infrastructure. [SRC-01, pp.7–9; GAP-01/06/08]
 
 ## 10.2 Concurrent activities and race conditions
 
-| Concurrent events | Possible incorrect outcome | Coordination/guard/priority | Expected failure or conflict response | Related test |
+A race condition occurs when overlapping actions could produce different results depending on their timing. The proposal coordinates changes to the same device through C-DEV's device record/version and a short database transaction. Every path that changes its faults, movement or accepted operational facts must follow this rule, including changes received through C-INT.
+
+| Concurrent events | Possible incorrect outcome | Coordination / guard | Expected result or recovery | Required Section 12 coverage — test IDs pending |
 |---|---|---|---|---|
-| Fault report versus movement confirmation | [FILL] | [FILL] | [FILL] | [FILL] |
-| Two operators update the same device | [FILL] | [FILL] | [FILL] | [FILL] |
-| Station/customer events arrive twice or out of order | [FILL] | [FILL] | [FILL] | [FILL] |
-| Resolution of one fault while another remains open | [FILL] | [FILL] | [FILL] | [FILL] |
-| Local save succeeds while an outgoing update fails | [FILL] | [FILL] | [FILL] | [FILL] |
+| Fault report versus movement confirmation | A previously selected device is recorded as a suitable completed move despite a newly saved fault. | Both operations coordinate on the device row. After acquiring it, movement completion checks the expected version, unresolved faults, accepted suitability facts and physical confirmation. | If the fault committed first, do not complete a normal redistribution from the old view. If movement committed first, a later fault does not undo physical movement. Conflicting physical evidence requires investigation. | Interleave fault and movement submissions in both orders; verify saved records, exclusion and operator messages. |
+| Two operators confirm different destinations | One report silently overwrites the other and hides a location disagreement. | Check the device/source version and the movement record's version/state within the device transaction. | Only a compatible completion commits. The other request receives a conflict and refreshed information. An already performed conflicting physical move must be reconciled, not treated as undone. | Submit competing destination confirmations from the same starting version; inspect location, versions and the rejected outcome. |
+| Resolution of one fault overlaps another unresolved fault | Clearing one fault makes a still-faulty device appear normally available. | Fault creation/resolution takes the same device lock and updates its version. Derive exclusion from all saved unresolved faults, not just the fault being resolved. | A remaining unresolved fault keeps the device excluded. A version conflict requires refreshed state; it must not silently clear other fault records. | Resolve one of multiple faults and interleave a new fault with resolution; verify exclusion in each committed state. |
+| Station/Customer events arrive twice or out of order | A duplicate applies twice, or an older observation replaces newer accepted information. | Use a source-scoped unique event ID and input fingerprint; check source ordering where available under ASSUMP-05. Coordinate accepted device changes through the same device transaction. | A matching duplicate returns the recorded processing result. Conflicting ID reuse is rejected; incomparable contradictory evidence remains an investigation condition. | Concurrent duplicates, older revisions and conflicting events without comparable ordering. |
+| A saved response is lost and the operator retries | Another fault or movement is created even though the original save succeeded. | Atomically recognise the requesting identity/operation ID and matching input before treating its old expected version as a new command. | After permission checks, return the saved committed result without repeating its effects. Reusing the ID for different input is rejected. Missing receipts after restoration require Section 9.3 reconciliation. | Drop the response after commit, then retry the same ID/input; verify one saved change and rejection of changed input. |
+| Local save succeeds while outgoing delivery fails or its acknowledgement is lost | The saved fault disappears, or the interface claims external action succeeded without confirmation. | Save the outgoing record with the domain transaction. Keep a stable event ID for delivery retries; remote duplicate handling depends on the agreed interface. | The local change remains committed. Delivery stays pending/uncertain until an acknowledgement is established; no guaranteed exactly-once external effect is claimed. | Inject delivery failure and lost acknowledgement; inspect the retained local change and visible delivery status. |
+
+The coverage descriptions above are proposed test obligations, not executed tests or invented test records. Harrison must link them to the actual test IDs when Section 12 is drafted; the same IDs must then be used in the RTM.
+
+### Coordination and retry rules
+
+Record-changing operations use short read-committed transactions. After checking or atomically reserving the request/event ID, the backend locks the relevant device row, reads current records, validates expected versions and business rules, and commits the related changes from Section 9.1. If more than one device must be locked, acquire them in a consistent device-ID order, followed by associated records in a consistent order. The short repeatable-read transactions in Section 9.2 are for assembling views; they do not replace these write checks.
+
+PostgreSQL documents conflicting row locks, lock duration, consistent acquisition order and retry after deadlock in its [explicit-locking guidance](https://www.postgresql.org/docs/18/explicit-locking.html). This mechanism coordinates database changes; it cannot give a fault report priority before that report has been received or reverse an action already performed in the plaza. Once an unresolved fault is committed, every later transaction validating a movement must exclude the device. A previously loaded screen may still need refreshing; it cannot authorise the movement on its own.
+
+No database lock is held while staff move/repair a device or while C-INT waits for an external response. A confirmed physical move that conflicts with saved state is preserved as investigation evidence when storage is available, with source/actor/time and reported destination. It does not silently replace the accepted location or produce a normal completion message. If recording that evidence also fails, the interface must disclose the failure so it can be recorded/reconciled after recovery. Previously recorded location remains last-known rather than unquestioned current fact. The movement state diagram and screens must reflect this distinction.
+
+Retry a rolled-back transient database failure only within a configured bound and after repeating the required checks. An outdated version or uncertain physical confirmation requires operator review rather than an automatic overwrite. Retry limits, waiting time and escalation rules remain operational decisions under GAP-08. Different devices can normally be processed concurrently; any future station-wide capacity rule requires its own agreed coordination under GAP-03 and is not guaranteed by device locks alone.
 
 # 11. Requirements Traceability Matrix
 
