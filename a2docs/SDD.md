@@ -1232,7 +1232,7 @@ Source IDs SRC-01–SRC-05 are defined with precise locators in Section 1.3. The
 | REF-12 | OWASP Foundation | [Authorization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html) | Backend permission checks and least privilege. |
 | REF-13 | Group 3 Team A | [Repository history](https://github.com/comp2050-2026/Group-3---Team-A/commits/main/) and individual commit links in Sections 13 and Appendix B | Document contribution and integration evidence. |
 
-## Appendix 2 Full records
+## Appendix A
 
 **Record ID:** A-01
 **Actual date/time:** 31 October 2026, 2:03 am – 1:15 pm
@@ -1398,7 +1398,7 @@ Source IDs SRC-01–SRC-05 are defined with precise locators in Section 1.3. The
 
 ---
 
-## B.1 Evidence index
+## Appendix B
 
 | Evidence ID | What it demonstrates | Actual date/period | Source link/file | Related section |
 |---|---|---|---|---|
