@@ -357,13 +357,14 @@ The object choice is proposed. If replaced, choose another object with meaningfu
 
 **Object and purpose:** FaultRecord Represents a reported fault against a submitted power bank. It tracks when the faulty record was submitted, and what is wrong with it.
 **Requirements/use cases:** UC-03 – Report and Manage a Faulty Power Ban, FR-04, FR-05, FR-06, FR-07, FR-08
-**Figure SD-01:** [INSERT UML STATE DIAGRAM]
+**Figure SD-01:** 
+![Fault Record State Diagram](images\image.png)
 
 | Current state | Event | Guard / condition | Action | Next state | Related test |
 |---|---|---|---|---|---|
 | Initial | reportfault(powerbankID, powerbankproblem) | Power bank is registered, details are valid | Create record for the power bank, mark it as faulty | Active -> reported | [FILL] |
 | Reported | reviewfault(FaultID) | fault exists | record that the fault is under investigation | Reviewing | [FILL] |
-| Under-Investigation | fixfault(FaultID, status) | fault is successfu | store that bank is fixed, remove record, allow for rehiring | Resolved | [FILL] |
+| Under-Investigation | fixfault(FaultID, status) | fault fix is successful | store that bank is fixed, remove record, allow for rehiring | Resolved | [FILL] |
 | Under-Investigation | fixfault() | save fails | show error, leave record unchanged | Under-Investigation | [FILL] |
 | Under-Investigation | fixfault() | reviewer has improper access | show error, leave record unchanged | Under-Investigation | [FILL] |
 | Resolved | None | None | None | FinalState | n/a |
