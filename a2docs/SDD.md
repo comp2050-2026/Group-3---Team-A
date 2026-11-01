@@ -436,21 +436,41 @@ The object choice is proposed. If replaced, choose another object with meaningfu
 **How the Lookup Starts:** an authorised operator starts the search with an id for a powerbank. Location is put into location unknown state until a valid location is found.
 **Failed Search:** 
 
-# 8. State diagram 3 — ViewStationStatus
+# 8. State diagram 3 — OperationalSnapshotQuality
 
-**Owner: Harrison | Reviewer: Yousef | Cooper checks the related screen behaviour | Status: [FILL]**
+**Owner: Cooper | Reviewer: Yousef | Status: Review Pending**
 
-**Object and purpose:** [FILL]  
-**Requirements/use cases:** [FILL]  
-**Figure SD-03:** [INSERT UML STATE DIAGRAM]
+**Object and purpose:** OperationalSnapshotQuality represents how trustworthy the information ChargeMate Ops currently holds about a rental station is. It does not track whether the station itself is working. A station can be reported as offline and that report can still be reliable. It only tracks whether the system can trust the status and availability it is showing the operator in UC-01.
+
+**Requirements/use cases:** UC-01 – View Station Status, FR-01, FR-02, FR-08, NFR-02
+
+**Related screens:** WF-01, WF-02, WF-03
+
+**Figure SD-03:** 
+
+![SD-03 UC-01 View Station Status](images/SD_03.png)
 
 | Current state | Event | Guard / condition | Action | Next state | Related test |
 |---|---|---|---|---|---|
-| [FILL] | [FILL] | [FILL] | [FILL] | [FILL] | [FILL] |
-| [FILL] | [FILL] | [FILL] | [FILL] | [FILL] | [FILL] |
+| Initial | registerStation(stationID) | station is registered | create a snapshot with no values, show "Unknown" | Unknown | [FILL] |
+| Unknown | retrieveStationInfo(stationID) | information retrieved, no sources disagree | store status and availability with source and time, show "Last updated" | Reliable | [FILL] |
+| Unknown | retrieveStationInfo(stationID) | information cannot be retrieved | show "Unavailable" and "—" instead of a number | Unavailable | [FILL] |
+| Reliable | retrieveStationInfo(stationID) | information retrieved, sources agree | update values and "Last updated" time | Reliable | [FILL] |
+| Reliable | retrieveStationInfo(stationD) | Rental Station System and Customer system disagree | keep both values with their source, flag "Needs investigation" | Inconsistent | [FILL] |
+| Reliable | retrieveStationInfo(stationID) | information cannot be retrieved | hide values, show "Unavailable" with the time of the last response | Unavailable | [FILL] |
+| Unavailable | retry() | information retrieved, no sources disagree | store values, remove "Unavailable" label | Reliable | [FILL] |
+| Unavailable | retry() | information retrieved but sources disagree | keep both values, flag "Needs investigation" | Inconsistent | [FILL] |
+| Unavailable | retry() | station still not responding | show error, leave values hidden | Unavailable | [FILL] |
+| Inconsistent | retrieveStationInfo(stationID) | all sources now agree | store agreed values, remove "Needs investigation" | Reliable | [FILL] |
+| Inconsistent | retrieveStationInfo(stationID) | information cannot be retrieved | show "Unavailable", keep record for investigation | Unavailable | [FILL] |
+| Any state | deregisterStation(stationID) | operator has permission | archive the snapshot history | Final state | [FILL] |
 
-[FILL: Distinguish reliable available information, unknown, unavailable and inconsistent information. Keep information quality separate from physical device/station health. Do not invent a freshness deadline.]
-
+- **Unknown information**: The snapshot starts as Unknown because nothing has been retrieved for the station yet. The system shows "Unknown" and "—", never 0, so a station with no data can't be mistaken for an empty station.
+- **Reliable information**: The latest station information was retrieved and no source disagrees with it (UC-01 main success scenario). Status and availability are shown with the time they were last updated.
+- **Unavailable information**: The station information couldn't be retrieved (UC-01 alternative flow "Station Information Unavailable"). The system hides the old values instead of showing them as if they were new or active, and shows when the station last responded (NFR-02).
+- **Inconsistent information**: The sources disagree, for example the Rental Station System says 6 docked but the rental records imply 5 (UC-01 alternative flow "Inconsistent Station Information"). Both values are kept side by side and the station is flagged "Needs investigation". Neither value is treated as confirmed and the operator can't overwrite either one (WF-03).
+- **Quality vs health**: This  only describes how much the station information can be trusted. Whether the station is offline or has a faulty power bank is stored separately (DEC-02).
+- **No deadline**: The SRS doesn't give a time limit for how old station information can be (GAP-01), so it only moves to unavailable when it actually fails, not after a set amount of time.
 # 9. Persistent data, caching and maintenance
 
 **Owners: Yousef for 9.1–9.3; Isaac for 9.4 | Reviewers: Harrison for data strategy; Yousef for maintenance | Status: Sections 9.1–9.3 reviewed; 9.4 pending**
