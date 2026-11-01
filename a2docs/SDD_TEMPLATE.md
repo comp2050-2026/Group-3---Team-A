@@ -375,8 +375,11 @@ The object choice is proposed. If replaced, choose another object with meaningfu
 **Owner: Cooper | Reviewer: Yousef | Status: Review Pending**
 
 **Object and purpose:** OperationalSnapshotQuality represents how trustworthy the information ChargeMate Ops currently holds about a rental station is. It does not track whether the station itself is working. A station can be reported as offline and that report can still be reliable. It only tracks whether the system can trust the status and availability it is showing the operator in UC-01.
+
 **Requirements/use cases:** UC-01 – View Station Status, FR-01, FR-02, FR-08, NFR-02
+
 **Related screens:** WF-01, WF-02, WF-03
+
 **Figure SD-03:** 
 
 ![SD-03 UC-01 View Station Status](images/SD_03.png)
@@ -396,12 +399,12 @@ The object choice is proposed. If replaced, choose another object with meaningfu
 | Inconsistent | retrieveStationInfo(stationID) | information cannot be retrieved | show "Unavailable", keep record for investigation | Unavailable | [FILL] |
 | Any state | deregisterStation(stationID) | operator has permission | archive the snapshot history | Final state | [FILL] |
 
-**Unknown information**: The snapshot starts as Unknown because nothing has been retrieved for the station yet. The system shows "Unknown" and "—", never 0, so a station with no data can't be mistaken for an empty station.
-**Reliable information**: The latest station information was retrieved and no source disagrees with it (UC-01 main success scenario). Status and availability are shown with the time they were last updated.
-**Unavailable information**: The station information couldn't be retrieved (UC-01 alternative flow "Station Information Unavailable"). The system hides the old values instead of showing them as if they were current, and shows when the station last responded (NFR-02).
-**Inconsistent information**: The sources disagree, for example the Rental Station System says 6 docked but the rental records imply 5 (UC-01 alternative flow "Inconsistent Station Information"). Both values are kept side by side and the station is flagged "Needs investigation". Neither value is treated as confirmed and the operator can't overwrite either one (WF-03).
-**Quality vs health**: This  only describes how much the station information can be trusted. Whether the station is offline or has a faulty power bank is stored separately (DEC-02).
-**No deadline**: The SRS doesn't give a time limit for how old station information can be (GAP-01), so it only moves to unavailable when it actually fails, not after a set amount of time.
+- **Unknown information**: The snapshot starts as Unknown because nothing has been retrieved for the station yet. The system shows "Unknown" and "—", never 0, so a station with no data can't be mistaken for an empty station.
+- **Reliable information**: The latest station information was retrieved and no source disagrees with it (UC-01 main success scenario). Status and availability are shown with the time they were last updated.
+- **Unavailable information**: The station information couldn't be retrieved (UC-01 alternative flow "Station Information Unavailable"). The system hides the old values instead of showing them as if they were current, and shows when the station last responded (NFR-02).
+- **Inconsistent information**: The sources disagree, for example the Rental Station System says 6 docked but the rental records imply 5 (UC-01 alternative flow "Inconsistent Station Information"). Both values are kept side by side and the station is flagged "Needs investigation". Neither value is treated as confirmed and the operator can't overwrite either one (WF-03).
+- **Quality vs health**: This  only describes how much the station information can be trusted. Whether the station is offline or has a faulty power bank is stored separately (DEC-02).
+- **No deadline**: The SRS doesn't give a time limit for how old station information can be (GAP-01), so it only moves to unavailable when it actually fails, not after a set amount of time.
 
 # 9. Persistent data, caching and maintenance
 
