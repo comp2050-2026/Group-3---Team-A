@@ -696,6 +696,21 @@ For the final state diagrams in Sections 6–8, identify tests for the permitted
 
 Each case in Section 12.3 must identify its requirement/decision, chosen fixture variant, exact input, steps and expected UI/API and persisted outcomes. Section 12.2 supplies the case IDs; fixture IDs below are not test-case IDs. Record conditional or uncovered behaviour explicitly so the RTM does not imply coverage that has not been specified.
 
+### Fault-record coverage from Section 6
+
+Expand these checks into detailed cases for UC-03, FR-04–FR-06, unresolved-fault exclusion in FR-02/FR-07 and protected access under NFR-03. Use DATA-01/DATA-02/DATA-04, with DATA-06 for lost-response retries. Final case IDs belong in Sections 12.2–12.3; these checks are specifications, not results.
+
+| Transition / check | Fixture and action | Expected observable result |
+|---|---|---|
+| Valid creation → Reported | An authorised test identity submits a non-empty fault description for PB-001, which starts with no faults. | Save one fault linked to PB-001 and its reporting details; show success only after commit. The unresolved fault requires attention and excludes normal rental availability/redistribution. |
+| Rejected or rolled-back creation | Separately use a blank description, PB-999, an unauthorised identity or a confirmed database rollback before commit. | Show the relevant rejection/failure. Create no fault, successful command receipt or outgoing business update; do not claim the fault was recorded. |
+| Reported → Under investigation | Review existing F-001 on PB-002 and leave the issue unresolved. | Record investigation progress while retaining the unresolved fault and its exclusion effect. Reviewing the record alone does not resolve it. |
+| Resolution rejected or save rolled back | Start with F-001 under investigation. Separately submit a missing required note, deny the action to the test identity, or force a confirmed rollback. | Show the appropriate rejection/failure. Keep the prior fault, device version and exclusion unchanged; create no saved resolution success. Required-note validation is provisional ASSUMP-03. |
+| Resolve one of multiple faults | Successfully resolve F-001 while F-002 remains unresolved on PB-002. | Save F-001's resolution note and actor/time; preserve F-002 and keep PB-002 excluded. Do not clear all faults with a single resolution. [ASSUMP-04] |
+| Last fault resolved → Completed workflow | Use a separate variant where F-001 is the last unresolved fault and charge eligibility is unknown. Save its valid resolution, then end the fault workflow. | Retain the resolved record and device association. Clear that unresolved-fault indication, but do not certify rental eligibility or delete the device/history. An unchanged retry after a lost response returns the saved result without another resolution. |
+
+Use consistent progress-state names when linking the final Section 6 model to these cases. Its current resolution action says “remove record, allow for rehiring”; this needs alignment with the retained resolution in Section 9.1 and SRC-01 p.19, which does not make a resolution certify charge, physical availability or rental eligibility. Harrison's diagram/table is left unchanged here. A lost response after commit is an unconfirmed outcome, not evidence that the save rolled back.
+
 ### Tracking-state coverage from Section 7
 
 The updated PowerBank Tracking Status table needs the following explicit coverage. These are checks to expand into the detailed Section 12.3 specifications and assign actual test IDs; they do not report execution results.
@@ -737,7 +752,7 @@ All identities, devices, faults and messages below are proposed test data, not p
 | DATA-01 | Two test identities, `USR-OPS-A` and `USR-OPS-B`, permitted for the tested action; `USR-VIEW` permitted to view but denied changes; `USR-NONE` unauthorised. Add an expired-session variant. | Allowed/denied requests, concurrent operators and changed access. These are test permission profiles, not proposed production staff roles. | ASSUMP-02; GAP-04; NFR-03 |
 | DATA-02 | Registered `ST-01`/`ST-02`; baseline `PB-001` at ST-01, version 7, with no faults; `PB-002` at ST-01, version 3, with unresolved faults. For the complete-inventory variant, ST-02 has confirmed zero devices. `PB-999` is unregistered. | Station/device matching, known-empty versus unknown information, correct device association and movement setup. | ASSUMP-02; completeness/eligibility semantics remain GAP-03 |
 | DATA-03 | Separate variants add registered `PB-003` with unknown location, registered `PB-004` reported at ST-01 by `SRC-A` and ST-02 by `SRC-B` without comparable ordering, or registered `ST-03` whose source cannot supply information. Retain observation/received times; include reliable-update, verified-reconciliation and still-conflicting variants. | Unknown/known/conflicting transitions, reconciliation and preservation of useful last-known evidence. | GAP-01; ASSUMP-05; NFR-02 |
-| DATA-04 | `F-001` (“damaged connector”) and `F-002` (“charging issue”) both unresolved on PB-002. Fault-input variants use a non-empty or blank description; resolution variants use a non-empty or blank note and permitted/denied identities. | Correct fault creation, missing details, multiple-fault exclusion and successful/failed/denied resolution. | ASSUMP-03/04; final field/permission rules remain GAP-04 |
+| DATA-04 | `F-001` (“damaged connector”) and `F-002` (“charging issue”) both unresolved on PB-002. Use reported/investigation progress variants, plus a last-fault variant with F-002 already resolved and charge eligibility unknown. Fault-input variants use a non-empty/blank description; resolution variants use a non-empty/blank note and permitted/denied identities. | Correct fault creation, missing details, multiple-fault exclusion and successful/failed/denied resolution. | ASSUMP-03/04; final field/permission rules remain GAP-04 |
 | DATA-05 | Proposed `MOVE-001`: PB-001, ST-01 → ST-02, expected version 7, physical confirmation true/false. For competing destinations, add registered available ST-04 and submit ST-02 versus ST-04 confirmations against the same starting version. | Confirmed movement, missing confirmation, outdated versions and competing reports. | Charge/capacity inputs use a configured test policy; actual fault, registration, version and confirmation guards still run. GAP-03/05 |
 | DATA-06 | Source `SRC-STATION` sends event `EVT-001`, revision 10; replay identical input, conflicting input with the same ID, and a different event with older revision 9. Command variants reuse `OP-001` unchanged or with altered input; outgoing variants lose delivery/acknowledgement. | Duplicate/late messages, lost responses, command receipts and pending synchronisation. | ASSUMP-05; acknowledgement/recipient rules remain GAP-01 |
 | DATA-07 | Prepare a consistent recovery set containing unresolved faults, a completed movement with matching location/version, receipts and pending outgoing updates. Add an unusable recovery-set variant, such as a missing required archived log. | Restore consistency, unrecovered intervals, old observations and uncertain replay. These are setup definitions, not existing backup files. | Section 9.3; recovery/retention targets remain GAP-08 |
@@ -1225,19 +1240,18 @@ The current outcome is a traceable design draft with visible unresolved question
 
 ## 13.2 Tools, communication and changes from A1 to A2
 
-**Owner: Isaac | Reviewer: Harrison | Everyone supplies their actual experience | Status: [FILL]**
-
-Suggested length: approximately 1–2 pages.
+**Owner: Isaac | Reviewer: Harrison | Everyone supplies their actual experience | Status: Review Pending**
 
 | Activity | What the team actually used in A1 | What the team actually used in A2 | What changed and its effect | Evidence |
 |---|---|---|---|---|
-| Communication and clarification | Joint WhatsApp channels with Team B, plus six minuted meetings with all four members present | WhatsApp group chat. | A1 had a stakeholder who could answer questions. In A2 the gaps in the SRS had to be handled as documented assumptions | [FILL] |
-| Tasks and sprint planning | [FILL] | [FILL] | [FILL] | [FILL] |
-| Document and diagram authoring | [FILL] | [FILL] | [FILL] | [FILL] |
-| Review and version control | [FILL] | [FILL] | [FILL] | [FILL] |
+| Communication and clarification | Joint WhatsApp channels with Team B, plus six minuted meetings with all four members present | WhatsApp group chat | A1 had a stakeholder who could answer questions. In A2 the gaps in the SRS had to be handled as documented assumptions | A1 SRS Appendices A–B; Section 3 (GAP-01 to GAP-08) |
+| Tasks and sprint planning | Tasks allocated in meetings and recorded in the minutes (e.g. UC-01 to Cooper, UC-02 to Harrison, UC-03 to Isaac) | Sections allocated by owner and reviewer in the SDD working guide | Each section had a named owner and reviewer, so it was clear who was responsible, but most of the integration still happened close to the deadline | A1 minutes, 18 August 2026; SDD section headers |
+| Document and diagram authoring | SRS in Markdown on GitHub; diagrams in Draw.io and Lucid.app | SDD in Markdown on GitHub; state diagrams in Draw.io (SD-01, SD-02) and Lucidchart (SD-03); wireframes in Lucidchart (WF-01 to WF-08) | Design needed far more visual work than requirements did, so Lucidchart was added for drawing screens and diagrams | Section 5 and 6–8 figures; REF-06, REF-07 |
+| Review and version control | GitHub with pull requests (PR #1, PR #2) and a change log tracking who changed what | GitHub `a2docs` folder, with an owner and reviewer listed on each section | Reviewers were named for every section, so cross checking was planned instead of happening only at the end | A1 SRS change log; SDD section headers; repository history |
 
+### Discussion
+The biggest change from A1 to A2 was that we no longer had a stakeholder we could ask. In A1, Team B answered our questions, which shaped most of our requirements. In A2 we had to work from Team B’s final SRS, so anything unclear became a gap or assumption in Section 3 instead of a question. The workload also contained more diagrams and visuals. Wireframes and state diagrams needed tools like Lucidchart instead of just Markdown and Draw.io. Naming an owner and a reviewer for every section helped make it clear who was doing what, and it meant sections were checked against each other, for example the wireframes against the state diagrams. One thing we would do differently is start merging and reviewing sections earlier, since most of the final integration happened close to the deadline.
 
-[FILL: Discuss real benefits/problems with examples. Do not assume the team used a tool simply because this template recommends it.]
 
 ## 13.3 Sprint allocations and GitHub burn-up evidence
 
