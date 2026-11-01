@@ -645,17 +645,17 @@ Change-impact links identify requirements whose implementation, acceptance check
 
 | Requirement-ID from SRS | Other requirement IDs impacted if it changes | Related use cases | Responsible/affected system components | Related test cases |
 |---|---|---|---|---|
-| FR-01 | FR-02, FR-08, NFR-01, NFR-02 | UC-01 — View Station Status | C-UI, C-AUTH, C-MON, C-DEV, C-FAULT, C-INT, C-DB | **IDs pending:** selected station matches displayed information; recorded issue versus normal status; unavailable/conflicting information. |
-| FR-02 | FR-01, FR-05, FR-07, FR-08, NFR-02 | UC-01; availability checks in supporting redistribution scenario | C-UI, C-AUTH, C-MON, C-DEV, C-FAULT, C-INT, C-DB | **IDs pending:** availability matches records; unresolved-fault exclusion; confirmed zero versus unknown/unavailable values; incomplete inventory does not produce a confirmed exact total. |
-| FR-03 | FR-04, FR-06, FR-07, FR-08, NFR-02 | UC-02 — Track a Power Bank; device identification in UC-03 | C-UI, C-AUTH, C-DEV, C-FAULT, C-INT, C-DB | **IDs pending:** valid device match; invalid/unknown ID; unknown/unavailable location; conflicting location identified for investigation. |
-| FR-04 | FR-02, FR-03, FR-05, FR-06, FR-07, FR-08 | UC-03 — Report and Manage a Faulty Power Bank | C-UI, C-AUTH, C-DEV, C-FAULT, C-INT, C-DB | **IDs pending:** valid fault linked to correct device; missing required fields; failed save; retry of the same committed fault request creates no duplicate. |
-| FR-05 | FR-02, FR-03, FR-04, FR-06, FR-07, FR-08 | UC-03; faulty-device information in UC-01/UC-02; supporting redistribution scenario | C-UI, C-AUTH, C-MON, C-DEV, C-FAULT, C-MOVE, C-INT, C-DB | **IDs pending:** unresolved fault remains visible and excludes normal rental availability/redistribution; exclusion persists while any other fault remains unresolved; fault/movement race. |
-| FR-06 | FR-02, FR-03, FR-04, FR-05, FR-07, FR-08 | UC-03 — resolution branch | C-UI, C-AUTH, C-DEV, C-FAULT, C-INT, C-DB | **IDs pending:** valid authorised resolution updates the fault/device view; failed or denied resolution; another unresolved fault remains effective; resolution alone does not establish rental eligibility. |
-| FR-07 | FR-01, FR-02, FR-03, FR-05, FR-08, NFR-02 | Supporting redistribution scenario in Section 1.5; resulting station/device information in UC-01/UC-02 | C-UI, C-AUTH, C-MON, C-DEV, C-FAULT, C-MOVE, C-INT, C-DB | **IDs pending:** suitable confirmed move updates destination; faulty/unavailable candidate excluded; missing physical confirmation; competing updates; failed recording after physical movement and investigation outcome. |
-| FR-08 | FR-01, FR-02, FR-03, FR-05, NFR-01, NFR-02 | UC-01/UC-02/UC-03 alternative and failure branches; supporting issue-view scenario | C-UI, C-AUTH, C-MON, C-DEV, C-FAULT, C-MOVE, C-INT, C-DB | **IDs pending:** recorded faults, unavailable stations and inconsistent information are distinguishable from normal operation; unresolved investigation remains visible. No invented automatic alert threshold is tested as a baseline requirement. |
-| NFR-01 | FR-01–FR-08 | UC-01, UC-02, UC-03; supporting redistribution and issue-view scenarios | C-UI; C-MON, C-DEV, C-FAULT and C-MOVE provide task results and validation feedback | **IDs pending:** representative authorised staff complete station viewing, device search and fault recording through visible controls without database, command-line or administrative intervention. |
-| NFR-02 | FR-01, FR-02, FR-03, FR-05, FR-07, FR-08 | UC-01/UC-02; information used in UC-03 and supporting scenarios | C-UI, C-MON, C-DEV, C-MOVE, C-INT, C-DB | **IDs pending:** unknown, unavailable and inconsistent facts are distinguished; no assumed values presented as confirmed; duplicate/late events, failed refresh and restored old observations preserve appropriate quality labels. |
-| NFR-03 | FR-01–FR-08, NFR-01 | Every protected operational use case/scenario | C-AUTH; C-UI, C-MON, C-DEV, C-FAULT, C-MOVE, C-INT and C-DB apply the access boundaries | **IDs pending:** permitted versus denied operations, direct backend requests, changed/expired access and repeated commands; denied requests do not change operational records. External service checks depend on the agreed interface. |
+| FR-01 | FR-02, FR-08, NFR-01, NFR-02 | UC-01 — View Station Status | C-UI, C-AUTH, C-MON, C-DEV, C-FAULT, C-INT, C-DB | 	T-01, T-02, T-03, T-17 |
+| FR-02 | FR-01, FR-05, FR-07, FR-08, NFR-02 | UC-01; availability checks in supporting redistribution scenario | C-UI, C-AUTH, C-MON, C-DEV, C-FAULT, C-INT, C-DB | 	T-04, T-05 |
+| FR-03 | FR-04, FR-06, FR-07, FR-08, NFR-02 | UC-02 — Track a Power Bank; device identification in UC-03 | C-UI, C-AUTH, C-DEV, C-FAULT, C-INT, C-DB | 	T-06, T-07, T-08 |
+| FR-04 | FR-02, FR-03, FR-05, FR-06, FR-07, FR-08 | UC-03 — Report and Manage a Faulty Power Bank | C-UI, C-AUTH, C-DEV, C-FAULT, C-INT, C-DB | T-09, T-10, T-11, T-23 |
+| FR-05 | FR-02, FR-03, FR-04, FR-06, FR-07, FR-08 | UC-03; faulty-device information in UC-01/UC-02; supporting redistribution scenario | C-UI, C-AUTH, C-MON, C-DEV, C-FAULT, C-MOVE, C-INT, C-DB | 	T-05, T-09, T-13, T-16, T-20 |
+| FR-06 | FR-02, FR-03, FR-04, FR-05, FR-07, FR-08 | UC-03 — resolution branch | C-UI, C-AUTH, C-DEV, C-FAULT, C-INT, C-DB | 	T-12, T-13, T-14 |
+| FR-07 | FR-01, FR-02, FR-03, FR-05, FR-08, NFR-02 | Supporting redistribution scenario in Section 1.5; resulting station/device information in UC-01/UC-02 | C-UI, C-AUTH, C-MON, C-DEV, C-FAULT, C-MOVE, C-INT, C-DB | T-15, T-16, T-20, T-21 |
+| FR-08 | FR-01, FR-02, FR-03, FR-05, NFR-01, NFR-02 | UC-01/UC-02/UC-03 alternative and failure branches; supporting issue-view scenario | C-UI, C-AUTH, C-MON, C-DEV, C-FAULT, C-MOVE, C-INT, C-DB | T-03, T-17 |
+| NFR-01 | FR-01–FR-08 | UC-01, UC-02, UC-03; supporting redistribution and issue-view scenarios | C-UI; C-MON, C-DEV, C-FAULT and C-MOVE provide task results and validation feedback | 	T-19 |
+| NFR-02 | FR-01, FR-02, FR-03, FR-05, FR-07, FR-08 | UC-01/UC-02; information used in UC-03 and supporting scenarios | C-UI, C-MON, C-DEV, C-MOVE, C-INT, C-DB | 	T-02, T-03, T-04, T-06, T-08, T-22, T-25 |
+| NFR-03 | FR-01–FR-08, NFR-01 | Every protected operational use case/scenario | C-AUTH; C-UI, C-MON, C-DEV, C-FAULT, C-MOVE, C-INT and C-DB apply the access boundaries | T-07, T-14, T-18, T-23 |
 
 Fault-lifecycle changes have broad impact because the saved fault is used by station availability, individual device views, movement suitability and recorded-issue indicators. FR-04–FR-06 therefore connect to several requirements and components. For example, changing the resolution rule requires reviewing FR-02/FR-05/FR-07 so a remaining fault or unknown charge does not disappear behind a resolution success message. [DEC-02; ASSUMP-04]
 
@@ -751,31 +751,400 @@ Movement fixtures may supply controlled charge/capacity facts to exercise transa
 
 ## 12.2 Test inventory
 
-Add a row for every actual test specification. The example IDs below are empty slots, not completed cases or required case counts.
-
 | Test ID | Description | Requirement/decision | Main/success/failure branch | Detailed specification location |
 |---|---|---|---|---|
-| T-01 | [FILL] | [FILL] | [FILL] | [FILL] |
-| T-02 | [FILL] | [FILL] | [FILL] | [FILL] |
-| T-03 | [FILL] | [FILL] | [FILL] | [FILL] |
+| T-01 | View station status with reliable information | FR-01, FR-02, NFR-01, NFR-02 | Main success (UC-01) | Section 12.3, T-01 |
+| T-02 | Station information unavailable, then retry | FR-01, NFR-02; SD-03 | Alternative: unavailable; retry success/failure | Section 12.3, T-02 |
+| T-03 | Conflicting station information flagged and cleared | FR-01, FR-08, NFR-02; SD-03 | Alternative: inconsistent; reconciliation | Section 12.3, T-03 |
+| T-04 | Confirmed zero availability versus unknown availability | FR-02, NFR-02 | Success and failure distinction | Section 12.3, T-04 |
+| T-05 | Faulty device excluded from normal availability | FR-02, FR-05, DEC-02 | Main success | Section 12.3, T-05 |
+| T-06 | Track a device: unknown, then known location | FR-03, NFR-02; SD-02 | Main success (UC-02) | Section 12.3, T-06 |
+| T-07 | Track a device: unknown ID, retrieval failure, denied access | FR-03, NFR-03 | Failure (UC-02) | Section 12.3, T-07 |
+| T-08 | Conflicting device location and reconciliation | FR-03, NFR-02; SD-02 | Alternative: conflicting | Section 12.3, T-08 |
+| T-09 | Record a valid fault | FR-04, FR-05; SD-01 | Main success (UC-03) | Section 12.3, T-09 |
+| T-10 | Fault rejected for missing details | FR-04 | Failure: validation | Section 12.3, T-10 |
+| T-11 | Fault save fails and rolls back | FR-04, NFR-02 | Failure: failed save | Section 12.3, T-11 |
+| T-12 | Review and successfully resolve a fault | FR-06, FR-05; SD-01; DEC-02 | Main success: resolution | Section 12.3, T-12 |
+| T-13 | Resolve one of several faults; exclusion persists | FR-05, FR-06; ASSUMP-04 | Alternative: multiple faults | Section 12.3, T-13 |
+| T-14 | Resolution rejected: blank note, no permission, failed save | FR-06, NFR-03; SD-01 | Failure | Section 12.3, T-14 |
+| T-15 | Confirmed redistribution of a suitable device | FR-07 | Main success | Section 12.3, T-15 |
+| T-16 | Redistribution rejected: faulty device, no confirmation, invalid destination | FR-07, FR-05 | Failure | Section 12.3, T-16 |
+| T-17 | Recorded issues distinguished from normal operation | FR-08; DEC-06 | Main success | Section 12.3, T-17 |
+| T-18 | Access control on direct backend requests | NFR-03; DEC-03 | Success and failure | Section 12.3, T-18 |
+| T-19 | Operator tasks via visible controls only | NFR-01 | Usability | Section 12.3, T-19 |
+| T-20 | Fault report versus movement confirmation race | DEC-03; Section 10.2 | Concurrency (both orders) | Section 12.3, T-20 |
+| T-21 | Two operators confirm different destinations | DEC-03; Section 10.2 | Concurrency | Section 12.3, T-21 |
+| T-22 | Duplicate, late and conflicting external events | NFR-02; ASSUMP-05 | Integration | Section 12.3, T-22 |
+| T-23 | Lost response and retry with the same operation ID | FR-04; DEC-03; Section 10.2 | Failure/recovery | Section 12.3, T-23 |
+| T-24 | Outgoing delivery fails after local commit | DEC-04; NFR-02 | Failure/recovery | Section 12.3, T-24 |
+| T-25 | Isolated restore and consistency check | Section 9.3; NFR-02 | Success and failure | Section 12.3, T-25 |
+| T-26 | Station snapshot archival, permitted and denied | SD-03; GAP-04 | Conditional | Section 12.3, T-26 |
 
 ## 12.3 Detailed test-case specifications
 
-### T-01 — [TEST TITLE]
+### T-01 — View station status with reliable information
 
 | Field | Specification |
 |---|---|
-| Requirement(s) / design decision | [FILL] |
-| Description and objective | [FILL] |
-| Preconditions / initial state | [FILL] |
-| Input specification / exact test data | [FILL: IDENTIFIERS, VALUES, PERMISSIONS AND INJECTED FAILURES] |
-| Steps | 1. [FILL] <br> 2. [FILL] <br> 3. [FILL] |
-| Expected output specification | [FILL: OBSERVABLE UI/API OUTPUT AND PERSISTED STATE] |
-| Pass criteria | [FILL: OBJECTIVE EXPECTED RESULT] |
-| Cleanup | [FILL] |
-| Dependencies / unresolved rules | [FILL OR NONE, WITH EVIDENCE] |
+| Requirement(s) / design decision | FR-01, FR-02, NFR-01, NFR-02 |
+| Description and objective | Check an operator can open monitoring and see a selected station's latest available information with source and time. |
+| Preconditions / initial state |USR-OPS-A signed in. ST-Q02 is Reliable (count 6, recorded response time) from DATA-08. |
+| Input specification / exact test data | DATA-01 (USR-OPS-A), DATA-08 (ST-Q02). |
+| Steps | 1. Open the station overview. 2. Select ST-Q02. |
+| Expected output specification | Overview lists ST-Q02. Detail shows status, availability 6 and a "Last updated" time with source. |
+| Pass criteria | Displayed values equal the stored values. No Unknown or attention label appears. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | Exact exchanged fields: GAP-01. |
 
-**Duplicate the complete block above for T-02, T-03 and every further test.** Give each case its own input and expected output; do not substitute a title-only list.
+### T-02 — Station information unavailable, then retry
+
+| Field | Specification |
+|---|---|
+| Requirement(s) / design decision | FR-01, NFR-02; SD-03 (Unknown/Reliable → Unavailable → Reliable) |
+| Description and objective | Check failed retrieval shows Unavailable instead of stale or zero values, and that retry outcomes are handled correctly. |
+| Preconditions / initial state | Variant A starts ST-Q01 (Unknown). Variant B starts ST-Q02 (Reliable, count 6). |
+| Input specification / exact test data | DATA-08, DATA-03 (ST-03 source unavailable). Simulator returns a failure. Retry variants return agreeing data (C) or fail again (D). |
+| Steps | 1. Trigger retrieval with the simulator failing. 2. View the station. 3. Retry with agreeing data (C), or with a failure (D). |
+| Expected output specification | A/B: "Unavailable" and "—", no number; last-response time kept for B. C: Reliable, Unavailable label removed. D: stays Unavailable with an error. |
+| Pass criteria | No count of 0 or 6 shown while Unavailable. A failed attempt does not update the response time. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | No freshness deadline is used (GAP-01). |
+
+### T-03 — Conflicting station information flagged and cleared
+
+| Field | Specification |
+|---|---|
+| Requirement(s) / design decision | FR-01, FR-08, NFR-02; SD-03 |
+| Description and objective | Check disagreeing sources are both kept and flagged, and that the flag clears only when sources agree. 
+| Preconditions / initial state | ST-Q02 Reliable. |
+| Input specification / exact test data | DATA-08 comparable counts 6 (Rental Station System) and 5 (Customer records). Variant C: all sources then report 6. Variant D: first retrieval for ST-Q01 already returns 6/5. Variant E: reliable offline-station report. |
+| Steps | 1. Supply the 6/5 reports. 2. View the station. 3. Supply agreeing data (C). 4. Run D and E separately. |
+| Expected output specification | Both values and sources shown with "Needs investigation". After C, the agreed value shows and the flag is removed. D shows the flag. E stays Reliable. |
+| Pass criteria | Neither value is shown as confirmed while they disagree. A reliable offline report is not treated as poor-quality data. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | Variant D is not an explicit row in the Section 8 table; align the diagram before claiming coverage. |
+
+### T-04 — Confirmed zero availability versus unknown availability
+
+| Field | Specification |
+|---|---|
+| Requirement(s) / design decision | FR-02, NFR-02 |
+| Description and objective | Check a known-empty station and a station with no data look different. |
+| Preconditions / initial state | Variant A: ST-02 complete inventory, zero devices. Variant B: ST-Q01 Unknown. Variant C: partial device list. |
+| Input specification / exact test data | DATA-02 complete-inventory variant, DATA-08 ST-Q01. |
+| Steps | 1. View ST-02. 2. View ST-Q01. 3. View the partial-list station. |
+| Expected output specification | A shows 0 as confirmed. B shows "Unknown" and "—". C shows no exact total. |
+| Pass criteria | 0 appears only in A. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | What counts as a complete inventory: GAP-03. |
+
+### T-05 — Faulty device excluded from normal availability
+
+| Field | Specification |
+|---|---|
+| Requirement(s) / design decision | FR-02, FR-05, DEC-02 |
+| Description and objective | Check unresolved faults visibly exclude a device from normal availability. |
+| Preconditions / initial state | PB-001 (no faults) and PB-002 (F-001, F-002 unresolved) both at ST-01. |
+| Input specification / exact test data | DATA-02, DATA-04. |
+| Steps | 1. Open ST-01 availability. 2. Open the PB-002 device view. |
+| Expected output specification | PB-001 counted as available. PB-002 not counted and marked as requiring attention. |
+| Pass criteria | The exclusion comes from the unresolved faults, not a separate flag. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | Charge eligibility: GAP-03. |
+
+### T-06 — Track a device: unknown, then known location
+
+| Field | Specification |
+|---|---|
+| Requirement(s) / design decision | FR-03, NFR-02; SD-02 (Initial → Unknown → Known → Final) |
+| Description and objective | Check lookup shows unknown until a reliable observation arrives, then the location, and closes cleanly. |
+| Preconditions / initial state | PB-003 registered, no reliable location. |
+| Input specification / exact test data | DATA-01, DATA-03 (PB-003, reliable ST-01 observation with source and time). |
+| Steps | 1. Search PB-003. 2. Supply the reliable observation. 3. Review the result (resultReviewed()). 4. Search again. |
+| Expected output specification | Step 1: "unknown", no invented station. Step 2: location ST-01. Step 3: lookup closed, device and fault records unchanged. Step 4: information retrieved again. |
+| Pass criteria | Lookup never alters device version, faults or charge facts. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | Event names are provisional (Section 7). |
+
+### T-07 — Track a device: unknown ID, retrieval failure, denied access
+
+| Field | Specification |
+|---|---|
+| Requirement(s) / design decision | FR-03, NFR-03 |
+| Description and objective | Check each failed search gives the right distinct outcome and stores nothing. |
+| Preconditions / initial state | PB-001 registered. |
+| Input specification / exact test data | PB-999 (unregistered) with USR-OPS-A. PB-001 with retrieval failure injected. PB-001 with USR-NONE. |
+| Steps | 1. Run the three variants separately. |
+| Expected output specification | Not found. Unavailable/read failed. Access denied with no device data shown. |
+| Pass criteria | No lookup opened, no stored record changed, and the three messages differ. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | None. |
+
+### T-08 — Conflicting device location and reconciliation
+
+| Field | Specification |
+|---|---|
+| Requirement(s) / design decision | FR-03, NFR-02; SD-02; ASSUMP-05 |
+| Description and objective | Check disagreeing reports are preserved and the flag clears only on a reliable outcome. |
+| Preconditions / initial state | PB-004 reported at ST-01 by SRC-A and ST-02 by SRC-B, no comparable ordering. |
+| Input specification / exact test data | DATA-03 conflicting variant, then verified-reconciliation (ST-02) and still-conflicting variants. |
+| Steps | 1. Search PB-004. 2. Apply the verified reconciliation (variant A).3. Repeat with no reliable outcome (variant B). |
+| Expected output specification | "Requires investigation" with both reports kept. After A, location ST-02 and the flag cleared. B stays conflicting. |
+| Pass criteria | The last-arrived report is never chosen automatically. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | Who may reconcile: GAP-04. |
+
+### T-09 — Record a valid fault
+
+| Field | Specification |
+|---|---|
+| Requirement(s) / design decision | FR-04, FR-05; SD-01 (Initial → Reported) |
+| Description and objective | Check a valid fault is saved against the correct device and excludes it. |
+| Preconditions / initial state | PB-001 at ST-01, version 7, no faults. USR-OPS-A permitted. |
+| Input specification / exact test data | DATA-04 non-empty variant: device PB-001, description "cracked casing", operation ID OP-001. |
+| Steps | 1. Find PB-001. 2. Submit the fault. |
+| Expected output specification | New fault linked to PB-001, state Reported. Device version 8. Receipt and pending outgoing update saved. Success shown only after commit. PB-001 shown as requiring attention and excluded. |
+| Pass criteria | One fault stored against the correct device. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | Final field list: GAP-04. |
+
+### T-10 — Fault rejected for missing details
+
+| Field | Specification |
+|---|---|
+| Requirement(s) / design decision | FR-04 |
+| Description and objective | Check an incomplete fault is rejected with a clear message. |
+| Preconditions / initial state | As T-09. |
+| Input specification / exact test data | DATA-04 blank-description variant for PB-001. A second variant has no device selected. |
+| Steps | 1. Submit each incomplete form. |
+| Expected output specification | Validation rejection naming the missing item. |
+| Pass criteria | No fault, receipt or outgoing record created. Device version stays 7. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | ASSUMP-03 validation rules. |
+
+### T-11 — Fault save fails and rolls back
+
+| Field | Specification |
+|---|---|
+| Requirement(s) / design decision | FR-04, NFR-02 |
+| Description and objective | Check a failed save is never shown as successful. |
+| Preconditions / initial state | As T-09. |
+| Input specification / exact test data | Valid fault for PB-001, with a database failure injected before commit. |
+| Steps | 1. Submit the fault. |
+| Expected output specification | "Save failed" message. Fault, receipt and outgoing update all absent. Version stays 7. |
+| Pass criteria | No success message. No partial record. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | None. |
+
+### T-12 — Review and successfully resolve a fault
+
+| Field | Specification |
+|---|---|
+| Requirement(s) / design decision | FR-06, FR-05; SD-01; DEC-02 |
+| Description and objective | Check an authorised resolution is stored, the record is kept, and resolution alone does not make the device rental-ready. |
+| Preconditions / initial state | PB-001 has one unresolved fault F-003 in state Reported. |
+| Input specification / exact test data | USR-OPS-A; resolution note "connector replaced". |
+| Steps | 1. Review F-003. 2. Submit the resolution. |
+| Expected output specification | F-003 moves to Under investigation, then Resolved with note, actor and time. Record retained, not deleted. Device version incremented. Outgoing update saved. |
+| Pass criteria | Exclusion clears only because no unresolved fault remains. No "rental ready" is shown, and charge and location are unchanged. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | Resolver permission: GAP-04. |
+
+### T-13 — Resolve one of several faults; exclusion persists
+
+| Field | Specification |
+|---|---|
+| Requirement(s) / design decision | FR-05, FR-06; ASSUMP-04 |
+| Description and objective | Check clearing one fault does not hide another. |
+| Preconditions / initial state | PB-002 with F-001 and F-002 unresolved. |
+| Input specification / exact test data | Valid resolution of F-001, then of F-002. |
+| Steps | 1. Resolve F-001. 2. View PB-002 and ST-01 availability. 3. Resolve F-002. 4. View again. |
+| Expected output specification | After step 1, PB-002 is still excluded and requiring attention. After step 3, exclusion clears. |
+| Pass criteria | Exclusion follows the count of unresolved faults. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | ASSUMP-04 is unconfirmed. |
+
+### T-14 — Resolution rejected: blank note, no permission, failed save
+
+| Field | Specification |
+|---|---|
+| Requirement(s) / design decision | FR-06, NFR-03; SD-01 (same-state outcomes) |
+| Description and objective | Check each failed resolution leaves the fault unresolved. |
+| Preconditions / initial state | F-003 Under investigation. |
+| Input specification / exact test data | Variant A blank note. Variant B `USR-VIEW`. Variant C database failure before commit. |
+| Steps | 1. Run each variant separately. |
+| Expected output specification | Validation error, access denied, "save failed" respectively. |
+| Pass criteria | F-003 stays unresolved, device version unchanged, nothing shown as successful. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | GAP-04. |
+
+### T-15 — Confirmed redistribution of a suitable device
+
+| Field | Specification |
+|---|---|
+| Requirement(s) / design decision | FR-07 |
+| Description and objective | Check a confirmed move records the new location. |
+| Preconditions / initial state | PB-001 at ST-01, version 7, no faults. |
+| Input specification / exact test data | DATA-05 MOVE-001 to ST-02, expected version 7, physical confirmation true. The test policy supplies charge and capacity. |
+| Steps | 1. Select the device and destination. 2. Confirm physical movement. 3. Complete. |
+| Expected output specification | Movement completed, PB-001 at ST-02, version 8, receipt and outgoing update saved. Both station views updated. |
+| Pass criteria | Location changes only after confirmation and commit. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | Charge and capacity rules: GAP-03, GAP-05. |
+
+### T-16 — Redistribution rejected
+
+| Field | Specification |
+|---|---|
+| Requirement(s) / design decision | FR-07, FR-05 |
+| Description and objective | Check unsuitable moves are refused. |
+| Preconditions / initial state | As T-15, plus PB-002. |
+| Input specification / exact test data | Variant A PB-002 (unresolved faults). Variant B confirmation false. Variant C unregistered destination. |
+| Steps | 1. Attempt each variant. |
+| Expected output specification | A: not offered or rejected. B: no completion. C: rejected. |
+| Pass criteria | Locations and versions unchanged, with a clear reason shown. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | GAP-05. |
+
+### T-17 — Recorded issues distinguished from normal operation
+
+| Field | Specification |
+|---|---|
+| Requirement(s) / design decision | FR-08; DEC-06 |
+| Description and objective | Check issues are visible and distinct. |
+| Preconditions / initial state | PB-002 faulty, ST-03 unavailable, ST-Q02 6/5 conflict, one normal station. |
+| Input specification / exact test data | DATA-02, DATA-03, DATA-08. |
+| Steps | 1. Open the attention view (WF-03). |
+| Expected output specification | Each issue shown with its own type and reason. The normal station has no indicator. |
+| Pass criteria | No automatic alert or threshold appears. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | Alert rules: GAP-06. |
+
+### T-18 — Access control on direct backend requests
+
+| Field | Specification |
+|---|---|
+| Requirement(s) / design decision | NFR-03; DEC-03 |
+| Description and objective | Check protected actions are denied without relying on the UI. |
+| Preconditions / initial state | DATA-01 profiles. |
+| Input specification / exact test data | Direct requests to record a fault, resolve and confirm movement as USR-NONE, USR-VIEW, an expired session, and USR-OPS-A. |
+| Steps | 1. Send each request. |
+| Expected output specification | Denied for the first three. The permitted request commits. |
+| Pass criteria | Denied requests change no record and reveal no protected data. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | Permission matrix: GAP-04. |
+
+### T-19 — Operator tasks via visible controls only
+
+| Field | Specification |
+|---|---|
+| Requirement(s) / design decision | NFR-01 |
+| Description and objective | Check ordinary tasks need no technical help. |
+| Preconditions / initial state | UI built (WF-01 to WF-08). |
+| Input specification / exact test data | Three task scripts: view a station, find a device, record a fault. Representative staff using USR-OPS-A. |
+| Steps | 1. Observer gives each script. 2. Participant completes it. |
+| Expected output specification | Tasks completed through visible controls. |
+| Pass criteria | No database access, command line or administrator help needed. Record any interventions. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | No numeric time target exists (GAP-08), so record times without a pass limit. |
+
+### T-20 — Fault report versus movement confirmation race
+
+| Field | Specification |
+|---|---|
+| Requirement(s) / design decision | DEC-03; Section 10.2 |
+| Description and objective | Check the result is correct in both commit orders. |
+| Preconditions / initial state | PB-001 version 7. |
+| Input specification / exact test data | Fault by USR-OPS-A, MOVE-001 by USR-OPS-B, released together with a controlled barrier. Run order 1 (fault first) and order 2 (movement first). |
+| Steps | 1. Run each order. 2. Inspect stored records. |
+| Expected output specification | Order 1: movement rejected or conflicted, location stays ST-01. Order 2: movement completes, then the fault saves against the device. |
+| Pass criteria | No silent loss. The device is excluded once the fault is committed. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | GAP-05. |
+
+### T-21 — Two operators confirm different destinations
+
+| Field | Specification |
+|---|---|
+| Requirement(s) / design decision | DEC-03; Section 10.2 |
+| Description and objective | Check competing reports cannot both commit. |
+| Preconditions / initial state | PB-001 version 7. |
+| Input specification / exact test data | ST-02 by USR-OPS-A and ST-04 by USR-OPS-B, same starting version. |
+| Steps | 1. Submit both at once. |
+| Expected output specification | One commits (version 8). The other gets a conflict and refreshed data. |
+| Pass criteria | The device has exactly one recorded location. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | GAP-05. |
+
+### T-22 — Duplicate, late and conflicting external events
+
+| Field | Specification |
+|---|---|
+| Requirement(s) / design decision | NFR-02; ASSUMP-05 |
+| Description and objective | Check repeated or out-of-order input is handled safely. |
+| Preconditions / initial state | SRC-STATION configured. |
+| Input specification / exact test data | EVT-001 revision 10. Then an identical replay, the same ID with different input, and revision 9 after revision 10. |
+| Steps | 1. Send each message. |
+| Expected output specification | Applied once. The replay returns the stored result. Conflicting reuse is rejected. Revision 9 does not overwrite revision 10. |
+| Pass criteria | No double-apply, and incomparable evidence is retained. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | Ordering support: ASSUMP-05, GAP-01. |
+
+### T-23 — Lost response and retry with the same operation ID
+
+| Field | Specification |
+|---|---|
+| Requirement(s) / design decision | FR-04; DEC-03; Section 10.2 |
+| Description and objective | Check a retry never creates a second change. |
+| Preconditions / initial state | As T-09. |
+| Input specification / exact test data | OP-001 fault submission with the response dropped after commit. Retry unchanged. Retry with altered input. Retry as USR-NONE. |
+| Steps | 1. Submit and drop the response. 2. Retry each variant. |
+| Expected output specification | Unchanged retry returns the saved result. Altered input is rejected. USR-NONE is denied. |
+| Pass criteria | Exactly one fault exists. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | None. |
+
+### T-24 — Outgoing delivery fails after local commit
+
+| Field | Specification |
+|---|---|
+| Requirement(s) / design decision | DEC-04; NFR-02 |
+| Description and objective | Check a saved fault survives delivery failure and the status is honest. |
+| Preconditions / initial state | Customer simulator unreachable. |
+| Input specification / exact test data | Valid fault (as T-09). Then a lost-acknowledgement variant. |
+| Steps | 1. Save the fault. 2. View status. 3. Restore the simulator. |
+| Expected output specification | Fault stays committed. "Saved locally, sync pending". Retry uses the same event ID. Lost acknowledgement stays "uncertain". |
+| Pass criteria | The interface never claims remote blocking or confirmed delivery. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | Recipient handling: GAP-01, GAP-07. |
+
+### T-25 — Isolated restore and consistency check
+
+| Field | Specification |
+|---|---|
+| Requirement(s) / design decision | Section 9.3; NFR-02 |
+| Description and objective | Check a restore produces consistent data and a bad restore blocks service. |
+| Preconditions / initial state | Isolated environment. |
+| Input specification / exact test data | DATA-07 usable set, then the unusable variant (missing archived log). |
+| Steps | 1. Restore. 2. Run consistency checks. 3. Repeat with the unusable set. |
+| Expected output specification | Usable: unresolved faults still exclude, movements match locations and versions, old observations labelled last-known. Unusable: restore fails. |
+| Pass criteria | Normal service does not resume after a failed restore or failed check. Record elapsed time and unrecovered interval. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | Targets: GAP-08. |
+
+### T-26 — Station snapshot archival, permitted and denied
+
+| Field | Specification |
+|---|---|
+| Requirement(s) / design decision | SD-03 (Any state → Final); GAP-04 |
+| Description and objective | Check archival ends the snapshot lifecycle only when permitted. |
+| Preconditions / initial state | Snapshots in Unknown, Reliable, Unavailable and Inconsistent states. |
+| Input specification / exact test data | DATA-08 permitted and denied profiles. |
+| Steps | 1. Attempt archival from each state. |
+| Expected output specification | Permitted: lifecycle ends, history kept. Denied: no change. |
+| Pass criteria | No history lost, and denial changes nothing. |
+| Cleanup | Standard reset |
+| Dependencies / unresolved rules | Conditional on the permission policy (GAP-04, ASSUMP-02). |
 
 ### Coverage prompts
 
@@ -794,27 +1163,34 @@ Add a row for every actual test specification. The example IDs below are empty s
 
 ### Schedule and milestones
 
-This is a proposed **implementation test schedule**, separate from historical A2 design-sprint evidence.
-
 | Milestone | Entry condition | Testing activities / test IDs | Resources and responsible role/person | Proposed timing/dependency | Deliverables / exit condition |
 |---|---|---|---|---|---|
-| M0 — baseline ready | [FILL] | [FILL] | [FILL] | [FILL] | [FILL] |
-| M1 — domain logic ready | [FILL] | [FILL] | [FILL] | [FILL] | [FILL] |
-| M2 — integration ready | [FILL] | [FILL] | [FILL] | [FILL] | [FILL] |
-| M3 — UI / acceptance ready | [FILL] | [FILL] | [FILL] | [FILL] | [FILL] |
-| M4 — release candidate | [FILL] | [FILL] | [FILL] | [FILL] | [FILL] |
+| M0 — baseline ready | Sections 1–11 reviewed. DATA-01 to DATA-08 agreed. | Review T-01 to T-26 against the RTM and state diagrams. Prepare fixtures and simulators. No execution. | Test lead (Harrison, proposed), RTM reviewer (Yousef), screen checker (Cooper) | Before implementation starts | Reviewed inventory. Every requirement has a test. Blocked tests identified. |
+| M1 — domain logic ready | C-AUTH, C-DEV, C-FAULT, C-MON and C-MOVE built against an isolated database. | T-04 to T-18 (backend level), T-26 | Test lead with module developers | After M0 and each module's completion | Recorded results. Defects logged. |
+| M2 — integration ready | C-INT and simulators connected to the domain modules. | T-02, T-03, T-17, T-20 to T-25 | Test lead, integration developer, isolated restore environment | After M1 exit | Integration results. Race and recovery outcomes recorded. |
+| M3 — UI / acceptance ready | C-UI built (WF-01 to WF-08). | T-01, T-19, plus visible-outcome re-runs of T-06 to T-16 | Test lead, representative staff, Cooper for screen behaviour | After M2 exit | Acceptance results. Usability observations. |
+| M4 — release candidate | All open defects triaged. | Full regression of T-01 to T-26 and any conditional tests whose gap has closed | Whole team | After M3 exit | Final results against the RTM. Remaining gaps listed. |
 
 ### Environments, resources and reporting
-
-[FILL: Browsers/devices, database, external-system simulators, representative users, test roles, fixtures and tools actually proposed. Describe defect recording, retesting, regression and acceptance reporting.]
+- **Browsers and devices:** a supported desktop browser and a tablet browser (ASSUMP-01).
+- **Database:** an isolated PostgreSQL test instance (DEC-01), reset to fixtures between cases.
+- **Simulators:** Rental Station System and Customer simulators using the Section 4.4 fields. They produce successful, missing, conflicting, duplicate, delayed and unavailable responses. No real hardware is operated.
+- **Test data and users:** DATA-01 to DATA-08, plus representative staff for T-19.
+- **Tools:** an automated test runner for the chosen backend language, and browser automation for UI flows. Specific tools are to be confirmed.
+- **Defect recording:** one GitHub issue per defect with test ID, fixture, expected and actual result, and severity.
+- **Retest and regression:** a fixed defect is retested with its own case, then the affected requirement's cases are re-run before M4.
+- **Acceptance reporting:** each result records build/version, data, date, executor, actual result and evidence. The RTM is updated per requirement.
 
 ### Blocked or conditional test specifications
 
 | Test ID | Missing rule / prerequisite | Gap ID | What can be specified now | What must be confirmed |
 |---|---|---|---|---|
-| [FILL] | [FILL] | [FILL] | [FILL] | [FILL] |
-
-Do not include fabricated pass results. If any tests really were run, record build/version, actual data, date, executor, actual result and evidence separately.
+| T-15, T-16 | Charge and capacity rules for suitability | GAP-03, GAP-05 | Transaction mechanics using a test policy | Real suitability and capacity rules |
+| T-14, T-18, T-26 | Who may resolve faults, and archival permissions | GAP-04 | Permitted versus denied behaviour with test profiles | Real permission assignments |
+| T-22 | Event ordering support and exchanged fields | GAP-01, ASSUMP-05 | Duplicate and conflicting-ID handling | Revision and ordering contract |
+| T-24 | Recipient acknowledgement and remote blocking | GAP-01, GAP-07 | Local commit, pending status, retry | Recipient handling |
+| T-25, T-19 | Recovery and usability targets | GAP-08 | Consistency and failure behaviour, recorded times | Numerical targets |
+| T-03 (variant D) | First-retrieval conflict is not a row in Section 8 | — | Expected result from FR-01 and NFR-02 | Diagram alignment |
 
 # 13. Report to COMP2050 staff
 
