@@ -561,11 +561,12 @@ Retention rules must cover operational records, source evidence, processing rece
 
 | System part | Update/deployment approach | Compatibility and failure handling | Rollback/recovery |
 |---|---|---|---|
-| Operator interface | [FILL] | [FILL] | [FILL] |
-| Backend/business logic | [FILL] | [FILL] | [FILL] |
-| Database/schema | [FILL] | [FILL] | [FILL] |
-| Station/customer adapters | [FILL] | [FILL] | [FILL] |
-| External physical devices | [EXPLAIN OWNER/BOUNDARY; DO NOT ASSUME FIRMWARE OWNERSHIP] | [FILL] | [FILL] |
+| Operator interface | Build as a versioned web bundle. Staff get the new version on their next page load. | The backend accepts the current and previous interface version for one release. An out-of-date page that sends an incompatible request is rejected with a “refresh and retry” message and nothing is partially saved. | Redeploy the previous bundle. No data migration is needed. |
+| Backend/business logic | Deploy a new version while the old one finishes in-flight requests, so a fault save is not dropped mid-write. Permission checks and version rechecks (DEC-03) are part of every release. | On startup the backend checks that the database schema version matches, and takes no traffic if it doesn’t. Changes commit fully or not at all, so a failed save is never shown as successful (FR-04, FR-06). | Redeploy the previous build, but only if the schema is still compatible. |
+| Database/schema | Changes go through versioned, scripted migrations. We add new structures first, switch the code over, and only remove the old ones in a later release. A backup is taken before every migration. | We rehearse each migration on a copy loaded with synthetic test data (see Section 12). Existing faults, resolutions, movements and observations are kept, including each station’s last-response time. | If the change only added things, roll back the code and leave the data alone. If it removed or changed things, restore the pre-migration backup and manually review anything entered after it was taken. |
+| Station/customer adapters | Each adapter is versioned against its agreed message format and deployed separately from the core logic, so a change on the station or Customer side doesn’t force a full release. | Messages we can’t recognise or that are malformed are kept and flagged, not guessed at. Outgoing updates (DEC-04) wait in a queue while the other system is down and retry once it’s back. | Revert to the previous adapter version. Before replaying any queued messages, check for duplicates (ASSUMP-05). |
+| External physical devices | These sit outside Ops (SRS Figure 1). Updating them is up to the station hardware supplier or ChargeMate. Who owns the station firmware isn’t established (GAP-01), so we don’t assume it, and Ops doesn’t install or update it. | If the station side changes its data format or behaviour, we treat it as an interface change (GAP-01, GAP-07). | Ops can roll back its own adapter. Until data arrives again, affected stations show as Unavailable with the time they last responded (NFR-02, SD-03). |
+
 
 # 10. Trade-offs and concurrent processes
 
@@ -769,10 +770,11 @@ Suggested length: approximately 1–2 pages.
 
 | Activity | What the team actually used in A1 | What the team actually used in A2 | What changed and its effect | Evidence |
 |---|---|---|---|---|
-| Communication and clarification | [FILL] | [FILL] | [FILL] | [FILL] |
+| Communication and clarification | Joint WhatsApp channels with Team B, plus six minuted meetings with all four members present | WhatsApp group chat. | A1 had a stakeholder who could answer questions. In A2 the gaps in the SRS had to be handled as documented assumptions | [FILL] |
 | Tasks and sprint planning | [FILL] | [FILL] | [FILL] | [FILL] |
 | Document and diagram authoring | [FILL] | [FILL] | [FILL] | [FILL] |
 | Review and version control | [FILL] | [FILL] | [FILL] | [FILL] |
+
 
 [FILL: Discuss real benefits/problems with examples. Do not assume the team used a tool simply because this template recommends it.]
 
@@ -828,8 +830,13 @@ Suggested length: approximately 3–4 pages. The brief specifies Sprint 1 from t
 
 | Reference ID | Author / organisation | Resource title | Version/date and access date | Link / source location | Where used |
 |---|---|---|---|---|---|
-| REF-01 | Team B | ChargeMate Ops SRS | [FILL] | [FILL] | [FILL] |
-| REF-02 | [FILL] | [FILL] | [FILL] | [FILL] | [FILL] |
+| REF-01 | Team B | ChargeMate Ops SRS | [v1.2, 12 October 2026] | A1 Week 8 Handover forum (iLearn) | Sections 1, 3, 5, 11, 12, 13 |
+| REF-02 | Team B | ChargeMate Ops handover explainer video | 12 October 2026 | A1 Week 8 Handover forum (iLearn) | Section 3 |
+| REF-03 | Team A | ChargeMate Customer SRS | Change log to v1.5, 13 Sep 2026 | a1docs/srs.md |
+| REF-04 | COMP2050 teaching team | Assignment 2 brief | 12th September 2026 | Ilearn, Assessment 2 | Deliverable structure, sprint timing.
+| REF-05 | COMP2050 convenor | Assignment 1 Project B brief: ChargeMate Ops | 22 Jul 2026 | iLearn Assessment 1 | Session 1.2, 3 |
+| REF-06 | JGraph Ltd | Draw.io | | https://www.drawio.com/ | 7chart.png, 8chart.png |
+| REF-07 | Lucid Software Inc | Lucid Chart | | lucid.app | WF-01-08, SD-03.png |
 
 [FILL: Include diagram tools, borrowed assets/templates, technical resources and AI assistance actually used, with the required acknowledgement. Cite sources within the relevant sections as well as in this list.]
 
