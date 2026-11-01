@@ -434,7 +434,11 @@ The object choice is proposed. If replaced, choose another object with meaningfu
 
 **What the Object is:** Diagram shows 1 pass of the location tracking on the power bank
 **How the Lookup Starts:** an authorised operator starts the search with an id for a powerbank. Location is put into location unknown state until a valid location is found.
-**Failed Search:** 
+**Failed Search:** If the id is not registered or cannot be retrieved, an error is shown and nothing is stored.
+**Unknown State:** If the operator cannot see the current state of the power bank, a specific unknown value is returned, instead of a guessed value.
+**Conflicting Information:** if multiple sources of data come in and the order is not proper, the operator will see a requires investivation flag to try and fix it.
+**Successful Outcome:** in order for the outcome to be successful, a meaningfully ordered location data must be transmitted and saved to the main operator
+**Unchanged on failure:** if something fails, the system saves no data and nothing is altered.
 
 # 8. State diagram 3 — OperationalSnapshotQuality
 
@@ -467,7 +471,7 @@ The object choice is proposed. If replaced, choose another object with meaningfu
 
 - **Unknown information**: The snapshot starts as Unknown because nothing has been retrieved for the station yet. The system shows "Unknown" and "—", never 0, so a station with no data can't be mistaken for an empty station.
 - **Reliable information**: The latest station information was retrieved and no source disagrees with it (UC-01 main success scenario). Status and availability are shown with the time they were last updated.
-- **Unavailable information**: The station information couldn't be retrieved (UC-01 alternative flow "Station Information Unavailable"). The system hides the old values instead of showing them as if they were new or active, and shows when the station last responded (NFR-02).
+- **Unavailable information**: The station information couldn't be retrieved (UC-01 alternative flow "Station Information Unavailable"). The system hides the old values instead of showing them as if they were current, and shows when the station last responded (NFR-02).
 - **Inconsistent information**: The sources disagree, for example the Rental Station System says 6 docked but the rental records imply 5 (UC-01 alternative flow "Inconsistent Station Information"). Both values are kept side by side and the station is flagged "Needs investigation". Neither value is treated as confirmed and the operator can't overwrite either one (WF-03).
 - **Quality vs health**: This  only describes how much the station information can be trusted. Whether the station is offline or has a faulty power bank is stored separately (DEC-02).
 - **No deadline**: The SRS doesn't give a time limit for how old station information can be (GAP-01), so it only moves to unavailable when it actually fails, not after a set amount of time.
