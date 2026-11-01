@@ -4,12 +4,11 @@
 **Design team:** Group 3 — Team A  
 **Requirements supplied by:** Group 3 — Team B    
 **Date: 01/11/2026**   
-**Document status:** Draft - Pending Review
 
 | Team member | Student ID |
 |---|---|
 | Yousef | 48603090 |
-| Harrison | [FILL] |
+| Harrison | 49154788 |
 | Cooper  | 49067281 |
 | Isaac  | [FILL] |
 
@@ -342,7 +341,7 @@ This example shows why the interface, permissions, business modules, database an
 
 # 5. User experience: two wireframe/storyboard sets
 
-**Owner: Cooper | Reviewers: Yousef for requirements/UI behaviour; Harrison for state/test consistency | Status: Review Pending **
+**Owner: Cooper | Reviewers: Yousef for requirements/UI behaviour; Harrison for state/test consistency | Status: Reviewed **
 
 ## 5.1 Storyboard SB-01 — UC-01 View Station Status
 
