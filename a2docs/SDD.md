@@ -64,7 +64,7 @@ Fill this with the current position; blank fields are not evidence that work is 
 | Three state diagrams | Harrison | [FILL] | [FILL] | [FILL] | [FILL] |
 | Persistence, caching and data access | Yousef | Sections 9.1–9.3 drafted; review pending | [FILL] | [FILL] | [FILL] |
 | Maintenance and deployment | Isaac; Yousef reviews | [FILL] | [FILL] | [FILL] | [FILL] |
-| RTM | Yousef | [FILL] | [FILL] | [FILL] | [FILL] |
+| RTM | Yousef | Requirement/use-case/component mapping drafted; test-ID links pending | [FILL] | [FILL] | [FILL] |
 | Test specifications and plan | Harrison | [FILL] | [FILL] | [FILL] | [FILL] |
 | SRS reflection | Yousef; everyone supplies examples | [FILL] | [FILL] | [FILL] | [FILL] |
 | Tools comparison and sprint evidence | Isaac drafts/collects; Harrison validates | [FILL] | [FILL] | [FILL] | [FILL] |
@@ -77,23 +77,55 @@ Fill this with the current position; blank fields are not evidence that work is 
 
 # Contents
 
-1. Project scope and requirements baseline
-2. Project vision
-3. Assumptions, clarification gaps and design decisions
-4. System architecture and rationale
-5. User experience: two wireframe/storyboard sets
-6. State diagram 1: FaultRecord
-7. State diagram 2: RedistributionJob
-8. State diagram 3: OperationalSnapshotQuality
-9. Persistent data, caching and maintenance
-10. Trade-offs and concurrent processes
-11. Requirements Traceability Matrix
-12. Test specifications and test plan
-13. Report to COMP2050 staff
-14. References and resources
-15. Final integration and submission checklist
-Appendix A. Team interaction log and full records
-Appendix B. Evidence index and contributions
+- [1. Project scope and requirements baseline](#1-project-scope-and-requirements-baseline)
+  - [1.1 Purpose and intended audience](#11-purpose-and-intended-audience)
+  - [1.2 System scope and boundary](#12-system-scope-and-boundary)
+  - [1.3 Received baseline and source documents](#13-received-baseline-and-source-documents)
+  - [1.4 Requirement reference list](#14-requirement-reference-list)
+  - [1.5 Use-case baseline](#15-use-case-baseline)
+- [2. Project vision](#2-project-vision)
+- [3. Assumptions, clarification gaps and design decisions](#3-assumptions-clarification-gaps-and-design-decisions)
+  - [3.1 Open clarification register](#31-open-clarification-register)
+  - [3.2 Design assumptions](#32-design-assumptions)
+  - [3.3 Proposed design decisions](#33-proposed-design-decisions)
+- [4. System architecture and rationale](#4-system-architecture-and-rationale)
+  - [4.1 Architecture overview](#41-architecture-overview)
+  - [4.2 Component catalogue](#42-component-catalogue)
+  - [4.3 Requirement-driven architecture rationale](#43-requirement-driven-architecture-rationale)
+  - [4.4 External interface responsibilities](#44-external-interface-responsibilities)
+  - [4.5 Example: recording a power bank fault](#45-example-recording-a-power-bank-fault)
+- [5. User experience: two wireframe/storyboard sets](#5-user-experience-two-wireframestoryboard-sets)
+  - [5.1 Storyboard SB-01 — UC-01 View Station Status](#51-storyboard-sb-01--uc-01-view-station-status)
+  - [5.2 Storyboard SB-03 — UC-03 Report and Manage a Faulty Power Bank](#52-storyboard-sb-03--uc-03-report-and-manage-a-faulty-power-bank)
+- [6. State diagram 1 — FaultRecord](#6-state-diagram-1--faultrecord)
+- [7. State diagram 2 — RedistributionJob](#7-state-diagram-2--redistributionjob)
+- [8. State diagram 3 — OperationalSnapshotQuality](#8-state-diagram-3--operationalsnapshotquality)
+- [9. Persistent data, caching and maintenance](#9-persistent-data-caching-and-maintenance)
+  - [9.1 Persistent data strategy](#91-persistent-data-strategy)
+  - [9.2 Caching and component data access](#92-caching-and-component-data-access)
+  - [9.3 Backup, recovery and retention](#93-backup-recovery-and-retention)
+  - [9.4 Maintenance, updates and deployment](#94-maintenance-updates-and-deployment)
+- [10. Trade-offs and concurrent processes](#10-trade-offs-and-concurrent-processes)
+  - [10.1 Important trade-offs](#101-important-trade-offs)
+  - [10.2 Concurrent activities and race conditions](#102-concurrent-activities-and-race-conditions)
+- [11. Requirements Traceability Matrix](#11-requirements-traceability-matrix)
+- [12. Test specifications and test plan](#12-test-specifications-and-test-plan)
+  - [12.1 Test approach and fixtures](#121-test-approach-and-fixtures)
+  - [12.2 Test inventory](#122-test-inventory)
+  - [12.3 Detailed test-case specifications](#123-detailed-test-case-specifications)
+  - [12.4 Test plan](#124-test-plan)
+- [13. Report to COMP2050 staff](#13-report-to-comp2050-staff)
+  - [13.1 Reflection on using the received SRS](#131-reflection-on-using-the-received-srs)
+  - [13.2 Tools, communication and changes from A1 to A2](#132-tools-communication-and-changes-from-a1-to-a2)
+  - [13.3 Sprint allocations and GitHub burn-up evidence](#133-sprint-allocations-and-github-burn-up-evidence)
+- [14. References and resources](#14-references-and-resources)
+- [15. Final integration and submission checklist](#15-final-integration-and-submission-checklist)
+- [Appendix A. Team interaction log and full records](#appendix-a-team-interaction-log-and-full-records)
+  - [A.1 Interaction index](#a1-interaction-index)
+  - [A.2 Full record template — duplicate for each actual interaction](#a2-full-record-template--duplicate-for-each-actual-interaction)
+- [Appendix B. Evidence index and contributions](#appendix-b-evidence-index-and-contributions)
+  - [B.1 Evidence index](#b1-evidence-index)
+  - [B.2 Individual contributions supported by evidence](#b2-individual-contributions-supported-by-evidence)
 
 **List of figures:** [ADD FINAL FIGURE NUMBERS, TITLES AND PAGE NUMBERS]  
 **List of tables:** [ADD IF USEFUL]
@@ -309,45 +341,51 @@ This example shows why the interface, permissions, business modules, database an
 
 # 5. User experience: two wireframe/storyboard sets
 
-**Owner: Cooper | Reviewers: Yousef for requirements/UI behaviour; Harrison for state/test consistency | Status: [FILL]**
-
-Use multi-step operator interactions. Suggested choices are UC-01 and UC-03. Include actual screens and the sequence between them, not only a written use-case summary.
+**Owner: Cooper | Reviewers: Yousef for requirements/UI behaviour; Harrison for state/test consistency | Status: Review Pending **
 
 ## 5.1 Storyboard SB-01 — UC-01 View Station Status
 
-**Actor:** [DESCRIBE AUTHORISED OPERATOR, GOAL, WORKING CONTEXT AND KNOWLEDGE]  
-**Preconditions:** [FILL]  
-**Requirements:** [FILL]  
-**Related tests:** [FILL]
+**Actor:** ChargeMate Operator. An authorised staff member on shift who looks after the day-to-day running of the power bank network at Harbour North Plaza. They know the centre and where each station is, but they aren't technical and shouldn't need database access or commandm line tools (NFR-01). A usual time they use this is at the start of a shift, or just before a busy period like the food court lunch rush, when they want to quickly see which stations are free of faults, which need someone to check them, and where the system doesn't have reliable information. They could be at a desk or walking around the centre, so the screens are designed to work on a desktop or tablet (ASSUMP-01).
 
-| Step | Screen ID/title | Operator action | System response and information displayed | Next screen / branch |
-|---|---|---|---|---|
-| 1 | WF-01 — Station overview | [FILL] | [FILL] | [FILL] |
-| 2 | WF-02 — Selected station | [FILL] | [FILL] | [FILL] |
-| 3 | WF-03 — Attention/recovery view | [FILL] | [FILL] | [FILL] |
+**Preconditions:** The operator is signed in and authorised to view station information (NFR-03). The stations are registered in ChargeMate Ops (SRC-01 A01).
 
-**Figures WF-01 to WF-03:** [INSERT ANNOTATED WIREFRAMES]
+**Requirements:** FR-01, FR-02, FR-05, FR-08, NFR-01, NFR-02, NFR-03
 
-[FILL: Explain unavailable data, conflicting data, confirmed zero versus unknown availability, attention indicators and recovery navigation.]
+### SB-01 Wireframes
+
+![WF-01 Station overview](images/WF-01.png)
+*Figure 5.1.2 — WF-01 Station overview.*
+
+![WF-02 Selected station](images/WF-02.png)
+*Figure 5.1.3 — WF-02 Selected station.*
+
+![WF-03 Attention / recovery view](images/WF-03.png)
+*Figure 5.1.4 — WF-03 Attention / recovery view.*
 
 ## 5.2 Storyboard SB-03 — UC-03 Report and Manage a Faulty Power Bank
 
-**Actor:** [DESCRIBE OPERATOR; DISTINGUISH RESOLUTION PERMISSION IF APPLICABLE]  
-**Preconditions:** [FILL]  
-**Requirements:** [FILL]  
-**Related tests:** [FILL]
+**Actor:** ChargeMate Operator, the same staff member described in SB-01. They've either found a power bank that won't charge or is damaged, or been told about one through the customer reporting system. They're usually standing at the station holding the device, so the fault form needs to be short and quick to fill in. Finding a resolution for the fault usually happens later, often in a different shift and by a different staff member, once the device has been looked at. Team B's SRS says resolution is done by "an operator authorised for the action" but doesn't confirm a separate role (SRC-01 §7.3.3), so we treat resolving a fault as a permission that can be given to any operator account rather than a separate actor (GAP-04, ASSUMP-03).
 
-| Step | Screen ID/title | Operator action | System response and information displayed | Next screen / branch |
-|---|---|---|---|---|
-| 1 | WF-04 — Device search/detail | [FILL] | [FILL] | [FILL] |
-| 2 | WF-05 — Fault entry | [FILL] | [FILL] | [FILL] |
-| 3 | WF-06 — Save result | [FILL] | [FILL] | [FILL] |
-| 4 | WF-07 — Later fault review | [FILL] | [FILL] | [FILL] |
-| 5 | WF-08 — Resolution entry/result | [FILL] | [FILL] | [FILL] |
+**Preconditions:** The operator is signed in and has permission to record faults (NFR-03). The power bank is registered with a unique ID (SRC-01 A02).
 
-**Figures WF-04 to WF-08:** [INSERT ANNOTATED WIREFRAMES]
+**Requirements:** FR-03, FR-04, FR-05, FR-06, FR-08, NFR-01, NFR-02, NFR-03
 
-[FILL: Show not-found, missing information, save failure, unresolved investigation, denied resolution and failed resolution. Later resolution can occur in a different session. Do not show success before a successful save or automatic rental eligibility after resolution.]
+### SB-03 Wireframes
+
+![WF-04 Device search / detail](images/WF-04.png)
+*Figure 5.2.1 — WF-04 Device search / detail.*
+
+![WF-05 Fault entry](images/WF-05.png)
+*Figure 5.2.2 — WF-05 Fault entry.*
+
+![WF-06 Save result](images/WF-06.png)
+*Figure 5.2.3 — WF-06 Save result.*
+
+![WF-07 Later fault review](images/WF-07.png)
+*Figure 5.2.4 — WF-07 Delayed error review.*
+
+![WF-08 Resolution entry / result](images/WF-08.png)
+*Figure 5.2.5 — WF-08 Resolution entry / result.*
 
 # 6. State diagram 1 — FaultRecord
 
@@ -564,25 +602,37 @@ Retry a rolled-back transient database failure only within a configured bound an
 
 # 11. Requirements Traceability Matrix
 
-**Owner: Yousef | Reviewer: Harrison | All component owners confirm their allocation | Status: [FILL]**
+**Owner: Yousef | Reviewer: Harrison | All component owners confirm their allocation | Status: Requirement/use-case/component mapping drafted — review pending; final test-ID links pending Section 12**
 
-Keep exactly the five required columns below and one row for every inherited requirement. Use the final architecture names and actual test IDs. Explain meaningful change-impact links; do not fill every cell with every ID.
+The matrix preserves the eight functional and three non-functional Ops requirement IDs from SRC-01, pp.7–9, with one row per requirement and the five columns required by SRC-04. Requirement summaries are in [Section 1.4](#14-requirement-reference-list), with the use-case baseline in [Section 1.5](#15-use-case-baseline). Component IDs refer to the names and responsibilities in the [Section 4.2 catalogue](#42-component-catalogue).
+
+Change-impact links identify requirements whose implementation, acceptance checks or interfaces would need review if the row's requirement changed. They do not mean that every linked SRS sentence must change, or that Team B approved these design dependencies. They also need not be symmetrical.
+
+**Test-link status:** Section 12 currently contains unfilled example slots rather than Harrison's detailed test specifications. The last column therefore describes required coverage and explicitly leaves IDs pending. It does not claim those tests exist or have passed. Before submission, replace each pending entry with links to the actual detailed test cases and confirm that those cases contain the stated inputs and expected outcomes. This part of the traceability remains incomplete until that reconciliation is done.
 
 | Requirement-ID from SRS | Other requirement IDs impacted if it changes | Related use cases | Responsible/affected system components | Related test cases |
 |---|---|---|---|---|
-| FR-01 | [FILL] | [FILL] | [FILL] | [FILL] |
-| FR-02 | [FILL] | [FILL] | [FILL] | [FILL] |
-| FR-03 | [FILL] | [FILL] | [FILL] | [FILL] |
-| FR-04 | [FILL] | [FILL] | [FILL] | [FILL] |
-| FR-05 | [FILL] | [FILL] | [FILL] | [FILL] |
-| FR-06 | [FILL] | [FILL] | [FILL] | [FILL] |
-| FR-07 | [FILL] | [FILL] | [FILL] | [FILL] |
-| FR-08 | [FILL] | [FILL] | [FILL] | [FILL] |
-| NFR-01 | [FILL] | [FILL] | [FILL] | [FILL] |
-| NFR-02 | [FILL] | [FILL] | [FILL] | [FILL] |
-| NFR-03 | [FILL] | [FILL] | [FILL] | [FILL] |
+| FR-01 | FR-02, FR-08, NFR-01, NFR-02 | UC-01 — View Station Status | C-UI, C-AUTH, C-MON, C-DEV, C-FAULT, C-INT, C-DB | **IDs pending:** selected station matches displayed information; recorded issue versus normal status; unavailable/conflicting information. |
+| FR-02 | FR-01, FR-05, FR-07, FR-08, NFR-02 | UC-01; availability checks in supporting redistribution scenario | C-UI, C-AUTH, C-MON, C-DEV, C-FAULT, C-INT, C-DB | **IDs pending:** availability matches records; unresolved-fault exclusion; confirmed zero versus unknown/unavailable values; incomplete inventory does not produce a confirmed exact total. |
+| FR-03 | FR-04, FR-06, FR-07, FR-08, NFR-02 | UC-02 — Track a Power Bank; device identification in UC-03 | C-UI, C-AUTH, C-DEV, C-FAULT, C-INT, C-DB | **IDs pending:** valid device match; invalid/unknown ID; unknown/unavailable location; conflicting location identified for investigation. |
+| FR-04 | FR-02, FR-03, FR-05, FR-06, FR-07, FR-08 | UC-03 — Report and Manage a Faulty Power Bank | C-UI, C-AUTH, C-DEV, C-FAULT, C-INT, C-DB | **IDs pending:** valid fault linked to correct device; missing required fields; failed save; retry of the same committed fault request creates no duplicate. |
+| FR-05 | FR-02, FR-03, FR-04, FR-06, FR-07, FR-08 | UC-03; faulty-device information in UC-01/UC-02; supporting redistribution scenario | C-UI, C-AUTH, C-MON, C-DEV, C-FAULT, C-MOVE, C-INT, C-DB | **IDs pending:** unresolved fault remains visible and excludes normal rental availability/redistribution; exclusion persists while any other fault remains unresolved; fault/movement race. |
+| FR-06 | FR-02, FR-03, FR-04, FR-05, FR-07, FR-08 | UC-03 — resolution branch | C-UI, C-AUTH, C-DEV, C-FAULT, C-INT, C-DB | **IDs pending:** valid authorised resolution updates the fault/device view; failed or denied resolution; another unresolved fault remains effective; resolution alone does not establish rental eligibility. |
+| FR-07 | FR-01, FR-02, FR-03, FR-05, FR-08, NFR-02 | Supporting redistribution scenario in Section 1.5; resulting station/device information in UC-01/UC-02 | C-UI, C-AUTH, C-MON, C-DEV, C-FAULT, C-MOVE, C-INT, C-DB | **IDs pending:** suitable confirmed move updates destination; faulty/unavailable candidate excluded; missing physical confirmation; competing updates; failed recording after physical movement and investigation outcome. |
+| FR-08 | FR-01, FR-02, FR-03, FR-05, NFR-01, NFR-02 | UC-01/UC-02/UC-03 alternative and failure branches; supporting issue-view scenario | C-UI, C-AUTH, C-MON, C-DEV, C-FAULT, C-MOVE, C-INT, C-DB | **IDs pending:** recorded faults, unavailable stations and inconsistent information are distinguishable from normal operation; unresolved investigation remains visible. No invented automatic alert threshold is tested as a baseline requirement. |
+| NFR-01 | FR-01–FR-08 | UC-01, UC-02, UC-03; supporting redistribution and issue-view scenarios | C-UI; C-MON, C-DEV, C-FAULT and C-MOVE provide task results and validation feedback | **IDs pending:** representative authorised staff complete station viewing, device search and fault recording through visible controls without database, command-line or administrative intervention. |
+| NFR-02 | FR-01, FR-02, FR-03, FR-05, FR-07, FR-08 | UC-01/UC-02; information used in UC-03 and supporting scenarios | C-UI, C-MON, C-DEV, C-MOVE, C-INT, C-DB | **IDs pending:** unknown, unavailable and inconsistent facts are distinguished; no assumed values presented as confirmed; duplicate/late events, failed refresh and restored old observations preserve appropriate quality labels. |
+| NFR-03 | FR-01–FR-08, NFR-01 | Every protected operational use case/scenario | C-AUTH; C-UI, C-MON, C-DEV, C-FAULT, C-MOVE, C-INT and C-DB apply the access boundaries | **IDs pending:** permitted versus denied operations, direct backend requests, changed/expired access and repeated commands; denied requests do not change operational records. External service checks depend on the agreed interface. |
 
-[FILL: Explain significant dependency links. Put approved new requirements and supporting design safeguards in a separate change/decision register, preserving the received IDs.]
+Fault-lifecycle changes have broad impact because the saved fault is used by station availability, individual device views, movement suitability and recorded-issue indicators. FR-04–FR-06 therefore connect to several requirements and components. For example, changing the resolution rule requires reviewing FR-02/FR-05/FR-07 so a remaining fault or unknown charge does not disappear behind a resolution success message. [DEC-02; ASSUMP-04]
+
+Device identification links FR-03 to fault association and redistribution: a change to device lookup or identity rules must not allow a valid fault or movement to be attached to the wrong device. Redistribution links back to station/device views because a recorded destination changes the information they present. This explains the corresponding change-impact links rather than treating every requirement as dependent on every other requirement.
+
+C-AUTH and C-DB provide shared access/persistence support. Their appearance in multiple functional rows does not make them the owner of every business rule: C-FAULT owns fault rules, C-MOVE owns movement rules, C-DEV coordinates device facts and C-MON prepares station views. NFR-03 is cross-cutting because protected requests must remain authorised throughout those routes. NFR-01 requires usable interaction with the results and failures of these modules, rather than technical staff intervention.
+
+Concurrency, command receipts, outgoing retries and recovery add design safeguards under DEC-03–DEC-05 and Sections 9–10. Their tests may support inherited requirements but must also identify the relevant design decision; they are not new inherited FR/NFR rows. Likewise, the redistribution scenario elaborates FR-07, whose final source lacks a fourth complete detailed use case. It is not presented here as an approved new UC-04.
+
+Customer requirements and unconfirmed release/return responsibilities remain in the clarification register and interface proposal. Do not add Customer FR IDs to this 11-row Ops baseline. Tests that depend on unconfirmed fields, permissions or acknowledgements must identify their gap/assumption and remain conditional until that rule is established. Final review must check the links in both directions: each requirement has appropriate tests, and each referenced test and component actually exists in the corresponding section.
 
 # 12. Test specifications and test plan
 

@@ -2,17 +2,16 @@
 ## System Design Document — COMP2050 Assignment 2
 
 **Design team:** Group 3 — Team A  
-**Requirements supplied by:** Group 3 — Team B — [FULL WORKSHOP IDENTIFIER AND NICKNAME]  
+**Requirements supplied by:** Group 3 — Team B
 **Document version:** [VERSION]  
-**Document date:** [DATE]  
-**Submission deadline:** Sunday 1 November 2026, 23:55 — check the iLearn submission display  
-**Document status:** Section-by-section working draft — Sections 1 and 3 drafted; remaining sections pending their authors and review
+**Document date:** 01/11/2026  
+**Document status:** In Draft Stage - Pending Final Review
 
 | Team member | Student ID |
 |---|---|
 | Yousef | [FILL] |
 | Harrison | [FILL] |
-| Cooper  | [FILL] |
+| Cooper  | 49067281 |
 | Isaac  | [FILL] |
 
 ---
@@ -175,9 +174,9 @@ Redistribution is required despite not having a fourth complete detailed use cas
 
 # 2. Project vision
 
-**Owner: Cooper | Reviewer: Yousef | Status: [FILL]**
+Owner: Cooper | Reviewer: Yousef | Status: Review Pending
 
-[FILL: Write one original paragraph describing the value, intended staff users and operational outcome of your proposed ChargeMate Ops implementation. Do not copy Team B's vision statement.]
+ChargeMate Ops gives the staff running the Harbour North Plaza pilot program one place they can trust to see the state of every rental station and power bank, and to act on whatever needs attention or change. With ChargeMate Ops, an operator can see which stations are running normally, which need attention, and where the system doesn’t have reliable information. They can also follow and track a single power bank from the moment an issue is reported, all the way through to a resolution is recorded, even across different shifts and staff. Our design treats data transparency as a core feature. The system will never present a guess as a fact, never present a failed save as a success, and never show a faulty power bank as available for rental or redistribution. The outcome we are designing for is a pilot in which issues are found by staff before customers find them, and staff members record problems that can be reviewed between shifts.
 
 # 3. Assumptions, clarification gaps and design decisions
 
@@ -280,24 +279,54 @@ These component names are **suggestions from the review**, not SRS-mandated comp
 
 **Owner: Cooper | Reviewers: Yousef for requirements/UI behaviour; Harrison for state/test consistency | Status: [FILL]**
 
-Use multi-step operator interactions. Suggested choices are UC-01 and UC-03. Include actual screens and the sequence between them, not only a written use-case summary.
+# 5. User experience: two wireframe/storyboard sets
+
+**Owner: Cooper | Reviewers: Yousef for requirements/UI behaviour; Harrison for state/test consistency | Status: Review Pending **
 
 ## 5.1 Storyboard SB-01 — UC-01 View Station Status
 
-**Actor:** [DESCRIBE AUTHORISED OPERATOR, GOAL, WORKING CONTEXT AND KNOWLEDGE]  
-**Preconditions:** [FILL]  
-**Requirements:** [FILL]  
-**Related tests:** [FILL]
+**Actor:** ChargeMate Operator. An authorised staff member on shift who looks after the day-to-day running of the power bank network at Harbour North Plaza. They know the centre and where each station is, but they aren't technical and shouldn't need database access or commandm line tools (NFR-01). A usual time they use this is at the start of a shift, or just before a busy period like the food court lunch rush, when they want to quickly see which stations are free of faults, which need someone to check them, and where the system doesn't have reliable information. They could be at a desk or walking around the centre, so the screens are designed to work on a desktop or tablet (ASSUMP-01).
 
-| Step | Screen ID/title | Operator action | System response and information displayed | Next screen / branch |
-|---|---|---|---|---|
-| 1 | WF-01 — Station overview | [FILL] | [FILL] | [FILL] |
-| 2 | WF-02 — Selected station | [FILL] | [FILL] | [FILL] |
-| 3 | WF-03 — Attention/recovery view | [FILL] | [FILL] | [FILL] |
+**Preconditions:** The operator is signed in and authorised to view station information (NFR-03). The stations are registered in ChargeMate Ops (SRC-01 A01).
 
-**Figures WF-01 to WF-03:** [INSERT ANNOTATED WIREFRAMES]
+**Requirements:** FR-01, FR-02, FR-05, FR-08, NFR-01, NFR-02, NFR-03
 
-[FILL: Explain unavailable data, conflicting data, confirmed zero versus unknown availability, attention indicators and recovery navigation.]
+### SB-01 Wireframes
+
+![WF-01 Station overview](images/WF-01.png)
+*Figure 5.1.2 — WF-01 Station overview.*
+
+![WF-02 Selected station](images/WF-02.png)
+*Figure 5.1.3 — WF-02 Selected station.*
+
+![WF-03 Attention / recovery view](images/WF-03.png)
+*Figure 5.1.4 — WF-03 Attention / recovery view.*
+
+## 5.2 Storyboard SB-03 - UC-03 Report and Manager a Faulty Powerbank
+
+**Actor:** ChargeMate Operator, the same staff member described in SB-01. They've either found a power bank that won't charge or is damaged, or been told about one through the customer reporting system. They're usually standing at the station holding the device, so the fault form needs to be short and quick to fill in. Finding a resolution for the fault usually happens later, often in a different shift and by a different staff member, once the device has been looked at. Team B's SRS says resolution is done by "an operator authorised for the action" but doesn't confirm a separate role (SRC-01 §7.3.3), so we treat resolving a fault as a permission that can be given to any operator account rather than a separate actor (GAP-04, ASSUMP-03).
+
+**Preconditions:** The operator is signed in and has permission to record faults (NFR-03). The power bank is registered with a unique ID (SRC-01 A02).
+
+**Requirements:** FR-03, FR-04, FR-05, FR-06, FR-08, NFR-01, NFR-02, NFR-03
+
+### SB-03 Wireframes
+
+![WF-04 Device search / detail](images/WF-04.png)
+*Figure 5.2.1 — WF-04 Device search / detail.*
+
+![WF-05 Fault entry](images/WF-05.png)
+*Figure 5.2.2 — WF-05 Fault entry.*
+
+![WF-06 Save result](images/WF-06.png)
+*Figure 5.2.3 — WF-06 Save result.*
+
+![WF-07 Later fault review](images/WF-07.png)
+*Figure 5.2.4 — WF-07 Delayed error review.*
+
+![WF-08 Resolution entry / result](images/WF-08.png)
+*Figure 5.2.5 — WF-08 Resolution entry / result.*
+
 
 ## 5.2 Storyboard SB-03 — UC-03 Report and Manage a Faulty Power Bank
 
