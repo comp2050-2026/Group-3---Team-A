@@ -1,18 +1,16 @@
 # ChargeMate Ops
-## System Design Document — COMP2050 Assignment 2
+## System Design Document (SDD) — COMP2050 Assignment 2
 
 **Design team:** Group 3 — Team A  
-**Requirements supplied by:** Group 3 — Team B — [FULL WORKSHOP IDENTIFIER AND NICKNAME]  
-**Document version:** [VERSION]  
-**Document date:** [DATE]  
-**Submission deadline:** Sunday 1 November 2026, 23:55 — check the iLearn submission display  
-**Document status:** Section-by-section working draft — Sections 1, 3 and 4 drafted; remaining sections pending their authors and review
+**Requirements supplied by:** Group 3 — Team B    
+**Date: 01/11/2026**   
+**Document status:** Draft - Pending Review
 
 | Team member | Student ID |
 |---|---|
 | Yousef | [FILL] |
 | Harrison | [FILL] |
-| Cooper  | [FILL] |
+| Cooper  | 49067281 |
 | Isaac  | [FILL] |
 
 ---
