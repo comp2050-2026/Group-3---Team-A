@@ -1312,7 +1312,7 @@ Suggested length: approximately 3–4 pages. The brief specifies Sprint 1 from t
 | REF-05 | COMP2050 convenor | Assignment 1 Project B brief: ChargeMate Ops | 22 Jul 2026 | iLearn Assessment 1 | Section 1.2, 3 |
 | REF-06 | JGraph Ltd | Draw.io | | https://www.drawio.com/ | 7chart.png, 8chart.png |
 | REF-07 | Lucid Software Inc | Lucid Chart | | lucid.app | WF-01-08, SD-03.png |
-| REF-08 | Anthropic | Claude | | | claude.ai | Used for breaking down and clarifying assessment brief |
+| REF-08 | Anthropic | Claude | |claude.ai | Used for breaking down and clarifying assessment brief |
 
 [FILL: Include diagram tools, borrowed assets/templates, technical resources and AI assistance actually used, with the required acknowledgement. Cite sources within the relevant sections as well as in this list.]
 
