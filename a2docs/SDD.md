@@ -3,75 +3,16 @@
 
 **Design team:** Group 3 — Team A  
 **Requirements supplied by:** Group 3 — Team B    
+**Source team members:** Christopher Youssef, Daksh Arora, Zeu Sul and Ayaan Ali.
+
 **Date: 01/11/2026**   
 
 | Team member | Student ID |
 |---|---|
-| Yousef | 48603090 |
-| Harrison | 49154788 |
-| Cooper  | 49067281 |
-| Isaac  | [FILL] |
-
----
-
-# Team working guide — remove before final PDF export
-
-This is a ready-to-fill structure, not a completed submission. Replace every `[FILL]`, `[INSERT ...]` and other bracketed instruction. Remove author/reviewer prompts after review. Keep the completed academic content, genuine records, references and final figures.
-
-**A2 project:** Team A is now designing **ChargeMate Ops**, using Team B's SRS. ChargeMate Customer is an external collaborating system.
-
-**Suggested allocation:** Yousef and Harrison lead the technical decisions and final quality checks. Cooper and Isaac own complete, substantive deliverables, with review from the technical leads. These assignments are proposals, not evidence of a past team decision.
-
-| Person | Primary sections | Concrete deliverables | Reviewer |
-|---|---|---|---|
-| Yousef | 1, 3, 4, 9.1–9.3, 10, 11, 13.1; coordinate 15 | Requirements/interface decisions; architecture and data strategy; trade-offs/concurrency; all 11 RTM rows; SRS reflection; overall document consistency | Harrison |
-| Harrison | 6, 7, 8, 12; validate 13.3 and co-review 15 | Three state diagrams and guards; detailed test specifications and plan; check requirement/state/failure coverage; validate sprint analysis against real records | Yousef |
-| Cooper | 2, 5 | Original vision; two actor descriptions; complete wireframes and numbered storyboards for UC-01 and UC-03, including failure/recovery screens; revise after review | Yousef checks requirements/UI behaviour; Harrison checks state/test consistency |
-| Isaac | 9.4, 13.2–13.3, 14, Appendix; PDF assembly support | Maintenance/deployment strategy; actual A1/A2 tools comparison; collect and caption genuine sprint charts/snapshots; organise interaction records, references and formatting | Yousef reviews maintenance; Harrison reviews evidence and staff-report accuracy |
-| Everyone | 13–15 and Appendix | Supply actual contributions, A1/A2 tool experience, sprint records, meeting/discussion evidence and review feedback | Whole team |
-
-## Hand-offs and final checks
-
-- **Yousef → everyone:** Agree the scope, component names, interface responsibilities and provisional assumptions first. Cooper and Isaac can draft in parallel while open decisions are clearly marked.
-- **Harrison ↔ Yousef:** Cross-check architecture/data rules against state transitions, tests and the RTM. Resolve conflicting expectations together before final assembly.
-- **Cooper → Yousef and Harrison:** Deliver the actual screen figures, actor descriptions and numbered storyboards. Include unknown/unavailable information, denied actions and failed saves. Cooper owns making the revisions identified in review.
-- **Isaac → Yousef and Harrison:** Deliver a complete maintenance section and an organised evidence package with dates, captions and source links. Isaac drafts the tools/sprint narrative from actual records; Harrison checks that the interpretation matches those records.
-- **Everyone → staff report:** Provide real examples of difficulties, decisions and changes in working method. Yousef writes the coherent SRS reflection from those inputs.
-- **Final check:** Yousef checks scope, architecture, RTM and narrative consistency. Harrison checks state logic, test coverage and evidence accuracy. Cooper checks screen readability and storyboard completeness. Isaac checks references, captions, appendix organisation and PDF layout.
-
-The staff report is worth 25 marks and the appendix 10, so the evidence and reflection need substantive review alongside the technical design. Record who actually authored, revised and reviewed each part; do not present the proposed allocation as completed work.
-
-**Working rules**
-
-- Work in the team's existing `a2docs` folder. Suggested main filename: `SDD.md`.
-- Use real task/issue/commit/PR links when they exist. Keep review feedback with its actual date.
-- Agree component IDs before writing other sections. Reuse the same names in every diagram, RTM row and test.
-- Distinguish inherited requirements, provisional assumptions and agreed design decisions.
-- A fault must exclude normal availability. Unknown availability is not confirmed zero. Failed saves must not appear successful. Physical movement needs confirmation before its new location is recorded. Fault resolution alone does not establish rental eligibility.
-- Record genuine activity. Do not invent historical meetings, attendance, sprint progress, GitHub links, approvals or test results.
-- This assessment asks for test **specifications and a plan**. Do not claim tests ran if they did not.
-- Final deliverable: one professional PDF, **maximum 50 A4 pages including the appendix**. Aim for 48 pages. Each person also completes the individual contribution evaluation.
-
-## Shared progress board
-
-Fill this with the current position; blank fields are not evidence that work is complete.
-
-| Deliverable | Owner | Current status | Actual draft/task link | Reviewer feedback link | Review date |
-|---|---|---|---|---|---|
-| Baseline, assumptions, architecture | Yousef | Reviewed | [Sections 1, 3 and 4](#1-project-scope-and-requirements-baseline) | — | 1 November 2026 |
-| Vision and two storyboard/wireframe sets | Cooper | [FILL] | [FILL] | [FILL] | [FILL] |
-| Three state diagrams | Harrison | [FILL] | [FILL] | [FILL] | [FILL] |
-| Persistence, caching and data access | Yousef | Sections 9.1–9.3 reviewed; integration pending | [Sections 9.1–9.3](#91-persistent-data-strategy) | — | 1 November 2026 |
-| Trade-offs and concurrent processes | Yousef | Reviewed; final test-ID links pending | [Section 10](#10-trade-offs-and-concurrent-processes) | — | 1 November 2026 |
-| Maintenance and deployment | Isaac; Yousef reviews | [FILL] | [FILL] | [FILL] | [FILL] |
-| RTM | Yousef | Mapping reviewed; actual test-ID links pending | [Section 11](#11-requirements-traceability-matrix) | — | 1 November 2026 |
-| Test specifications and plan | Harrison | [FILL] | [FILL] | [FILL] | [FILL] |
-| SRS reflection | Yousef; everyone supplies examples | Source/evidence reviewed; final team input pending | [Section 13.1](#131-reflection-on-using-the-received-srs) | — | 1 November 2026 |
-| Tools comparison and sprint evidence | Isaac drafts/collects; Harrison validates | [FILL] | [FILL] | [FILL] | [FILL] |
-| References and interaction appendix | Isaac coordinates; everyone supplies records; Harrison checks evidence | [FILL] | [FILL] | [FILL] | [FILL] |
-| Final PDF and consistency review | Yousef + Harrison lead; Cooper + Isaac complete presentation checks | [FILL] | [FILL] | [FILL] | [FILL] |
-
-**Suggested page budget:** cover/contents 2; scope, vision and assumptions 3; remaining system design 13; RTM 4; tests 12; staff report/references 7; appendix 7. Total 48. Adjust to fit the actual material legibly.
+| Yousef Mustafa | 48603090 |
+| Harrison McLuckie | 49154788 |
+| Cooper Went | 49067281 |
+| Isaac Lynn | [FILL] |
 
 ---
 
@@ -98,8 +39,8 @@ Fill this with the current position; blank fields are not evidence that work is 
   - [5.1 Storyboard SB-01 — UC-01 View Station Status](#51-storyboard-sb-01--uc-01-view-station-status)
   - [5.2 Storyboard SB-03 — UC-03 Report and Manage a Faulty Power Bank](#52-storyboard-sb-03--uc-03-report-and-manage-a-faulty-power-bank)
 - [6. State diagram 1 — FaultRecord](#6-state-diagram-1--faultrecord)
-- [7. State diagram 2 — TrackPowerBank](#7-state-diagram-2--trackpowerbank)
-- [8. State diagram 3 — ViewStationStatus](#8-state-diagram-3--viewstationstatus)
+- [7. State diagram 2 — PowerBank Tracking Status](#7-state-diagram-2--powerbank-tracking-status)
+- [8. State diagram 3 — OperationalSnapshotQuality](#8-state-diagram-3--operationalsnapshotquality)
 - [9. Persistent data, caching and maintenance](#9-persistent-data-caching-and-maintenance)
   - [9.1 Persistent data strategy](#91-persistent-data-strategy)
   - [9.2 Caching and component data access](#92-caching-and-component-data-access)
@@ -117,9 +58,8 @@ Fill this with the current position; blank fields are not evidence that work is 
 - [13. Report to COMP2050 staff](#13-report-to-comp2050-staff)
   - [13.1 Reflection on using the received SRS](#131-reflection-on-using-the-received-srs)
   - [13.2 Tools, communication and changes from A1 to A2](#132-tools-communication-and-changes-from-a1-to-a2)
-  - [13.3 Sprint allocations and GitHub burn-up evidence](#133-sprint-allocations-and-github-burn-up-evidence)
+  - [13.3 Sprint allocations and repository evidence](#133-sprint-allocations-and-repository-evidence)
 - [14. References and resources](#14-references-and-resources)
-- [15. Final integration and submission checklist](#15-final-integration-and-submission-checklist)
 - [Appendix A. Team interaction log and full records](#appendix-a-team-interaction-log-and-full-records)
   - [A.1 Interaction index](#a1-interaction-index)
   - [A.2 Full record template — duplicate for each actual interaction](#a2-full-record-template--duplicate-for-each-actual-interaction)
@@ -127,14 +67,9 @@ Fill this with the current position; blank fields are not evidence that work is 
   - [B.1 Evidence index](#b1-evidence-index)
   - [B.2 Individual contributions supported by evidence](#b2-individual-contributions-supported-by-evidence)
 
-**List of figures:** [ADD FINAL FIGURE NUMBERS, TITLES AND PAGE NUMBERS]  
-**List of tables:** [ADD IF USEFUL]
-
 ---
 
 # 1. Project scope and requirements baseline
-
-**Owner: Yousef | Assigned peer reviewer: Harrison | Status: Reviewed**
 
 ## 1.1 Purpose and intended audience
 
@@ -205,16 +140,10 @@ Redistribution is required despite not having a fourth complete detailed use cas
 
 # 2. Project vision
 
-**Owner: Cooper | Reviewer: Yousef | Status: Review Pending**
-
 ChargeMate Ops gives the staff running the Harbour North Plaza pilot program one place they can trust to see the state of every rental station and power bank, and to act on whatever needs attention or change. With ChargeMate Ops, an operator can see which stations are running normally, which need attention, and where the system doesn’t have reliable information. They can also follow and track a single power bank from the moment an issue is reported, all the way through to a resolution is recorded, even across different shifts and staff. Our design treats data transparency as a core feature. The system will never present a guess as a fact, never present a failed save as a success, and never show a faulty power bank as available for rental or redistribution. The outcome we are designing for is a pilot in which issues are found by staff before customers find them, and staff members record problems that can be reviewed between shifts. 
 
 
-[FILL: Write one original paragraph describing the value, intended staff users and operational outcome of your proposed ChargeMate Ops implementation. Do not copy Team B's vision statement.]
-
 # 3. Assumptions, clarification gaps and design decisions
-
-**Owner: Yousef | Assigned peer reviewer: Harrison | Input: everyone | Status: Reviewed; clarification gaps remain open**
 
 This section distinguishes missing information from proposed implementation choices. A **clarification gap** is an unanswered question in the supplied material. A **design assumption** is a provisional condition used to continue planning. A **design decision** selects an approach and explains why it fits the requirements. Neither assumptions nor proposed decisions represent stakeholder approval.
 
@@ -265,8 +194,6 @@ The following choices were drafted on **1 November 2026**. They remain provision
 Changes to a decision must update the affected diagrams, data rules, RTM and tests together. Once a question is answered or a decision reviewed, record the actual response/review evidence and date; an open item should not be marked agreed solely because a plausible design has been written.
 
 # 4. System architecture and rationale
-
-**Owner: Yousef | Assigned peer reviewer: Harrison | Status: Reviewed**
 
 ## 4.1 Architecture overview
 
@@ -341,34 +268,51 @@ This example shows why the interface, permissions, business modules, database an
 
 # 5. User experience: two wireframe/storyboard sets
 
-**Owner: Cooper | Reviewers: Yousef for requirements/UI behaviour; Harrison for state/test consistency | Status: Reviewed **
-
 ## 5.1 Storyboard SB-01 — UC-01 View Station Status
 
-**Actor:** ChargeMate Operator. An authorised staff member on shift who looks after the day-to-day running of the power bank network at Harbour North Plaza. They know the centre and where each station is, but they aren't technical and shouldn't need database access or commandm line tools (NFR-01). A usual time they use this is at the start of a shift, or just before a busy period like the food court lunch rush, when they want to quickly see which stations are free of faults, which need someone to check them, and where the system doesn't have reliable information. They could be at a desk or walking around the centre, so the screens are designed to work on a desktop or tablet (ASSUMP-01).
+**Actor:** ChargeMate Operator. An authorised staff member on shift who looks after the day-to-day running of the power bank network at Harbour North Plaza. They know the centre and where each station is, but they aren't technical and shouldn't need database access or command line tools (NFR-01). A usual time they use this is at the start of a shift, or just before a busy period like the food court lunch rush, when they want to quickly see which stations are free of faults, which need someone to check them, and where the system doesn't have reliable information. They could be at a desk or walking around the centre, so the screens are designed to work on a desktop or tablet (ASSUMP-01).
 
 **Preconditions:** The operator is signed in and authorised to view station information (NFR-03). The stations are registered in ChargeMate Ops (SRC-01 A01).
 
 **Requirements:** FR-01, FR-02, FR-05, FR-08, NFR-01, NFR-02, NFR-03
 
+### SB-01 Storyboard sequence
+
+| Step | Operator action / screen | System response and next step |
+|---|---|---|
+| 1 | Open station monitoring (WF-01). | Show station identities and available status/availability; qualify missing information. |
+| 2 | Select a station (WF-02). | Show that station’s recorded details and last-update information. |
+| 3 | Inspect an attention or data-quality condition (WF-03). | Distinguish recorded faults from unavailable/conflicting data; retain source evidence for investigation. |
+| 4 | Retry after a failed retrieval. | Replace qualified values only after reliable information arrives; a failure is never displayed as a confirmed zero. |
+
 ### SB-01 Wireframes
 
 ![WF-01 Station overview](images/WF-01.png)
-*Figure 5.1.2 — WF-01 Station overview.*
+*Figure 5.1.1 — WF-01 Station overview.*
 
 ![WF-02 Selected station](images/WF-02.png)
-*Figure 5.1.3 — WF-02 Selected station.*
+*Figure 5.1.2 — WF-02 Selected station.*
 
 ![WF-03 Attention / recovery view](images/WF-03.png)
-*Figure 5.1.4 — WF-03 Attention / recovery view.*
+*Figure 5.1.3 — WF-03 Attention / recovery view.*
 
 ## 5.2 Storyboard SB-03 — UC-03 Report and Manage a Faulty Power Bank
 
-**Actor:** ChargeMate Operator, the same staff member described in SB-01. They've either found a power bank that won't charge or is damaged, or been told about one through the customer reporting system. They're usually standing at the station holding the device, so the fault form needs to be short and quick to fill in. Finding a resolution for the fault usually happens later, often in a different shift and by a different staff member, once the device has been looked at. Team B's SRS says resolution is done by "an operator authorised for the action" but doesn't confirm a separate role (SRC-01 §7.3.3), so we treat resolving a fault as a permission that can be given to any operator account rather than a separate actor (GAP-04, ASSUMP-03).
+**Actor:** ChargeMate Operator, the same staff member described in SB-01. They've either found a power bank that won't charge or is damaged, or been told about one through the customer reporting system. They're usually standing at the station holding the device, so the fault form needs to be short and quick to fill in. Finding a resolution for the fault usually happens later, often in a different shift and by a different staff member, once the device has been looked at. Team B's SRS says resolution is done by "an operator authorised for the action" but doesn't confirm a separate role (SRC-01 Section 7.3.3), so we treat resolving a fault as a permission that can be given to any operator account rather than a separate actor (GAP-04, ASSUMP-03).
 
 **Preconditions:** The operator is signed in and has permission to record faults (NFR-03). The power bank is registered with a unique ID (SRC-01 A02).
 
 **Requirements:** FR-03, FR-04, FR-05, FR-06, FR-08, NFR-01, NFR-02, NFR-03
+
+### SB-03 Storyboard sequence
+
+| Step | Operator action / screen | System response and next step |
+|---|---|---|
+| 1 | Search the power-bank ID (WF-04). | Match a registered device; distinguish not-found from unknown location. |
+| 2 | Enter a fault description (WF-05). | Validate required details and action permission. Missing details keep the operator on the form. |
+| 3 | Submit and inspect the result (WF-06). | Confirm only a committed save; retain input on rejection. A lost response is unconfirmed and is checked using the same operation ID. |
+| 4 | Later inspect the unresolved fault (WF-07). | Preserve its device association, attention indication and exclusion while unresolved. |
+| 5 | An authorised operator records a resolution (WF-08). | Keep the fault active after a failed save; after success retain resolution history. Other unresolved faults still exclude the device, and charge/location eligibility is checked separately. |
 
 ### SB-03 Wireframes
 
@@ -382,7 +326,7 @@ This example shows why the interface, permissions, business modules, database an
 *Figure 5.2.3 — WF-06 Save result.*
 
 ![WF-07 Later fault review](images/WF-07.png)
-*Figure 5.2.4 — WF-07 Delayed error review.*
+*Figure 5.2.4 — WF-07 Later fault review.*
 
 ![WF-08 Resolution entry / result](images/WF-08.png)
 *Figure 5.2.5 — WF-08 Resolution entry / result.*
@@ -441,8 +385,6 @@ The object choice is proposed. If replaced, choose another object with meaningfu
 
 # 8. State diagram 3 — OperationalSnapshotQuality
 
-**Owner: Cooper | Reviewer: Yousef | Status: Review Pending**
-
 **Object and purpose:** OperationalSnapshotQuality represents how trustworthy the information ChargeMate Ops currently holds about a rental station is. It does not track whether the station itself is working. A station can be reported as offline and that report can still be reliable. It only tracks whether the system can trust the status and availability it is showing the operator in UC-01.
 
 **Requirements/use cases:** UC-01 – View Station Status, FR-01, FR-02, FR-08, NFR-02
@@ -455,18 +397,21 @@ The object choice is proposed. If replaced, choose another object with meaningfu
 
 | Current state | Event | Guard / condition | Action | Next state | Related test |
 |---|---|---|---|---|---|
-| Initial | registerStation(stationID) | station is registered | create a snapshot with no values, show "Unknown" | Unknown | [FILL] |
-| Unknown | retrieveStationInfo(stationID) | information retrieved, no sources disagree | store status and availability with source and time, show "Last updated" | Reliable | [FILL] |
-| Unknown | retrieveStationInfo(stationID) | information cannot be retrieved | show "Unavailable" and "—" instead of a number | Unavailable | [FILL] |
-| Reliable | retrieveStationInfo(stationID) | information retrieved, sources agree | update values and "Last updated" time | Reliable | [FILL] |
-| Reliable | retrieveStationInfo(stationD) | Rental Station System and Customer system disagree | keep both values with their source, flag "Needs investigation" | Inconsistent | [FILL] |
-| Reliable | retrieveStationInfo(stationID) | information cannot be retrieved | hide values, show "Unavailable" with the time of the last response | Unavailable | [FILL] |
-| Unavailable | retry() | information retrieved, no sources disagree | store values, remove "Unavailable" label | Reliable | [FILL] |
-| Unavailable | retry() | information retrieved but sources disagree | keep both values, flag "Needs investigation" | Inconsistent | [FILL] |
-| Unavailable | retry() | station still not responding | show error, leave values hidden | Unavailable | [FILL] |
-| Inconsistent | retrieveStationInfo(stationID) | all sources now agree | store agreed values, remove "Needs investigation" | Reliable | [FILL] |
-| Inconsistent | retrieveStationInfo(stationID) | information cannot be retrieved | show "Unavailable", keep record for investigation | Unavailable | [FILL] |
-| Any state | deregisterStation(stationID) | operator has permission | archive the snapshot history | Final state | [FILL] |
+| Initial | registerStation(stationID) | station is registered | create a snapshot with no values, show "Unknown" | Unknown | [T-01](#t-01--view-station-status-with-reliable-information) |
+| Unknown | retrieveStationInfo(stationID) | information retrieved, no sources disagree | store status and availability with source and time, show "Last updated" | Reliable | [T-03](#t-03--conflicting-station-information-flagged-and-cleared) |
+| Unknown | retrieveStationInfo(stationID) | information retrieved but sources disagree | preserve both observations and their source/time; flag “Needs investigation” | Inconsistent | [T-03](#t-03--conflicting-station-information-flagged-and-cleared) |
+| Unknown | retrieveStationInfo(stationID) | information cannot be retrieved | show "Unavailable" and "—" instead of a number | Unavailable | [T-02](#t-02--station-information-unavailable-then-retry) |
+| Reliable | retrieveStationInfo(stationID) | information retrieved, sources agree | update values and "Last updated" time | Reliable | [T-01](#t-01--view-station-status-with-reliable-information) |
+| Reliable | retrieveStationInfo(stationID) | Rental Station System and Customer system disagree | keep both values with their source, flag "Needs investigation" | Inconsistent | [T-03](#t-03--conflicting-station-information-flagged-and-cleared) |
+| Reliable | retrieveStationInfo(stationID) | information cannot be retrieved | hide values, show "Unavailable" with the time of the last response | Unavailable | [T-02](#t-02--station-information-unavailable-then-retry) |
+| Unavailable | retry() | information retrieved, no sources disagree | store values, remove "Unavailable" label | Reliable | [T-03](#t-03--conflicting-station-information-flagged-and-cleared) |
+| Unavailable | retry() | information retrieved but sources disagree | keep both values, flag "Needs investigation" | Inconsistent | [T-03](#t-03--conflicting-station-information-flagged-and-cleared) |
+| Unavailable | retry() | station still not responding | show error, leave values hidden | Unavailable | [T-02](#t-02--station-information-unavailable-then-retry) |
+| Inconsistent | retrieveStationInfo(stationID) | all sources now agree | store agreed values, remove "Needs investigation" | Reliable | [T-03](#t-03--conflicting-station-information-flagged-and-cleared) |
+| Inconsistent | retrieveStationInfo(stationID) | information cannot be retrieved | show "Unavailable", keep record for investigation | Unavailable | [T-03](#t-03--conflicting-station-information-flagged-and-cleared) |
+| Any state | deregisterStation(stationID) | operator has permission | archive the snapshot history | Final state | [T-26](#t-26--station-snapshot-archival-permitted-and-denied) |
+
+**Initial conflicting retrieval:** The Unknown → Inconsistent transition in the table also applies when the first successful retrieval already contains conflicting observations. This supplements the supplied SD-03 figure; no confirmed count is shown in that case.
 
 - **Unknown information**: The snapshot starts as Unknown because nothing has been retrieved for the station yet. The system shows "Unknown" and "—", never 0, so a station with no data can't be mistaken for an empty station.
 - **Reliable information**: The latest station information was retrieved and no source disagrees with it (UC-01 main success scenario). Status and availability are shown with the time they were last updated.
@@ -475,8 +420,6 @@ The object choice is proposed. If replaced, choose another object with meaningfu
 - **Quality vs health**: This  only describes how much the station information can be trusted. Whether the station is offline or has a faulty power bank is stored separately (DEC-02).
 - **No deadline**: The SRS doesn't give a time limit for how old station information can be (GAP-01), so it only moves to unavailable when it actually fails, not after a set amount of time.
 # 9. Persistent data, caching and maintenance
-
-**Owners: Yousef for 9.1–9.3; Isaac for 9.4 | Reviewers: Harrison for data strategy; Yousef for maintenance | Status: Sections 9.1–9.3 reviewed; 9.4 pending**
 
 ## 9.1 Persistent data strategy
 
@@ -577,8 +520,6 @@ Retention rules must cover operational records, source evidence, processing rece
 
 ## 9.4 Maintenance, updates and deployment
 
-**Owner: Isaac | Reviewer: Yousef | Coordinate with: Harrison on recovery/deployment test coverage**
-
 | System part | Update/deployment approach | Compatibility and failure handling | Rollback/recovery |
 |---|---|---|---|
 | Operator interface | Build as a versioned web bundle. Staff get the new version on their next page load. | The backend accepts the current and previous interface version for one release. An out-of-date page that sends an incompatible request is rejected with a “refresh and retry” message and nothing is partially saved. | Redeploy the previous bundle. No data migration is needed. |
@@ -589,8 +530,6 @@ Retention rules must cover operational records, source evidence, processing rece
 
 
 # 10. Trade-offs and concurrent processes
-
-**Owner: Yousef | Assigned peer reviewer: Harrison | Input: Isaac and Cooper | Status: Reviewed; Section 12 test-ID links pending**
 
 ## 10.1 Important trade-offs
 
@@ -612,16 +551,16 @@ The design supports the SRS's qualitative usability, information-reliability and
 
 A race condition occurs when overlapping actions could produce different results depending on their timing. The proposal coordinates changes to the same device through C-DEV's device record/version and a short database transaction. Every path that changes its faults, movement or accepted operational facts must follow this rule, including changes received through C-INT.
 
-| Concurrent events | Possible incorrect outcome | Coordination / guard | Expected result or recovery | Required Section 12 coverage — test IDs pending |
+| Concurrent events | Possible incorrect outcome | Coordination / guard | Expected result or recovery | Required Section 12 coverage and related specifications |
 |---|---|---|---|---|
-| Fault report versus movement confirmation | A previously selected device is recorded as a suitable completed move despite a newly saved fault. | Both operations coordinate on the device row. After acquiring it, movement completion checks the expected version, unresolved faults, accepted suitability facts and physical confirmation. | If the fault committed first, do not complete a normal redistribution from the old view. If movement committed first, a later fault does not undo physical movement. Conflicting physical evidence requires investigation. | Interleave fault and movement submissions in both orders; verify saved records, exclusion and operator messages. |
-| Two operators confirm different destinations | One report silently overwrites the other and hides a location disagreement. | Check the device/source version and the movement record's version/state within the device transaction. | Only a compatible completion commits. The other request receives a conflict and refreshed information. An already performed conflicting physical move must be reconciled, not treated as undone. | Submit competing destination confirmations from the same starting version; inspect location, versions and the rejected outcome. |
-| Resolution of one fault overlaps another unresolved fault | Clearing one fault makes a still-faulty device appear normally available. | Fault creation/resolution takes the same device lock and updates its version. Derive exclusion from all saved unresolved faults, not just the fault being resolved. | A remaining unresolved fault keeps the device excluded. A version conflict requires refreshed state; it must not silently clear other fault records. | Resolve one of multiple faults and interleave a new fault with resolution; verify exclusion in each committed state. |
-| Station/Customer events arrive twice or out of order | A duplicate applies twice, or an older observation replaces newer accepted information. | Use a source-scoped unique event ID and input fingerprint; check source ordering where available under ASSUMP-05. Coordinate accepted device changes through the same device transaction. | A matching duplicate returns the recorded processing result. Conflicting ID reuse is rejected; incomparable contradictory evidence remains an investigation condition. | Concurrent duplicates, older revisions and conflicting events without comparable ordering. |
-| A saved response is lost and the operator retries | Another fault or movement is created even though the original save succeeded. | Atomically recognise the requesting identity/operation ID and matching input before treating its old expected version as a new command. | After permission checks, return the saved committed result without repeating its effects. Reusing the ID for different input is rejected. Missing receipts after restoration require Section 9.3 reconciliation. | Drop the response after commit, then retry the same ID/input; verify one saved change and rejection of changed input. |
-| Local save succeeds while outgoing delivery fails or its acknowledgement is lost | The saved fault disappears, or the interface claims external action succeeded without confirmation. | Save the outgoing record with the domain transaction. Keep a stable event ID for delivery retries; remote duplicate handling depends on the agreed interface. | The local change remains committed. Delivery stays pending/uncertain until an acknowledgement is established; no guaranteed exactly-once external effect is claimed. | Inject delivery failure and lost acknowledgement; inspect the retained local change and visible delivery status. |
+| Fault report versus movement confirmation | A previously selected device is recorded as a suitable completed move despite a newly saved fault. | Both operations coordinate on the device row. After acquiring it, movement completion checks the expected version, unresolved faults, accepted suitability facts and physical confirmation. | If the fault committed first, do not complete a normal redistribution from the old view. If movement committed first, a later fault does not undo physical movement. Conflicting physical evidence requires investigation. | Interleave fault and movement submissions in both orders; verify saved records, exclusion and operator messages. [T-20](#t-20--fault-report-versus-movement-confirmation-race) |
+| Two operators confirm different destinations | One report silently overwrites the other and hides a location disagreement. | Check the device/source version and the movement record's version/state within the device transaction. | Only a compatible completion commits. The other request receives a conflict and refreshed information. An already performed conflicting physical move must be reconciled, not treated as undone. | Submit competing destination confirmations from the same starting version; inspect location, versions and the rejected outcome. [T-21](#t-21--two-operators-confirm-different-destinations) |
+| Resolution of one fault overlaps another unresolved fault | Clearing one fault makes a still-faulty device appear normally available. | Fault creation/resolution takes the same device lock and updates its version. Derive exclusion from all saved unresolved faults, not just the fault being resolved. | A remaining unresolved fault keeps the device excluded. A version conflict requires refreshed state; it must not silently clear other fault records. | Resolve one of multiple faults and interleave a new fault with resolution; verify exclusion in each committed state. [T-13](#t-13--resolve-one-of-several-faults-exclusion-persists) covers the multiple-fault baseline; the overlapping-create extension remains to be specified. |
+| Station/Customer events arrive twice or out of order | A duplicate applies twice, or an older observation replaces newer accepted information. | Use a source-scoped unique event ID and input fingerprint; check source ordering where available under ASSUMP-05. Coordinate accepted device changes through the same device transaction. | A matching duplicate returns the recorded processing result. Conflicting ID reuse is rejected; incomparable contradictory evidence remains an investigation condition. | Concurrent duplicates, older revisions and conflicting events without comparable ordering. [T-22](#t-22--duplicate-late-and-conflicting-external-events) |
+| A saved response is lost and the operator retries | Another fault or movement is created even though the original save succeeded. | Atomically recognise the requesting identity/operation ID and matching input before treating its old expected version as a new command. | After permission checks, return the saved committed result without repeating its effects. Reusing the ID for different input is rejected. Missing receipts after restoration require Section 9.3 reconciliation. | Drop the response after commit, then retry the same ID/input; verify one saved change and rejection of changed input. [T-23](#t-23--lost-response-and-retry-with-the-same-operation-id) |
+| Local save succeeds while outgoing delivery fails or its acknowledgement is lost | The saved fault disappears, or the interface claims external action succeeded without confirmation. | Save the outgoing record with the domain transaction. Keep a stable event ID for delivery retries; remote duplicate handling depends on the agreed interface. | The local change remains committed. Delivery stays pending/uncertain until an acknowledgement is established; no guaranteed exactly-once external effect is claimed. | Inject delivery failure and lost acknowledgement; inspect the retained local change and visible delivery status. [T-24](#t-24--outgoing-delivery-fails-after-local-commit) |
 
-The coverage descriptions above are proposed test obligations, not executed tests or invented test records. During final integration, link them to the detailed test specifications in Section 12 and reuse those actual IDs in the RTM.
+The coverage descriptions above are proposed test obligations, not executed tests or invented test records. The links identify the corresponding detailed specifications; the overlapping-create extension noted above is not claimed as a completed specification.
 
 ### Coordination and retry rules
 
@@ -635,27 +574,25 @@ Retry a rolled-back transient database failure only within a configured bound an
 
 # 11. Requirements Traceability Matrix
 
-**Owner: Yousef | Assigned peer reviewer: Harrison | All component owners confirm their allocation | Status: Reviewed; final test-ID links pending Section 12**
-
 The matrix preserves the eight functional and three non-functional Ops requirement IDs from SRC-01, pp.7–9, with one row per requirement and the five columns required by SRC-04. Requirement summaries are in [Section 1.4](#14-requirement-reference-list), with the use-case baseline in [Section 1.5](#15-use-case-baseline). Component IDs refer to the names and responsibilities in the [Section 4.2 catalogue](#42-component-catalogue).
 
 Change-impact links identify requirements whose implementation, acceptance checks or interfaces would need review if the row's requirement changed. They do not mean that every linked SRS sentence must change, or that Team B approved these design dependencies. They also need not be symmetrical.
 
-**Test-link status:** Section 12 currently contains unfilled example slots rather than Harrison's detailed test specifications. The last column therefore describes required coverage and explicitly leaves IDs pending. It does not claim those tests exist or have passed. Before submission, replace each pending entry with links to the actual detailed test cases and confirm that those cases contain the stated inputs and expected outcomes. This part of the traceability remains incomplete until that reconciliation is done.
+**Test-link status:** The references below link to the 26 detailed specifications in Section 12.3. They identify planned verification, not executed tests or passing results. Conditional acceptance rules remain documented in Section 12.4.
 
 | Requirement-ID from SRS | Other requirement IDs impacted if it changes | Related use cases | Responsible/affected system components | Related test cases |
 |---|---|---|---|---|
-| FR-01 | FR-02, FR-08, NFR-01, NFR-02 | UC-01 — View Station Status | C-UI, C-AUTH, C-MON, C-DEV, C-FAULT, C-INT, C-DB | 	T-01, T-02, T-03, T-17 |
-| FR-02 | FR-01, FR-05, FR-07, FR-08, NFR-02 | UC-01; availability checks in supporting redistribution scenario | C-UI, C-AUTH, C-MON, C-DEV, C-FAULT, C-INT, C-DB | 	T-04, T-05 |
-| FR-03 | FR-04, FR-06, FR-07, FR-08, NFR-02 | UC-02 — Track a Power Bank; device identification in UC-03 | C-UI, C-AUTH, C-DEV, C-FAULT, C-INT, C-DB | 	T-06, T-07, T-08 |
-| FR-04 | FR-02, FR-03, FR-05, FR-06, FR-07, FR-08 | UC-03 — Report and Manage a Faulty Power Bank | C-UI, C-AUTH, C-DEV, C-FAULT, C-INT, C-DB | T-09, T-10, T-11, T-23 |
-| FR-05 | FR-02, FR-03, FR-04, FR-06, FR-07, FR-08 | UC-03; faulty-device information in UC-01/UC-02; supporting redistribution scenario | C-UI, C-AUTH, C-MON, C-DEV, C-FAULT, C-MOVE, C-INT, C-DB | 	T-05, T-09, T-13, T-16, T-20 |
-| FR-06 | FR-02, FR-03, FR-04, FR-05, FR-07, FR-08 | UC-03 — resolution branch | C-UI, C-AUTH, C-DEV, C-FAULT, C-INT, C-DB | 	T-12, T-13, T-14 |
-| FR-07 | FR-01, FR-02, FR-03, FR-05, FR-08, NFR-02 | Supporting redistribution scenario in Section 1.5; resulting station/device information in UC-01/UC-02 | C-UI, C-AUTH, C-MON, C-DEV, C-FAULT, C-MOVE, C-INT, C-DB | T-15, T-16, T-20, T-21 |
-| FR-08 | FR-01, FR-02, FR-03, FR-05, NFR-01, NFR-02 | UC-01/UC-02/UC-03 alternative and failure branches; supporting issue-view scenario | C-UI, C-AUTH, C-MON, C-DEV, C-FAULT, C-MOVE, C-INT, C-DB | T-03, T-17 |
-| NFR-01 | FR-01–FR-08 | UC-01, UC-02, UC-03; supporting redistribution and issue-view scenarios | C-UI; C-MON, C-DEV, C-FAULT and C-MOVE provide task results and validation feedback | 	T-19 |
-| NFR-02 | FR-01, FR-02, FR-03, FR-05, FR-07, FR-08 | UC-01/UC-02; information used in UC-03 and supporting scenarios | C-UI, C-MON, C-DEV, C-MOVE, C-INT, C-DB | 	T-02, T-03, T-04, T-06, T-08, T-22, T-25 |
-| NFR-03 | FR-01–FR-08, NFR-01 | Every protected operational use case/scenario | C-AUTH; C-UI, C-MON, C-DEV, C-FAULT, C-MOVE, C-INT and C-DB apply the access boundaries | T-07, T-14, T-18, T-23 |
+| FR-01 | FR-02, FR-08, NFR-01, NFR-02 | UC-01 — View Station Status | C-UI, C-AUTH, C-MON, C-DEV, C-FAULT, C-INT, C-DB | 	[T-01](#t-01--view-station-status-with-reliable-information), [T-02](#t-02--station-information-unavailable-then-retry), [T-03](#t-03--conflicting-station-information-flagged-and-cleared), [T-17](#t-17--recorded-issues-distinguished-from-normal-operation) |
+| FR-02 | FR-01, FR-05, FR-07, FR-08, NFR-02 | UC-01; availability checks in supporting redistribution scenario | C-UI, C-AUTH, C-MON, C-DEV, C-FAULT, C-INT, C-DB | 	[T-04](#t-04--confirmed-zero-availability-versus-unknown-availability), [T-05](#t-05--faulty-device-excluded-from-normal-availability) |
+| FR-03 | FR-04, FR-06, FR-07, FR-08, NFR-02 | UC-02 — Track a Power Bank; device identification in UC-03 | C-UI, C-AUTH, C-DEV, C-FAULT, C-INT, C-DB | 	[T-06](#t-06--track-a-device-unknown-then-known-location), [T-07](#t-07--track-a-device-unknown-id-retrieval-failure-denied-access), [T-08](#t-08--conflicting-device-location-and-reconciliation) |
+| FR-04 | FR-02, FR-03, FR-05, FR-06, FR-07, FR-08 | UC-03 — Report and Manage a Faulty Power Bank | C-UI, C-AUTH, C-DEV, C-FAULT, C-INT, C-DB | [T-09](#t-09--record-a-valid-fault), [T-10](#t-10--fault-rejected-for-missing-details), [T-11](#t-11--fault-save-fails-and-rolls-back), [T-23](#t-23--lost-response-and-retry-with-the-same-operation-id) |
+| FR-05 | FR-02, FR-03, FR-04, FR-06, FR-07, FR-08 | UC-03; faulty-device information in UC-01/UC-02; supporting redistribution scenario | C-UI, C-AUTH, C-MON, C-DEV, C-FAULT, C-MOVE, C-INT, C-DB | 	[T-05](#t-05--faulty-device-excluded-from-normal-availability), [T-09](#t-09--record-a-valid-fault), [T-13](#t-13--resolve-one-of-several-faults-exclusion-persists), [T-16](#t-16--redistribution-rejected), [T-20](#t-20--fault-report-versus-movement-confirmation-race) |
+| FR-06 | FR-02, FR-03, FR-04, FR-05, FR-07, FR-08 | UC-03 — resolution branch | C-UI, C-AUTH, C-DEV, C-FAULT, C-INT, C-DB | 	[T-12](#t-12--review-and-successfully-resolve-a-fault), [T-13](#t-13--resolve-one-of-several-faults-exclusion-persists), [T-14](#t-14--resolution-rejected-blank-note-no-permission-failed-save) |
+| FR-07 | FR-01, FR-02, FR-03, FR-05, FR-08, NFR-02 | Supporting redistribution scenario in Section 1.5; resulting station/device information in UC-01/UC-02 | C-UI, C-AUTH, C-MON, C-DEV, C-FAULT, C-MOVE, C-INT, C-DB | [T-15](#t-15--confirmed-redistribution-of-a-suitable-device), [T-16](#t-16--redistribution-rejected), [T-20](#t-20--fault-report-versus-movement-confirmation-race), [T-21](#t-21--two-operators-confirm-different-destinations) |
+| FR-08 | FR-01, FR-02, FR-03, FR-05, NFR-01, NFR-02 | UC-01/UC-02/UC-03 alternative and failure branches; supporting issue-view scenario | C-UI, C-AUTH, C-MON, C-DEV, C-FAULT, C-MOVE, C-INT, C-DB | [T-03](#t-03--conflicting-station-information-flagged-and-cleared), [T-17](#t-17--recorded-issues-distinguished-from-normal-operation) |
+| NFR-01 | FR-01–FR-08 | UC-01, UC-02, UC-03; supporting redistribution and issue-view scenarios | C-UI; C-MON, C-DEV, C-FAULT and C-MOVE provide task results and validation feedback | 	[T-19](#t-19--operator-tasks-via-visible-controls-only) |
+| NFR-02 | FR-01, FR-02, FR-03, FR-05, FR-07, FR-08 | UC-01/UC-02; information used in UC-03 and supporting scenarios | C-UI, C-MON, C-DEV, C-MOVE, C-INT, C-DB | 	[T-02](#t-02--station-information-unavailable-then-retry), [T-03](#t-03--conflicting-station-information-flagged-and-cleared), [T-04](#t-04--confirmed-zero-availability-versus-unknown-availability), [T-06](#t-06--track-a-device-unknown-then-known-location), [T-08](#t-08--conflicting-device-location-and-reconciliation), [T-22](#t-22--duplicate-late-and-conflicting-external-events), [T-25](#t-25--isolated-restore-and-consistency-check) |
+| NFR-03 | FR-01–FR-08, NFR-01 | Every protected operational use case/scenario | C-AUTH; C-UI, C-MON, C-DEV, C-FAULT, C-MOVE, C-INT and C-DB apply the access boundaries | [T-07](#t-07--track-a-device-unknown-id-retrieval-failure-denied-access), [T-14](#t-14--resolution-rejected-blank-note-no-permission-failed-save), [T-18](#t-18--access-control-on-direct-backend-requests), [T-23](#t-23--lost-response-and-retry-with-the-same-operation-id) |
 
 Fault-lifecycle changes have broad impact because the saved fault is used by station availability, individual device views, movement suitability and recorded-issue indicators. FR-04–FR-06 therefore connect to several requirements and components. For example, changing the resolution rule requires reviewing FR-02/FR-05/FR-07 so a remaining fault or unknown charge does not disappear behind a resolution success message. [DEC-02; ASSUMP-04]
 
@@ -1211,8 +1148,6 @@ Movement fixtures may supply controlled charge/capacity facts to exercise transa
 
 ## 13.1 Reflection on using the received SRS
 
-**Owner: Yousef | Assigned peer reviewer: Harrison | Everyone supplies their actual experience | Status: Reviewed; final team input and integration pending**
-
 The received ChargeMate Ops SRS provided a useful starting point for implementation planning because it connected operator goals to identifiable requirements and observable fit criteria. The eight functional and three non-functional requirement IDs made it possible to refer to the same behaviour across the architecture, storage rules and traceability matrix. For example, FR-04 connects fault submission to a saved record against the correct registered device, while its failure behaviour requires an unsuccessful save to be visible. This gave the design a clearer target than a general instruction to provide fault management. [SRC-01, pp.7–9]
 
 The three detailed use cases also helped identify the operator's context and important alternatives. A device-not-found result, missing location and conflicting location information have different meanings, so they need different responses in the proposed interface and data model. NFR-02 was especially useful: unavailable or inconsistent information is an outcome the system must explain. The design therefore needs more than a normal success screen. Sections 4 and 9 carry these distinctions into component responsibilities, stored observations and refresh/failure behaviour. [SRC-01, pp.12–19; NFR-02]
@@ -1230,17 +1165,15 @@ The following records distinguish work already added to the design document from
 | Unallocated Customer/Ops responsibilities | Component and message ownership could be inconsistent. | Added clarification questions and the C-INT boundary/interface proposal. | Exact fields, ownership and acknowledgements remain open. | Sections 3.1/4.4; [Section 3 draft](https://github.com/comp2050-2026/Group-3---Team-A/commit/3d64851813c50ea421219aa52aa42dc3c60f08a5), [Section 4 draft](https://github.com/comp2050-2026/Group-3---Team-A/commit/3b22b3babbfabc97b22c203aabf3e14cd422e05f) |
 | Resolution does not establish full eligibility | A single status flag could incorrectly restore availability. | Separated operational facts and retained exclusion while any fault remains unresolved under the proposed multiple-fault policy. | Detailed field/eligibility rules and the multiple-fault policy need confirmation. | Section 9.1; [storage draft](https://github.com/comp2050-2026/Group-3---Team-A/commit/dc9cecea2f570b9f85a81464a2e3af089a99f58c) |
 | Incomplete redistribution exception detail | Planning, physical movement and successful recording could be confused. | Added transaction boundaries and competing-update/reconciliation scenarios. | Capacity and exception rules remain open; state/test integration needs review. | Sections 9.1/10.2; [concurrency draft](https://github.com/comp2050-2026/Group-3---Team-A/commit/90cda9f10c7da25b36e74868b1d74748a8579acb) |
-| Requirement/design/test relationships need checking | Shared rules could diverge between the different deliverables. | Added all 11 baseline rows and their use-case/component mappings with explicit required test coverage. | Actual test-ID links await Section 12. | Section 11; [RTM draft](https://github.com/comp2050-2026/Group-3---Team-A/commit/5743fb892d672519eb4fa9ab8c2fa2fd2e78a6d8) |
+| Requirement/design/test relationships need checking | Shared rules could diverge between the different deliverables. | Added all 11 baseline rows and their use-case/component mappings with explicit required test coverage. | Test specifications are linked in Section 11; acceptance rules remain conditional where recorded in Section 12.4. | Section 11; [RTM draft](https://github.com/comp2050-2026/Group-3---Team-A/commit/5743fb892d672519eb4fa9ab8c2fa2fd2e78a6d8) |
 
 Recording gaps, assumptions and decisions separately helped make progress without hiding which rules were still provisional. Selecting a modular backend and PostgreSQL, for example, is a design decision that can be justified from consistency needs. The component names in Section 4 are proposed labels for implementing the SRS functions. A charge threshold, refresh deadline or resolver permission assignment needs an established business rule. The same distinction applies to recovery: Section 9.3 proposes a mechanism but leaves numerical recovery and retention targets in GAP-08. This limits how far implementation and acceptance tests can be finalised from the supplied material alone.
 
 For a future SRS, the most useful improvements would be a field/status dictionary, an explicit interface ownership table, complete redistribution success/failure flows and measurable operational targets agreed with stakeholders. The written requirements and video should also use consistent claims about freshness, hardware control and eligibility. These additions would reduce repeated interpretation across screen design, state modelling and test specification.
 
-The current outcome is a traceable design draft with visible unresolved questions. Final integration still needs to reconcile the state diagrams, screens and detailed test specifications with the same rules, then replace pending test links with actual identifiers. Any later stakeholder response or team review should be added with its real evidence and date. The reflection's recorded responses above are supported by the document revisions already made; further team experience should be incorporated during review.
+The current outcome is a traceable design draft with visible unresolved questions. The RTM now links the detailed test specifications. Final review must still reconcile state-model wording and the recorded conditional acceptance rules. Any later stakeholder response or team review should be added with its real evidence and date. The reflection's recorded responses above are supported by the document revisions already made; further team experience should be incorporated during review.
 
 ## 13.2 Tools, communication and changes from A1 to A2
-
-**Owner: Isaac | Reviewer: Harrison | Everyone supplies their actual experience | Status: Review Pending**
 
 | Activity | What the team actually used in A1 | What the team actually used in A2 | What changed and its effect | Evidence |
 |---|---|---|---|---|
@@ -1253,93 +1186,51 @@ The current outcome is a traceable design draft with visible unresolved question
 The biggest change from A1 to A2 was that we no longer had a stakeholder we could ask. In A1, Team B answered our questions, which shaped most of our requirements. In A2 we had to work from Team B’s final SRS, so anything unclear became a gap or assumption in Section 3 instead of a question. The workload also contained more diagrams and visuals. Wireframes and state diagrams needed tools like Lucidchart instead of just Markdown and Draw.io. Naming an owner and a reviewer for every section helped make it clear who was doing what, and it meant sections were checked against each other, for example the wireframes against the state diagrams. One thing we would do differently is start merging and reviewing sections earlier, since most of the final integration happened close to the deadline.
 
 
-## 13.3 Sprint allocations and GitHub burn-up evidence
+## 13.3 Sprint allocations and repository evidence
 
-**Owner: Isaac drafts and organises evidence | Harrison validates charts, interpretation and source links | Everyone supplies genuine records | Status: [FILL]**
+The assignment specifies three two-week sprints. The available evidence for this report is the repository history and the working document, rather than original allocation snapshots or end-of-sprint GitHub burn-up exports. No A2 sprint-board snapshots, original burn-up charts or contemporaneous A2 meeting minutes were supplied for final assembly. Dates, attendance, allocations and completion totals have not been reconstructed without evidence.
 
-Suggested length: approximately 3–4 pages. The brief specifies Sprint 1 from the end of Week 8, Sprint 2 from the end of the mid-session break and Sprint 3 from the end of Week 10, each for two weeks. Fill actual calendar dates from course/team records.
+| Required period | Evidence available | What can be concluded | Limitation |
+|---|---|---|---|
+| Sprint 1: two weeks from the end of Week 8 | No dated sprint allocation or chart supplied. | No verified allocation/completion statement can be made. | Original snapshot and burn-up evidence missing. |
+| Sprint 2: two weeks from the end of the mid-session break | No dated sprint allocation or chart supplied. | No verified allocation/completion statement can be made. | Original snapshot and burn-up evidence missing. |
+| Sprint 3: two weeks from the end of Week 10 | A2 document revisions dated 31 October–1 November 2026 are present in repository history. | Substantial document integration took place near the deadline. | Commits do not establish the original sprint allocation, estimates, task completion or review approval. |
 
-### Sprint 1 — [ACTUAL START AND END DATES]
+### Recorded document progress
 
-**Goal:** [ACTUAL GOAL, WITH SOURCE]  
-**Allocation snapshot SP1-A:** [INSERT GENUINE SNAPSHOT AND CAPTION]  
-**End-of-sprint GitHub burn-up SP1-B:** [INSERT GENUINE CHART AND CAPTION]
+![Recorded A2 document revision history](images/A2_revision_history.png)
 
-| Actual task/issue | Allocated person(s) | Planned work / estimate | Status at sprint end | Evidence |
-|---|---|---|---|---|
-| [FILL] | [FILL] | [FILL] | [FILL] | [FILL] |
+*Figure 13.3.1 — Retrospective count of non-merge commits touching `a2docs`, from 14 September 2026 to the recorded export baseline. Counts use commit-author timestamps in the repository and count a commit once. This is a document revision chart, not an original GitHub burn-up chart, completed-task total or measure of individual effort. Commit timestamps can differ from push times.*
 
-[FILL: Explain actual scope changes, completed work, carry-over and chart units. Cite the source board/filter and snapshot date.]
+| Recorded milestone | Contributor recorded by Git | Evidence |
+|---|---|---|
+| Initial A2 outline added, 31 October | Yousef | [f302703](https://github.com/comp2050-2026/Group-3---Team-A/commit/f3027030b6eeb35a4308cd976d12ec0af76a2535) |
+| Scope, assumptions, architecture and persistence drafted, 1 November | Yousef | [bbff6af](https://github.com/comp2050-2026/Group-3---Team-A/commit/bbff6af82979ccdcb5d470505f92a64327eda374); [3d64851](https://github.com/comp2050-2026/Group-3---Team-A/commit/3d64851813c50ea421219aa52aa42dc3c60f08a5); [3b22b3b](https://github.com/comp2050-2026/Group-3---Team-A/commit/3b22b3babbfabc97b22c203aabf3e14cd422e05f); [dc9cece](https://github.com/comp2050-2026/Group-3---Team-A/commit/dc9cecea2f570b9f85a81464a2e3af089a99f58c) |
+| Wireframes, third state model and tools discussion integrated, 1 November | Cooper | [cbd64c9](https://github.com/comp2050-2026/Group-3---Team-A/commit/cbd64c9f6e47ee9b4212005b04af0aa404491076); [43540f6](https://github.com/comp2050-2026/Group-3---Team-A/commit/43540f62f097e5af8d182d41148ab17a33e27103); [c25f4a2](https://github.com/comp2050-2026/Group-3---Team-A/commit/c25f4a27e50253703fcaf0b30404aa9693270d0a) |
+| Fault and tracking diagrams/tables integrated, 1 November | Harrison | [6893db2](https://github.com/comp2050-2026/Group-3---Team-A/commit/6893db2bb2a72cc35553a630d919fd763ee072c7); [89d5441](https://github.com/comp2050-2026/Group-3---Team-A/commit/89d544169f94e00587034397fc96006dc4986a99); [9bf8a33](https://github.com/comp2050-2026/Group-3---Team-A/commit/9bf8a33a2e697b58d24e7015d2312ad37a3f8b01) |
+| Maintenance and references updated, 1 November | Isaac | [3de0e75](https://github.com/comp2050-2026/Group-3---Team-A/commit/3de0e75946b25ec3dfd9b8b4feb9f57fcabd7b61); [cde7f15](https://github.com/comp2050-2026/Group-3---Team-A/commit/cde7f15d21519ffa5e3ab3910c87cfc1ef96fc6e); [9f435fa](https://github.com/comp2050-2026/Group-3---Team-A/commit/9f435fa6ec5e85f5426b84c4e28fc7560e716252) |
 
-### Sprint 2 — [ACTUAL START AND END DATES]
-
-**Goal:** [ACTUAL GOAL, WITH SOURCE]  
-**Allocation snapshot SP2-A:** [INSERT GENUINE SNAPSHOT AND CAPTION]  
-**End-of-sprint GitHub burn-up SP2-B:** [INSERT GENUINE CHART AND CAPTION]
-
-| Actual task/issue | Allocated person(s) | Planned work / estimate | Status at sprint end | Evidence |
-|---|---|---|---|---|
-| [FILL] | [FILL] | [FILL] | [FILL] | [FILL] |
-
-[FILL: Explain actual progress, scope changes and carry-over.]
-
-### Sprint 3 — [ACTUAL START AND END DATES]
-
-**Goal:** [ACTUAL GOAL, WITH SOURCE]  
-**Allocation snapshot SP3-A:** [INSERT GENUINE SNAPSHOT AND CAPTION]  
-**End-of-sprint GitHub burn-up SP3-B:** [INSERT GENUINE CHART AND CAPTION]
-
-| Actual task/issue | Allocated person(s) | Planned work / estimate | Status at sprint end | Evidence |
-|---|---|---|---|---|
-| [FILL] | [FILL] | [FILL] | [FILL] | [FILL] |
-
-[FILL: Explain actual progress, remaining work and final review.]
-
-### Evidence limitations
-
-[FILL: Disclose any missing snapshots/records. If reconstructing a chart from genuine timestamped history, label the method and limits; do not call it an original snapshot. A1 minutes are not A2 sprint evidence.]
+The history shows repeated revisions and merges close to submission. It supports a reflection that earlier integration checkpoints would have reduced naming, traceability and merge problems. It cannot establish that the planned three-sprint process was followed. The missing original snapshots and discussion records remain an evidence limitation of this submission.
 
 # 14. References and resources
 
-**Owner: Isaac coordinates | Reviewer: Harrison | Everyone adds sources they actually used | Status: [FILL]**
+Source IDs SRC-01–SRC-05 are defined with precise locators in Section 1.3. The following list records additional resources used in preparing the design.
 
-| Reference ID | Author / organisation | Resource title | Version/date and access date | Link / source location | Where used |
-|---|---|---|---|---|---|
-| REF-01 | Team B | ChargeMate Ops SRS | [v1.2, 12 September 2026] | A1 Week 8 Handover forum (iLearn) | Sections 1, 3, 5, 11, 12, 13 |
-| REF-02 | Team B | ChargeMate Ops handover explainer video | 12 September 2026 | A1 Week 8 Handover forum (iLearn) | Section 3 |
-| REF-03 | Team A | ChargeMate Customer SRS | Change log to v1.5, 13 Sep 2026 | a1docs/srs.md |
-| REF-04 | COMP2050 teaching team | Assignment 2 brief | 12th September 2026 | Ilearn, Assessment 2 | Deliverable structure, sprint timing.
-| REF-05 | COMP2050 convenor | Assignment 1 Project B brief: ChargeMate Ops | 22 Jul 2026 | iLearn Assessment 1 | Section 1.2, 3 |
-| REF-06 | JGraph Ltd | Draw.io | | https://www.drawio.com/ | 7chart.png, 8chart.png |
-| REF-07 | Lucid Software Inc | Lucid Chart | | lucid.app | WF-01-08, SD-03.png |
-| REF-08 | Anthropic | Claude | |claude.ai | Used for breaking down and clarifying assessment brief |
-
-[FILL: Include diagram tools, borrowed assets/templates, technical resources and AI assistance actually used, with the required acknowledgement. Cite sources within the relevant sections as well as in this list.]
-
-# 15. Final integration and submission checklist
-
-**Coordinators: Yousef and Harrison | Cooper checks wireframes/storyboards; Isaac checks references, evidence captions and PDF layout**
-
-Move this checklist to the team's working records or remove it from the final PDF if it is not useful to the submission audience.
-
-- [ ] All names, IDs, full workshop/team identifiers and paired-team nickname are correct.
-- [ ] The design target is ChargeMate Ops; Customer responsibilities are clearly separated.
-- [ ] Vision is original; source baseline and assumptions are clear.
-- [ ] Architecture figure names components and their connections; rationale covers FRs and NFRs.
-- [ ] Two multi-step use cases have actor descriptions, actual wireframes and numbered storyboards.
-- [ ] Three object state diagrams include meaningful states, events and guards.
-- [ ] Persistence, caching, component access, maintenance and deployment are explained.
-- [ ] Trade-offs and concurrent processes/race conditions are addressed.
-- [ ] RTM has all 11 inherited requirement rows and the five required columns.
-- [ ] Every RTM component and test ID exists and uses the same name throughout.
-- [ ] Test cases contain IDs, descriptions, inputs and expected outputs; plan includes resources, schedule, milestones and deliverables.
-- [ ] Staff report reflects actual work and includes A1/A2 tools and genuine sprint evidence.
-- [ ] Appendix contains all required genuine meeting/discussion records.
-- [ ] Sources/resources and actual assistance are acknowledged.
-- [ ] All placeholders, drafting prompts and working-guide material are removed or completed.
-- [ ] Latest exported PDF is legible, consistently numbered and no more than 50 A4 pages including appendices.
-- [ ] Group PDF is submitted through iLearn and receipt checked.
-- [ ] Each member completes the individual contribution evaluation within the stated five-day grace period.
+| ID | Resource | Version / location | Use |
+|---|---|---|---|
+| REF-01 | Team B, ChargeMate Ops SRS | v1.2 cover, 12 September 2026; supplied handover PDF | Requirements and use cases; SRC-01. |
+| REF-02 | Team B, Ops handover video | Supplied 8:01 recording; recording date unconfirmed | Clarifications and discrepancies; SRC-02. |
+| REF-03 | Team A, ChargeMate Customer SRS | Change log through v1.5, 13 September 2026; repository `a1docs/SRS.md` | External interface context; SRC-03. |
+| REF-04 | COMP2050 Assignment 2 brief | Supplied released assessment instructions | Required deliverables and submission rules; SRC-04. |
+| REF-05 | COMP2050 Project B brief | [Repository brief](https://github.com/comp2050-2026/Group-3---Team-A/blob/main/project-briefs/PROJECT_B_CHARGEMATE_OPS.md) | Operational scope; SRC-05. |
+| REF-06 | JGraph, diagrams.net / draw.io | [draw.io](https://www.drawio.com/) | Architecture and SD-01/SD-02 authoring. |
+| REF-07 | Lucid Software, Lucidchart | [Lucidchart](https://lucid.app/) | Wireframes WF-01–WF-08 and SD-03. |
+| REF-08 | Anthropic, Claude | [Claude](https://claude.ai/) | Assessment-brief clarification, as recorded by the team in its resource list. |
+| REF-09 | OpenAI, Codex / ChatGPT | Assistance used during SDD preparation | Drafting and explanation of sections, source comparison, architecture preparation, consistency checks, Git integration support and PDF assembly. This is assistance, not evidence of stakeholder approval, team meetings or executed tests. |
+| REF-10 | PostgreSQL Global Development Group | [Constraints](https://www.postgresql.org/docs/18/ddl-constraints.html); [transactions](https://www.postgresql.org/docs/18/tutorial-transactions.html); [isolation](https://www.postgresql.org/docs/18/transaction-iso.html); [locking](https://www.postgresql.org/docs/18/explicit-locking.html) — PostgreSQL 18 | Sections 9–10: integrity, transaction boundaries, consistent reads and concurrency. |
+| REF-11 | PostgreSQL Global Development Group | [Continuous archiving](https://www.postgresql.org/docs/18/continuous-archiving.html) — PostgreSQL 18 | Section 9.3 recovery proposal. |
+| REF-12 | OWASP Foundation | [Authorization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html) | Backend permission checks and least privilege. |
+| REF-13 | Group 3 Team A | [Repository history](https://github.com/comp2050-2026/Group-3---Team-A/commits/main/) and individual commit links in Sections 13 and Appendix B | Document contribution and integration evidence. |
 
 # Appendix A. Team interaction log and full records
 
