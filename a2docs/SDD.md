@@ -59,17 +59,20 @@ Fill this with the current position; blank fields are not evidence that work is 
 
 | Deliverable | Owner | Current status | Actual draft/task link | Reviewer feedback link | Review date |
 |---|---|---|---|---|---|
-| Baseline, assumptions, architecture | Yousef | Sections 1, 3 and 4 drafted; review pending | [FILL] | [FILL] | [FILL] |
+| Baseline, assumptions, architecture | Yousef | Reviewed | [Sections 1, 3 and 4](#1-project-scope-and-requirements-baseline) | [Review record](reviews/YOUSEF_SECTIONS_REVIEW.md) | 1 November 2026 |
 | Vision and two storyboard/wireframe sets | Cooper | [FILL] | [FILL] | [FILL] | [FILL] |
 | Three state diagrams | Harrison | [FILL] | [FILL] | [FILL] | [FILL] |
-| Persistence, caching and data access | Yousef | Sections 9.1–9.3 drafted; review pending | [FILL] | [FILL] | [FILL] |
+| Persistence, caching and data access | Yousef | Sections 9.1–9.3 reviewed; integration pending | [Sections 9.1–9.3](#91-persistent-data-strategy) | [Review record](reviews/YOUSEF_SECTIONS_REVIEW.md) | 1 November 2026 |
+| Trade-offs and concurrent processes | Yousef | Reviewed; final test-ID links pending | [Section 10](#10-trade-offs-and-concurrent-processes) | [Review record](reviews/YOUSEF_SECTIONS_REVIEW.md) | 1 November 2026 |
 | Maintenance and deployment | Isaac; Yousef reviews | [FILL] | [FILL] | [FILL] | [FILL] |
-| RTM | Yousef | Requirement/use-case/component mapping drafted; test-ID links pending | [FILL] | [FILL] | [FILL] |
+| RTM | Yousef | Mapping reviewed; actual test-ID links pending | [Section 11](#11-requirements-traceability-matrix) | [Review record](reviews/YOUSEF_SECTIONS_REVIEW.md) | 1 November 2026 |
 | Test specifications and plan | Harrison | [FILL] | [FILL] | [FILL] | [FILL] |
-| SRS reflection | Yousef; everyone supplies examples | Source-analysis/design-response draft; team review pending | [FILL] | [FILL] | [FILL] |
+| SRS reflection | Yousef; everyone supplies examples | Source/evidence reviewed; final team input pending | [Section 13.1](#131-reflection-on-using-the-received-srs) | [Review record](reviews/YOUSEF_SECTIONS_REVIEW.md) | 1 November 2026 |
 | Tools comparison and sprint evidence | Isaac drafts/collects; Harrison validates | [FILL] | [FILL] | [FILL] | [FILL] |
 | References and interaction appendix | Isaac coordinates; everyone supplies records; Harrison checks evidence | [FILL] | [FILL] | [FILL] | [FILL] |
 | Final PDF and consistency review | Yousef + Harrison lead; Cooper + Isaac complete presentation checks | [FILL] | [FILL] | [FILL] | [FILL] |
+
+**Yousef review record:** “Reviewed” identifies the assistant source/consistency check recorded on 1 November 2026 in [the review log](reviews/YOUSEF_SECTIONS_REVIEW.md). Assigned human reviewers remain listed separately. Open stakeholder questions, final test-ID links and cross-team integration are not closed by this status.
 
 **Suggested page budget:** cover/contents 2; scope, vision and assumptions 3; remaining system design 13; RTM 4; tests 12; staff report/references 7; appendix 7. Total 48. Adjust to fit the actual material legibly.
 
@@ -98,8 +101,8 @@ Fill this with the current position; blank fields are not evidence that work is 
   - [5.1 Storyboard SB-01 — UC-01 View Station Status](#51-storyboard-sb-01--uc-01-view-station-status)
   - [5.2 Storyboard SB-03 — UC-03 Report and Manage a Faulty Power Bank](#52-storyboard-sb-03--uc-03-report-and-manage-a-faulty-power-bank)
 - [6. State diagram 1 — FaultRecord](#6-state-diagram-1--faultrecord)
-- [7. State diagram 2 — RedistributionJob](#7-state-diagram-2--redistributionjob)
-- [8. State diagram 3 — OperationalSnapshotQuality](#8-state-diagram-3--operationalsnapshotquality)
+- [7. State diagram 2 — TrackPowerBank](#7-state-diagram-2--trackpowerbank)
+- [8. State diagram 3 — ViewStationStatus](#8-state-diagram-3--viewstationstatus)
 - [9. Persistent data, caching and maintenance](#9-persistent-data-caching-and-maintenance)
   - [9.1 Persistent data strategy](#91-persistent-data-strategy)
   - [9.2 Caching and component data access](#92-caching-and-component-data-access)
@@ -134,7 +137,7 @@ Fill this with the current position; blank fields are not evidence that work is 
 
 # 1. Project scope and requirements baseline
 
-**Owner: Yousef | Reviewer: Harrison | Status: Section 1 drafted — review pending**
+**Owner: Yousef | Assigned peer reviewer: Harrison | Status: Reviewed**
 
 ## 1.1 Purpose and intended audience
 
@@ -214,7 +217,7 @@ ChargeMate Ops gives the staff running the Harbour North Plaza pilot program one
 
 # 3. Assumptions, clarification gaps and design decisions
 
-**Owner: Yousef | Reviewer: Harrison | Input: everyone | Status: Section 3 drafted — review pending**
+**Owner: Yousef | Assigned peer reviewer: Harrison | Input: everyone | Status: Reviewed; clarification gaps remain open**
 
 This section distinguishes missing information from proposed implementation choices. A **clarification gap** is an unanswered question in the supplied material. A **design assumption** is a provisional condition used to continue planning. A **design decision** selects an approach and explains why it fits the requirements. Neither assumptions nor proposed decisions represent stakeholder approval.
 
@@ -251,11 +254,11 @@ No numerical charge threshold, refresh deadline, low-stock trigger or recovery t
 
 ## 3.3 Proposed design decisions
 
-The following choices are proposed for the design. They are recorded on **1 November 2026**, the date of this draft, and remain subject to review. This date does not represent a previous meeting or stakeholder agreement. Section 4 will show their architectural effect; the later data and test sections must remain consistent with them.
+The following choices were drafted on **1 November 2026** and have received the source/consistency review recorded in the working review log. They remain provisional where clarification or stakeholder confirmation is open. This date does not represent a previous meeting or stakeholder agreement. Section 4 shows their architectural effect; Sections 9–11 carry the data and traceability implications. Detailed tests and the final state diagrams must remain consistent with them.
 
 | Decision ID | Proposed choice and alternative | Rationale | Requirement / gap link | Status |
 |---|---|---|---|---|
-| DEC-01 | Use a staff web interface, a modular backend and a PostgreSQL relational database. Alternative: separately deployed services for each business feature. | Fault, device and movement updates are closely related. A shared transaction boundary simplifies consistent updates while named modules keep responsibilities clear. | FR-04–FR-07, NFR-01; ASSUMP-01 | Proposed — architecture review pending |
+| DEC-01 | Use a staff web interface, a modular backend and a PostgreSQL relational database. Alternative: separately deployed services for each business feature. | Fault, device and movement updates are closely related. A shared transaction boundary simplifies consistent updates while named modules keep responsibilities clear. | FR-04–FR-07, NFR-01; ASSUMP-01 | Proposed — reviewed for internal consistency; deployment choice remains a design proposal |
 | DEC-02 | Store fault state, physical location, charge/occupancy facts and information quality separately. Alternative: one combined device-status flag. | A device can be at a known station while faulty or insufficiently charged. One cleared fault must not imply every other eligibility condition is satisfied. | FR-02, FR-03, FR-05, FR-06, NFR-02; GAP-03/04 | Proposed — detailed state dictionary pending |
 | DEC-03 | Check permissions on the backend for every protected request, and recheck the relevant device/record version when a change is saved. Alternative: trusting a visible UI control and previously loaded data. | Prevents unauthorised direct requests and changes based on outdated suitability information. | NFR-03, FR-05, FR-07; GAP-04/05 | Proposed — permission assignments pending |
 | DEC-04 | Save a pending outgoing-update record with the local business change, then deliver/retry it separately. Alternative: require an external response before recognising local save success. | A saved fault should remain durable when Customer is unreachable. Local success and confirmed external synchronisation must be distinguishable. | FR-04–FR-06, NFR-02; GAP-01/07 | Proposed — outgoing contract pending |
@@ -266,7 +269,7 @@ Changes to a decision must update the affected diagrams, data rules, RTM and tes
 
 # 4. System architecture and rationale
 
-**Owner: Yousef | Reviewer: Harrison | Status: Section 4 drafted — review pending**
+**Owner: Yousef | Assigned peer reviewer: Harrison | Status: Reviewed**
 
 ## 4.1 Architecture overview
 
@@ -282,7 +285,7 @@ The plaza pilot does not establish a need for separate deployment of each busine
 
 ## 4.2 Component catalogue
 
-`C-` identifies a component in this design. These IDs and names must be reused in the RTM, test specifications and other diagrams.
+`C-` identifies a component in this design. The component names and grouping are proposed design choices derived from Team B's required functions. Reuse these IDs when referring to components in the RTM, test specifications and diagrams. State diagrams model objects managed by the components and can use object names rather than component labels.
 
 | Component | Responsibility | Main exchanges | Requirements supported |
 |---|---|---|---|
@@ -327,7 +330,7 @@ For this proposal, physical docking/release hardware remains part of the externa
 
 ### Consistent command results
 
-Protected record-changing requests carry the target identifier, expected record version and a unique operation ID. The backend returns a consistent outcome: **committed**, **validation rejected**, **not found**, **access denied**, **version conflict** or **save failed**. A committed result includes the saved record ID and new version. Repeating the same operation ID with the same input returns the recorded outcome rather than creating a duplicate; conflicting reuse is rejected. These are proposed interface conventions for aligning screens, state diagrams and tests.
+Protected record-changing requests carry the target identifier, expected record version and a unique operation ID. The backend returns a consistent outcome: **committed**, **validation rejected**, **not found**, **access denied**, **version conflict** or **save failed**. A committed result includes the saved record ID and new version. For a command that committed, an authorised repeat with the same requesting identity, operation ID and input returns its saved committed result without another change; conflicting reuse of an existing ID is rejected. Rejected or rolled-back requests are not stored as successes. These are proposed interface conventions for aligning screens, state diagrams and tests.
 
 ## 4.5 Example: recording a power bank fault
 
@@ -446,7 +449,7 @@ The object choice is proposed. If replaced, choose another object with meaningfu
 
 # 9. Persistent data, caching and maintenance
 
-**Owners: Yousef for 9.1–9.3; Isaac for 9.4 | Reviewers: Harrison for data strategy; Yousef for maintenance | Status: Sections 9.1–9.3 drafted — review pending; 9.4 pending**
+**Owners: Yousef for 9.1–9.3; Isaac for 9.4 | Reviewers: Harrison for data strategy; Yousef for maintenance | Status: Sections 9.1–9.3 reviewed; 9.4 pending**
 
 ## 9.1 Persistent data strategy
 
@@ -460,9 +463,9 @@ The following is a proposed logical data model. Field names describe the intende
 |---|---|---|---|
 | Station | Unique station ID, location description, record version; linked station observations | C-MON reads; agreed setup process supplies registration; C-INT routes observations | Only registered stations are referenced by completed movements. Missing status, capacity or availability is not stored as a confirmed normal or zero value. |
 | PowerBank | Unique device ID, record version, last confirmed station where known; links to separate location, charge and occupancy facts | C-DEV coordinates changes; other domain modules request its information | Preserve the difference between last recorded location and reliable current location. An unknown station is not replaced with an invented location. |
-| FaultRecord | Fault ID, device ID, description, unresolved/resolved state, reporting actor/time, resolution note and resolving actor/time, version | C-FAULT writes; C-MON/C-DEV/C-MOVE use its fault information | Each fault references a registered device. Apply ASSUMP-03 validation; any remaining unresolved fault continues to exclude normal rental availability and redistribution suitability. |
-| RedistributionJob | Movement ID, device and source/destination station IDs, lifecycle state, expected device version, physical confirmation and actor/time | C-MOVE writes; C-DEV/C-MON read committed effects | A plan is not completed movement. Completion and the recorded destination change must be saved together. Align lifecycle states with Section 7. |
-| Observation / information quality | Entity and field, supplied value, source identity, event ID/revision where available, observation time, received time, quality and conflicting evidence | C-INT validates/routes; C-DEV/C-MON accept and present operational facts | Keep source evidence separate from accepted values. Arrival time alone does not establish which conflicting report is correct. Align quality states with Section 8. |
+| FaultRecord | Fault ID, device ID, description, unresolved/resolved condition, investigation progress where used, reporting actor/time, resolution note and resolving actor/time, version | C-FAULT writes; C-MON/C-DEV/C-MOVE use its fault information | Each fault references a registered device. Apply ASSUMP-03 validation; any remaining unresolved fault continues to exclude normal rental availability and redistribution suitability. |
+| RedistributionJob | Movement ID, device and source/destination station IDs, lifecycle state, expected device version, physical confirmation and actor/time | C-MOVE writes; C-DEV/C-MON read committed effects | A plan is not completed movement. Completion and the recorded destination change must be saved together. Movement completion follows the transaction rules below and concurrency guards in Section 10.2. |
+| Observation / information quality | Entity and field, supplied value, source identity, event ID/revision where available, observation time, received time, quality and conflicting evidence | C-INT validates/routes; C-DEV/C-MON accept and present operational facts | Keep source evidence separate from accepted values. Arrival time alone does not establish which conflicting report is correct. Field-level quality and presentation follow Section 9.2. |
 | Incoming processing record | Source identity plus event ID, input fingerprint, processing result and related record/version | C-INT coordinates with the responsible domain module | Recognise a repeated event within its source. Conflicting reuse is rejected; automatic deduplication/ordering depends on ASSUMP-05. |
 | Command receipt | Requesting identity, operation ID, input fingerprint, committed result and resulting record/version | Responsible domain module records the result; C-AUTH checks access | Save the successful receipt with its business change. Repeating the same authorised operation must not create another fault or movement. A failed save must not leave a success receipt. |
 | Pending outgoing update | Event ID, entity/version, agreed operational payload, intended recipient, delivery state and attempt/acknowledgement information | Domain transaction creates; C-INT delivers and records outcomes | Save with the local business change under DEC-04. Local commit and acknowledged external delivery are distinct outcomes; an acknowledgement does not itself prove physical hardware action. |
@@ -473,6 +476,8 @@ Unique keys protect record identities; foreign keys link faults and movements to
 
 Fault state, location, charge, rental occupancy and information quality are stored separately under DEC-02. A device can have a known station, an unresolved fault and unknown charge information at the same time. Resolving its fault changes that fault record; it does not prove sufficient charge, physical presence or rental availability. Missing or conflicting eligibility information must not produce a confirmed suitable candidate. Likewise, a partial device list must not be presented as a confirmed exact station total. These rules support FR-02, FR-03, FR-05–FR-07 and NFR-02. [SRC-01, pp.7–9; GAP-03/04]
 
+Reporting and investigation progress both remain unresolved for exclusion purposes until a valid resolution is successfully stored. This classification supports the fault lifecycle without requiring its progress-state names to match a single device-status flag.
+
 Observation time and received time remain separate so delayed input can be recognised. A previous observation may be useful as labelled last-known information, but its timestamp alone does not establish current reliability. No freshness deadline or charge threshold is invented here.
 
 ### Changes that must be saved together
@@ -482,7 +487,7 @@ Observation time and received time remain separate so delayed input can be recog
 - **Complete redistribution:** recheck permission, suitability, expected device version and physical confirmation; save movement completion and the destination/version change together with the receipt and any outgoing update.
 - **Accept an external event:** save its processing result with any accepted domain changes. Repeated input must not apply the same change again; contradictory evidence is retained for investigation rather than silently replacing a reliable value.
 
-Success is returned only after commit. If the transaction fails, its related database changes are rolled back together, consistent with PostgreSQL's [transaction model](https://www.postgresql.org/docs/18/tutorial-transactions.html). A database rollback cannot undo a physical movement: recording failure after an actual move requires the investigation/reconciliation handling in Section 7. External delivery occurs after the local commit and is retried separately. Detailed concurrency controls follow in Section 10; backup and recovery are addressed in Section 9.3. These are proposed behaviours and test obligations, not claims that an implementation or recovery test has already run.
+Success is returned only after commit. If the transaction fails, its related database changes are rolled back together, consistent with PostgreSQL's [transaction model](https://www.postgresql.org/docs/18/tutorial-transactions.html). A database rollback cannot undo a physical movement: recording failure after an actual move requires the investigation/reconciliation handling in Sections 10.2 and 9.3. External delivery occurs after the local commit and is retried separately. Detailed concurrency controls follow in Section 10; backup and recovery are addressed in Section 9.3. These are proposed behaviours and test obligations, not claims that an implementation or recovery test has already run.
 
 ## 9.2 Caching and component data access
 
@@ -557,7 +562,7 @@ Retention rules must cover operational records, source evidence, processing rece
 
 # 10. Trade-offs and concurrent processes
 
-**Owner: Yousef | Reviewer: Harrison | Input: Isaac and Cooper | Status: Section 10 drafted — review pending; Section 12 test-ID links pending**
+**Owner: Yousef | Assigned peer reviewer: Harrison | Input: Isaac and Cooper | Status: Reviewed; Section 12 test-ID links pending**
 
 ## 10.1 Important trade-offs
 
@@ -588,7 +593,7 @@ A race condition occurs when overlapping actions could produce different results
 | A saved response is lost and the operator retries | Another fault or movement is created even though the original save succeeded. | Atomically recognise the requesting identity/operation ID and matching input before treating its old expected version as a new command. | After permission checks, return the saved committed result without repeating its effects. Reusing the ID for different input is rejected. Missing receipts after restoration require Section 9.3 reconciliation. | Drop the response after commit, then retry the same ID/input; verify one saved change and rejection of changed input. |
 | Local save succeeds while outgoing delivery fails or its acknowledgement is lost | The saved fault disappears, or the interface claims external action succeeded without confirmation. | Save the outgoing record with the domain transaction. Keep a stable event ID for delivery retries; remote duplicate handling depends on the agreed interface. | The local change remains committed. Delivery stays pending/uncertain until an acknowledgement is established; no guaranteed exactly-once external effect is claimed. | Inject delivery failure and lost acknowledgement; inspect the retained local change and visible delivery status. |
 
-The coverage descriptions above are proposed test obligations, not executed tests or invented test records. Harrison must link them to the actual test IDs when Section 12 is drafted; the same IDs must then be used in the RTM.
+The coverage descriptions above are proposed test obligations, not executed tests or invented test records. During final integration, link them to the detailed test specifications in Section 12 and reuse those actual IDs in the RTM.
 
 ### Coordination and retry rules
 
@@ -596,13 +601,13 @@ Record-changing operations use short read-committed transactions. After checking
 
 PostgreSQL documents conflicting row locks, lock duration, consistent acquisition order and retry after deadlock in its [explicit-locking guidance](https://www.postgresql.org/docs/18/explicit-locking.html). This mechanism coordinates database changes; it cannot give a fault report priority before that report has been received or reverse an action already performed in the plaza. Once an unresolved fault is committed, every later transaction validating a movement must exclude the device. A previously loaded screen may still need refreshing; it cannot authorise the movement on its own.
 
-No database lock is held while staff move/repair a device or while C-INT waits for an external response. A confirmed physical move that conflicts with saved state is preserved as investigation evidence when storage is available, with source/actor/time and reported destination. It does not silently replace the accepted location or produce a normal completion message. If recording that evidence also fails, the interface must disclose the failure so it can be recorded/reconciled after recovery. Previously recorded location remains last-known rather than unquestioned current fact. The movement state diagram and screens must reflect this distinction.
+No database lock is held while staff move/repair a device or while C-INT waits for an external response. A confirmed physical move that conflicts with saved state is preserved as investigation evidence when storage is available, with source/actor/time and reported destination. It does not silently replace the accepted location or produce a normal completion message. If recording that evidence also fails, the interface must disclose the failure so it can be recorded/reconciled after recovery. Previously recorded location remains last-known rather than unquestioned current fact. The movement workflow, screens and related test specifications must reflect this distinction.
 
-Retry a rolled-back transient database failure only within a configured bound and after repeating the required checks. An outdated version or uncertain physical confirmation requires operator review rather than an automatic overwrite. Retry limits, waiting time and escalation rules remain operational decisions under GAP-08. Different devices can normally be processed concurrently; any future station-wide capacity rule requires its own agreed coordination under GAP-03 and is not guaranteed by device locks alone.
+Retry a rolled-back transient database failure only within a configured bound and after repeating the required checks. An outdated version or uncertain physical confirmation requires operator review rather than an automatic overwrite. A deliberately revised request uses a new operation ID; a retransmission of unchanged input retains its original ID. Retry limits, waiting time and escalation rules remain operational decisions under GAP-08. Different devices can normally be processed concurrently; any future station-wide capacity rule requires its own agreed coordination under GAP-03 and is not guaranteed by device locks alone.
 
 # 11. Requirements Traceability Matrix
 
-**Owner: Yousef | Reviewer: Harrison | All component owners confirm their allocation | Status: Requirement/use-case/component mapping drafted — review pending; final test-ID links pending Section 12**
+**Owner: Yousef | Assigned peer reviewer: Harrison | All component owners confirm their allocation | Status: Reviewed; final test-ID links pending Section 12**
 
 The matrix preserves the eight functional and three non-functional Ops requirement IDs from SRC-01, pp.7–9, with one row per requirement and the five columns required by SRC-04. Requirement summaries are in [Section 1.4](#14-requirement-reference-list), with the use-case baseline in [Section 1.5](#15-use-case-baseline). Component IDs refer to the names and responsibilities in the [Section 4.2 catalogue](#42-component-catalogue).
 
@@ -722,7 +727,7 @@ Do not include fabricated pass results. If any tests really were run, record bui
 
 ## 13.1 Reflection on using the received SRS
 
-**Owner: Yousef | Reviewer: Harrison | Everyone supplies their actual experience | Status: Source-analysis and recorded-design-response draft — team review pending**
+**Owner: Yousef | Assigned peer reviewer: Harrison | Everyone supplies their actual experience | Status: Reviewed; final team input and integration pending**
 
 The received ChargeMate Ops SRS provided a useful starting point for implementation planning because it connected operator goals to identifiable requirements and observable fit criteria. The eight functional and three non-functional requirement IDs made it possible to refer to the same behaviour across the architecture, storage rules and traceability matrix. For example, FR-04 connects fault submission to a saved record against the correct registered device, while its failure behaviour requires an unsuccessful save to be visible. This gave the design a clearer target than a general instruction to provide fault management. [SRC-01, pp.7–9]
 
@@ -747,7 +752,7 @@ Recording gaps, assumptions and decisions separately helped make progress withou
 
 For a future SRS, the most useful improvements would be a field/status dictionary, an explicit interface ownership table, complete redistribution success/failure flows and measurable operational targets agreed with stakeholders. The written requirements and video should also use consistent claims about freshness, hardware control and eligibility. These additions would reduce repeated interpretation across screen design, state modelling and test specification.
 
-The current outcome is a traceable design draft with visible unresolved questions. Review still needs to reconcile the state diagrams, screens and detailed test specifications with the same rules, then replace pending test links with actual identifiers. Any later stakeholder response or team review should be added with its real evidence and date. The reflection's recorded responses above are supported by the document revisions already made; further team experience should be incorporated during review.
+The current outcome is a traceable design draft with visible unresolved questions. The source/evidence consistency review of this reflection is recorded in the working review log. Final integration still needs to reconcile the state diagrams, screens and detailed test specifications with the same rules, then replace pending test links with actual identifiers. Any later stakeholder response or team review should be added with its real evidence and date. The reflection's recorded responses above are supported by the document revisions already made; further team experience should be incorporated during review.
 
 ## 13.2 Tools, communication and changes from A1 to A2
 
