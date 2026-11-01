@@ -1232,53 +1232,187 @@ Source IDs SRC-01–SRC-05 are defined with precise locators in Section 1.3. The
 | REF-12 | OWASP Foundation | [Authorization Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authorization_Cheat_Sheet.html) | Backend permission checks and least privilege. |
 | REF-13 | Group 3 Team A | [Repository history](https://github.com/comp2050-2026/Group-3---Team-A/commits/main/) and individual commit links in Sections 13 and Appendix B | Document contribution and integration evidence. |
 
-# Appendix A. Team interaction log and full records
+## Appendix 2 Full records
 
-**Coordinator: Isaac | Reviewer: Harrison | Everyone supplies their own genuine records**
+**Record ID:** A-01
+**Actual date/time:** 31 October 2026, 2:03 am – 1:15 pm
+**Channel/place:** WhatsApp, Group A
+**Participants/attendance:** Yousef, Cooper
+**Recorder/source:** WhatsApp chat export, exported 1 November 2026, 10:18 pm
+**Agenda/topic:** SDD template for Assessment 2
 
-Include meetings and discussions held in person, through chat and online. Add rows only for actual interactions; attach or transcribe the full relevant records with their source context.
+**Discussion:** Yousef uploaded the SDD template and assigned sections to each member inside it. He said the allocation was not final and anyone could change their part. Cooper acknowledged and said he would review it.
 
-## A.1 Interaction index
-
-| Record ID | Actual date/time | Channel/place | Evidenced participants | Topic | Full record location |
-|---|---|---|---|---|---|
-| [FILL] | [FILL] | [FILL] | [FILL] | [FILL] | [FILL] |
-
-## A.2 Full record template — duplicate for each actual interaction
-
-**Record ID:** [FILL]  
-**Actual date/time:** [FILL]  
-**Channel/place:** [FILL]  
-**Participants/attendance:** [FILL FROM EVIDENCE]  
-**Recorder/source:** [FILL]  
-**Agenda/topic:** [FILL]
-
-**Discussion:** [RECORD WHAT WAS ACTUALLY DISCUSSED]
-
-**Decisions:** [RECORD ACTUAL DECISIONS, OR STATE NONE]
+**Decisions:** Initial section allocation set by Yousef, open to change.
 
 | Action | Actual owner | Due date if agreed | Status at the time of the record |
 |---|---|---|---|
-| [FILL] | [FILL] | [FILL] | [FILL] |
+| Review assigned sections in the SDD template | Cooper | None agreed | Acknowledged |
 
-**Unresolved points:** [FILL]  
-**Source link / evidence reference:** [FILL]
+**Unresolved points:** None
+**Source link / evidence reference:** EV-01, 31 October section
 
-# Appendix B. Evidence index and contributions
+---
+
+**Record ID:** A-02
+**Actual date/time:** 1 November 2026, 2:41 pm – 2:47 pm
+**Channel/place:** WhatsApp, Group A
+**Participants/attendance:** Cooper, Ayaan, Yousef
+**Recorder/source:** WhatsApp chat export
+**Agenda/topic:** Locating Team B's SRS
+
+**Discussion:** Cooper could not find Team B's SRS in the forum. Ayaan offered to get it. Yousef said it was in the week 8 Assignment 1 handover forum, and Cooper found it there.
+
+**Decisions:** None
+
+| Action | Actual owner | Due date if agreed | Status at the time of the record |
+|---|---|---|---|
+| Retrieve Team B SRS | Cooper | None agreed | Done |
+
+**Unresolved points:** None
+**Source link / evidence reference:** EV-01, 1 November, 2:41–2:47 pm
+
+---
+
+**Record ID:** A-03
+**Actual date/time:** 1 November 2026, 4:29 pm
+**Channel/place:** WhatsApp, Group A
+**Participants/attendance:** Yousef, Harrison
+**Recorder/source:** WhatsApp chat export
+**Agenda/topic:** Progress update
+
+**Discussion:** Yousef said he had pushed his first section draft. Harrison said he would push his work soon.
+
+**Decisions:** None
+
+| Action | Actual owner | Due date if agreed | Status at the time of the record |
+|---|---|---|---|
+| Push first section draft | Yousef | None agreed | Done |
+| Push state diagram work | Harrison | None agreed | In progress |
+
+**Unresolved points:** None
+**Source link / evidence reference:** EV-01, 1 November, 4:29 pm; EV-02 [confirm commit link]
+
+---
+
+**Record ID:** A-04
+**Actual date/time:** 1 November 2026, 8:36 pm – 8:56 pm
+**Channel/place:** WhatsApp, Group A
+**Participants/attendance:** Yousef, Harrison, Cooper
+**Recorder/source:** WhatsApp chat export
+**Agenda/topic:** Rebalancing sections and state diagram format
+
+**Discussion:** Yousef said the sections had been assigned quickly and offered Cooper more work if he had less than the others. Harrison suggested Cooper do the last state diagram (Section 8). Cooper agreed and said he was nearly done with the wireframes. Cooper asked Harrison to push his first two state diagrams so he could follow the same format. Harrison shared the unit's state diagram guide he had used and pushed the first state diagram table.
+
+**Decisions:** Cooper takes Section 8 (state diagram 3).
+
+| Action | Actual owner | Due date if agreed | Status at the time of the record |
+|---|---|---|---|
+| Complete Section 8 state diagram | Cooper | None agreed | Not started |
+| Push first state diagram table | Harrison | None agreed | Done (8:56 pm) |
+
+**Unresolved points:** None
+**Source link / evidence reference:** EV-01, 1 November, 8:36–8:56 pm
+
+---
+
+**Record ID:** A-05
+**Actual date/time:** 1 November 2026, 9:03 pm – 9:19 pm
+**Channel/place:** WhatsApp, Group A
+**Participants/attendance:** Harrison, Cooper; Isaac tagged
+**Recorder/source:** WhatsApp chat export
+**Agenda/topic:** Merging work into the main SDD
+
+**Discussion:** Harrison asked Cooper to move his work into SDD_template. Cooper checked that it was now the main file, and Harrison confirmed that he and Yousef had been working in it. Harrison asked Isaac whether he was doing his parts. Harrison then said he would move his own work over first since he had less.
+
+**Decisions:** SDD_template is the main working file.
+
+| Action | Actual owner | Due date if agreed | Status at the time of the record |
+|---|---|---|---|
+| Move sections into SDD_template | Cooper, Harrison | None agreed | In progress |
+
+**Unresolved points:** Isaac's progress (no reply until 9:30 pm)
+**Source link / evidence reference:** EV-01, 1 November, 9:03–9:19 pm
+
+---
+
+**Record ID:** A-06
+**Actual date/time:** 1 November 2026, 9:30 pm
+**Channel/place:** WhatsApp, Group A
+**Participants/attendance:** Harrison, Isaac
+**Recorder/source:** WhatsApp chat export
+**Agenda/topic:** Isaac's sections
+
+**Discussion:** Harrison asked Cooper whether the work should be split between the other three. Isaac replied that he had been at work and was getting it done.
+
+**Decisions:** None
+
+| Action | Actual owner | Due date if agreed | Status at the time of the record |
+|---|---|---|---|
+| Complete assigned sections | Isaac | None agreed | In progress |
+
+**Unresolved points:** Whether Isaac's work would be split was not formally decided.
+**Source link / evidence reference:** EV-01, 1 November, 9:30 pm
+
+---
+
+**Record ID:** A-07
+**Actual date/time:** 1 November 2026, 9:40 pm – 9:48 pm
+**Channel/place:** WhatsApp, Group A
+**Participants/attendance:** Cooper, Harrison
+**Recorder/source:** WhatsApp chat export
+**Agenda/topic:** Basing state diagrams on use cases
+
+**Discussion:** Cooper said he had pushed the wireframes and was starting the last state diagram. Harrison said the Section 8 header needed to change so the diagram was based on UC-01 View Station Status, because the state diagrams are meant to be based on the use cases. Cooper asked whether the wireframes needed redoing, and Harrison said they did not. Cooper confirmed that SB-01 was already based on UC-01. Harrison said he had changed his last two state diagrams to match the use cases.
+
+**Decisions:** Section 8 is based on UC-01. The wireframes stay as they are.
+
+| Action | Actual owner | Due date if agreed | Status at the time of the record |
+|---|---|---|---|
+| Push wireframes WF-01 to WF-08 | Cooper | None agreed | Done (9:40 pm) |
+| Rewrite Section 8 around UC-01 | Cooper | None agreed | In progress |
+
+**Unresolved points:** None
+**Source link / evidence reference:** EV-01, 1 November, 9:40–9:48 pm
+
+---
+
+**Record ID:** A-08
+**Actual date/time:** 1 November 2026, 9:51 pm – 10:03 pm
+**Channel/place:** WhatsApp, Group A
+**Participants/attendance:** Cooper, Harrison
+**Recorder/source:** WhatsApp chat export
+**Agenda/topic:** Diagram image not showing in the SDD
+
+**Discussion:** Cooper asked whether Harrison was making a diagram as well as the table. Harrison said he had pushed it, but the image (7chart.png) was in the images folder and not showing in the markdown. Harrison changed the link format, and Cooper then linked the image himself, which fixed it. Harrison said he had nearly finished his second diagram.
+
+**Decisions:** Cooper fixes the image link.
+
+| Action | Actual owner | Due date if agreed | Status at the time of the record |
+|---|---|---|---|
+| Link 7chart.png in the SDD | Cooper | None agreed | Done (10:02 pm) |
+| Finish second state diagram | Harrison | None agreed | Nearly done |
+
+**Unresolved points:** None
+**Source link / evidence reference:** EV-01, 1 November, 9:51–10:03 pm
+
+---
 
 ## B.1 Evidence index
 
 | Evidence ID | What it demonstrates | Actual date/period | Source link/file | Related section |
 |---|---|---|---|---|
-| [FILL] | [FILL] | [FILL] | [FILL] | [FILL] |
+| EV-01 | Team communication, task allocation and decisions | 31 Oct – 1 Nov 2026 | WhatsApp chat export (Group A) | Appendix A, 13.2 |
+| EV-02 | Commit and push history for each section | [confirm] | [GitHub repo commit history link] | 13.2, 13.3, B.2 |
+| EV-03 | Wireframes WF-01 to WF-08 | 1 Nov 2026 | images/wireframes/WF_01.png – WF_08.png | Section 5 |
+| EV-04 | State diagrams SD-01 and SD-02 | 1 Nov 2026 | images/7chart.png, images/8chart.png | Sections 6–7 |
+| EV-05 | State diagram SD-03 | 1 Nov 2026 | images/SD-03.png | Section 8 |
 
 ## B.2 Individual contributions supported by evidence
 
-These are actual contributions, not the proposed allocation in the working guide.
-
 | Team member | Work actually contributed | Review/collaboration actually performed | Supporting issue/commit/PR/record |
 |---|---|---|---|
-| Yousef | [FILL] | [FILL] | [FILL] |
-| Harrison | [FILL] | [FILL] | [FILL] |
-| Cooper | [FILL] | [FILL] | [FILL] |
-| Isaac | [FILL] | [FILL] | [FILL] |
+| Yousef | Set up the SDD template and the section allocation; wrote Section 3 [confirm other sections] | Offered to rebalance workload | A-01, A-03, A-04; EV-02 |
+| Harrison | State diagrams 1 and 2 (Sections 6–7) with tables and diagrams; flagged that state diagrams must follow use cases | Shared the state diagram guide; checked Cooper's Section 8 basis | A-03, A-04, A-07, A-08; EV-04 |
+| Cooper | Section 2 vision, Section 5 storyboards and wireframes WF-01 to WF-08, Section 8 SD-03 | Fixed the 7chart.png link; helped Isaac with 9.4 and 13.2 | A-02, A-04, A-07, A-08; EV-03, EV-05 |
+| Isaac | Section 9.4, 13.2 [confirm 13.3, 14, appendix] | Coordinated the appendix [confirm] | A-06; EV-02 |
