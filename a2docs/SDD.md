@@ -62,7 +62,7 @@ Fill this with the current position; blank fields are not evidence that work is 
 | Baseline, assumptions, architecture | Yousef | Sections 1, 3 and 4 drafted; review pending | [FILL] | [FILL] | [FILL] |
 | Vision and two storyboard/wireframe sets | Cooper | [FILL] | [FILL] | [FILL] | [FILL] |
 | Three state diagrams | Harrison | [FILL] | [FILL] | [FILL] | [FILL] |
-| Persistence, caching and data access | Yousef | [FILL] | [FILL] | [FILL] | [FILL] |
+| Persistence, caching and data access | Yousef | Section 9.1 drafted; 9.2–9.3 pending; review pending | [FILL] | [FILL] | [FILL] |
 | Maintenance and deployment | Isaac; Yousef reviews | [FILL] | [FILL] | [FILL] | [FILL] |
 | RTM | Yousef | [FILL] | [FILL] | [FILL] | [FILL] |
 | Test specifications and plan | Harrison | [FILL] | [FILL] | [FILL] | [FILL] |
@@ -398,20 +398,43 @@ The object choice is proposed. If replaced, choose another object with meaningfu
 
 # 9. Persistent data, caching and maintenance
 
-**Owners: Yousef for 9.1–9.3; Isaac for 9.4 | Reviewers: Harrison for data strategy; Yousef for maintenance | Status: [FILL]**
+**Owners: Yousef for 9.1–9.3; Isaac for 9.4 | Reviewers: Harrison for data strategy; Yousef for maintenance | Status: Section 9.1 drafted — review pending; 9.2–9.4 pending**
 
 ## 9.1 Persistent data strategy
 
-[FILL: Explain where durable data lives, why this storage is suitable, how identity/relationships are preserved and what transactions must remain consistent.]
+C-DB is the proposed server-side PostgreSQL database for Ops' durable operational records. These records must remain available between staff sessions rather than exist only in a browser screen. A relational database fits the linked station, device, fault and movement records and the need to save related changes together. This follows DEC-01–DEC-04; PostgreSQL is a design choice, not a technology required by the SRS.
 
-| Entity / record | Key fields and relationships | Where stored | Component allowed to read/write | Integrity rule |
-|---|---|---|---|---|
-| Station | [FILL] | [FILL] | [FILL] | [FILL] |
-| PowerBank | [FILL] | [FILL] | [FILL] | [FILL] |
-| Fault | [FILL] | [FILL] | [FILL] | [FILL] |
-| Redistribution | [FILL] | [FILL] | [FILL] | [FILL] |
-| Observation / data quality | [FILL] | [FILL] | [FILL] | [FILL] |
-| [OTHER JUSTIFIED RECORD] | [FILL] | [FILL] | [FILL] | [FILL] |
+The backend accesses C-DB after the relevant access and validation checks. C-UI and external systems have no direct database access. C-INT submits incoming operational facts through the domain modules; its delivery worker accesses integration processing records without bypassing fault or movement rules. Registered station/device IDs and staff identity references depend on the agreed setup process in ASSUMP-02; this does not add unrequested registration screens.
+
+The following is a proposed logical data model. Field names describe the intended information, rather than a completed database schema. All records listed are stored in C-DB.
+
+| Entity / record | Main information and relationships | Responsible component / access | Integrity rule |
+|---|---|---|---|
+| Station | Unique station ID, location description, record version; linked station observations | C-MON reads; agreed setup process supplies registration; C-INT routes observations | Only registered stations are referenced by completed movements. Missing status, capacity or availability is not stored as a confirmed normal or zero value. |
+| PowerBank | Unique device ID, record version, last confirmed station where known; links to separate location, charge and occupancy facts | C-DEV coordinates changes; other domain modules request its information | Preserve the difference between last recorded location and reliable current location. An unknown station is not replaced with an invented location. |
+| FaultRecord | Fault ID, device ID, description, unresolved/resolved state, reporting actor/time, resolution note and resolving actor/time, version | C-FAULT writes; C-MON/C-DEV/C-MOVE use its fault information | Each fault references a registered device. Apply ASSUMP-03 validation; any remaining unresolved fault continues to exclude normal rental availability and redistribution suitability. |
+| RedistributionJob | Movement ID, device and source/destination station IDs, lifecycle state, expected device version, physical confirmation and actor/time | C-MOVE writes; C-DEV/C-MON read committed effects | A plan is not completed movement. Completion and the recorded destination change must be saved together. Align lifecycle states with §7. |
+| Observation / information quality | Entity and field, supplied value, source identity, event ID/revision where available, observation time, received time, quality and conflicting evidence | C-INT validates/routes; C-DEV/C-MON accept and present operational facts | Keep source evidence separate from accepted values. Arrival time alone does not establish which conflicting report is correct. Align quality states with §8. |
+| Incoming processing record | Source identity plus event ID, input fingerprint, processing result and related record/version | C-INT coordinates with the responsible domain module | Recognise a repeated event within its source. Conflicting reuse is rejected; automatic deduplication/ordering depends on ASSUMP-05. |
+| Command receipt | Requesting identity, operation ID, input fingerprint, committed result and resulting record/version | Responsible domain module records the result; C-AUTH checks access | Save the successful receipt with its business change. Repeating the same authorised operation must not create another fault or movement. A failed save must not leave a success receipt. |
+| Pending outgoing update | Event ID, entity/version, agreed operational payload, intended recipient, delivery state and attempt/acknowledgement information | Domain transaction creates; C-INT delivers and records outcomes | Save with the local business change under DEC-04. Local commit and acknowledged external delivery are distinct outcomes; an acknowledgement does not itself prove physical hardware action. |
+
+Unique keys protect record identities; foreign keys link faults and movements to registered devices/stations. Required-field and allowed-value constraints reject structurally invalid records. Cross-record business rules, such as checking all unresolved faults before confirming suitability, remain the responsibility of the backend transaction rather than a single device-status field. PostgreSQL documents these identity and relationship mechanisms in its [constraints guidance](https://www.postgresql.org/docs/18/ddl-constraints.html) (accessed 1 November 2026).
+
+### Separate operational facts from information quality
+
+Fault state, location, charge, rental occupancy and information quality are stored separately under DEC-02. A device can have a known station, an unresolved fault and unknown charge information at the same time. Resolving its fault changes that fault record; it does not prove sufficient charge, physical presence or rental availability. Missing or conflicting eligibility information must not produce a confirmed suitable candidate. Likewise, a partial device list must not be presented as a confirmed exact station total. These rules support FR-02, FR-03, FR-05–FR-07 and NFR-02. [SRC-01, pp.7–9; GAP-03/04]
+
+Observation time and received time remain separate so delayed input can be recognised. A previous observation may be useful as labelled last-known information, but its timestamp alone does not establish current reliability. No freshness deadline or charge threshold is invented here.
+
+### Changes that must be saved together
+
+- **Record a fault:** save the validated fault, increment the coordinated device version, and save the command receipt and any required outgoing update in one transaction.
+- **Resolve a fault:** save the resolution and related version/receipt/outgoing changes together. Recheck remaining unresolved faults before deriving the device's exclusion result.
+- **Complete redistribution:** recheck permission, suitability, expected device version and physical confirmation; save movement completion and the destination/version change together with the receipt and any outgoing update.
+- **Accept an external event:** save its processing result with any accepted domain changes. Repeated input must not apply the same change again; contradictory evidence is retained for investigation rather than silently replacing a reliable value.
+
+Success is returned only after commit. If the transaction fails, its related database changes are rolled back together, consistent with PostgreSQL's [transaction model](https://www.postgresql.org/docs/18/tutorial-transactions.html) (accessed 1 November 2026). A database rollback cannot undo a physical movement: recording failure after an actual move requires the investigation/reconciliation handling in §7. External delivery occurs after the local commit and is retried separately. Detailed concurrency controls follow in §10; backup and recovery are addressed in §9.3. These are proposed behaviours and test obligations, not claims that an implementation or recovery test has already run.
 
 ## 9.2 Caching and component data access
 
