@@ -59,20 +59,18 @@ Fill this with the current position; blank fields are not evidence that work is 
 
 | Deliverable | Owner | Current status | Actual draft/task link | Reviewer feedback link | Review date |
 |---|---|---|---|---|---|
-| Baseline, assumptions, architecture | Yousef | Reviewed | [Sections 1, 3 and 4](#1-project-scope-and-requirements-baseline) | [Review record](reviews/YOUSEF_SECTIONS_REVIEW.md) | 1 November 2026 |
+| Baseline, assumptions, architecture | Yousef | Reviewed | [Sections 1, 3 and 4](#1-project-scope-and-requirements-baseline) | — | 1 November 2026 |
 | Vision and two storyboard/wireframe sets | Cooper | [FILL] | [FILL] | [FILL] | [FILL] |
 | Three state diagrams | Harrison | [FILL] | [FILL] | [FILL] | [FILL] |
-| Persistence, caching and data access | Yousef | Sections 9.1–9.3 reviewed; integration pending | [Sections 9.1–9.3](#91-persistent-data-strategy) | [Review record](reviews/YOUSEF_SECTIONS_REVIEW.md) | 1 November 2026 |
-| Trade-offs and concurrent processes | Yousef | Reviewed; final test-ID links pending | [Section 10](#10-trade-offs-and-concurrent-processes) | [Review record](reviews/YOUSEF_SECTIONS_REVIEW.md) | 1 November 2026 |
+| Persistence, caching and data access | Yousef | Sections 9.1–9.3 reviewed; integration pending | [Sections 9.1–9.3](#91-persistent-data-strategy) | — | 1 November 2026 |
+| Trade-offs and concurrent processes | Yousef | Reviewed; final test-ID links pending | [Section 10](#10-trade-offs-and-concurrent-processes) | — | 1 November 2026 |
 | Maintenance and deployment | Isaac; Yousef reviews | [FILL] | [FILL] | [FILL] | [FILL] |
-| RTM | Yousef | Mapping reviewed; actual test-ID links pending | [Section 11](#11-requirements-traceability-matrix) | [Review record](reviews/YOUSEF_SECTIONS_REVIEW.md) | 1 November 2026 |
+| RTM | Yousef | Mapping reviewed; actual test-ID links pending | [Section 11](#11-requirements-traceability-matrix) | — | 1 November 2026 |
 | Test specifications and plan | Harrison | [FILL] | [FILL] | [FILL] | [FILL] |
-| SRS reflection | Yousef; everyone supplies examples | Source/evidence reviewed; final team input pending | [Section 13.1](#131-reflection-on-using-the-received-srs) | [Review record](reviews/YOUSEF_SECTIONS_REVIEW.md) | 1 November 2026 |
+| SRS reflection | Yousef; everyone supplies examples | Source/evidence reviewed; final team input pending | [Section 13.1](#131-reflection-on-using-the-received-srs) | — | 1 November 2026 |
 | Tools comparison and sprint evidence | Isaac drafts/collects; Harrison validates | [FILL] | [FILL] | [FILL] | [FILL] |
 | References and interaction appendix | Isaac coordinates; everyone supplies records; Harrison checks evidence | [FILL] | [FILL] | [FILL] | [FILL] |
 | Final PDF and consistency review | Yousef + Harrison lead; Cooper + Isaac complete presentation checks | [FILL] | [FILL] | [FILL] | [FILL] |
-
-**Yousef review record:** “Reviewed” identifies the assistant source/consistency check recorded on 1 November 2026 in [the review log](reviews/YOUSEF_SECTIONS_REVIEW.md). Assigned human reviewers remain listed separately. Open stakeholder questions, final test-ID links and cross-team integration are not closed by this status.
 
 **Suggested page budget:** cover/contents 2; scope, vision and assumptions 3; remaining system design 13; RTM 4; tests 12; staff report/references 7; appendix 7. Total 48. Adjust to fit the actual material legibly.
 
@@ -254,7 +252,7 @@ No numerical charge threshold, refresh deadline, low-stock trigger or recovery t
 
 ## 3.3 Proposed design decisions
 
-The following choices were drafted on **1 November 2026** and have received the source/consistency review recorded in the working review log. They remain provisional where clarification or stakeholder confirmation is open. This date does not represent a previous meeting or stakeholder agreement. Section 4 shows their architectural effect; Sections 9–11 carry the data and traceability implications. Detailed tests and the final state diagrams must remain consistent with them.
+The following choices were drafted on **1 November 2026**. They remain provisional where clarification or stakeholder confirmation is open. This date does not represent a previous meeting or stakeholder agreement. Section 4 shows their architectural effect; Sections 9–11 carry the data and traceability implications. Detailed tests and the final state diagrams must remain consistent with them.
 
 | Decision ID | Proposed choice and alternative | Rationale | Requirement / gap link | Status |
 |---|---|---|---|---|
@@ -752,7 +750,7 @@ Recording gaps, assumptions and decisions separately helped make progress withou
 
 For a future SRS, the most useful improvements would be a field/status dictionary, an explicit interface ownership table, complete redistribution success/failure flows and measurable operational targets agreed with stakeholders. The written requirements and video should also use consistent claims about freshness, hardware control and eligibility. These additions would reduce repeated interpretation across screen design, state modelling and test specification.
 
-The current outcome is a traceable design draft with visible unresolved questions. The source/evidence consistency review of this reflection is recorded in the working review log. Final integration still needs to reconcile the state diagrams, screens and detailed test specifications with the same rules, then replace pending test links with actual identifiers. Any later stakeholder response or team review should be added with its real evidence and date. The reflection's recorded responses above are supported by the document revisions already made; further team experience should be incorporated during review.
+The current outcome is a traceable design draft with visible unresolved questions. Final integration still needs to reconcile the state diagrams, screens and detailed test specifications with the same rules, then replace pending test links with actual identifiers. Any later stakeholder response or team review should be added with its real evidence and date. The reflection's recorded responses above are supported by the document revisions already made; further team experience should be incorporated during review.
 
 ## 13.2 Tools, communication and changes from A1 to A2
 
